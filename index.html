@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aurevio — independent web developer. I create simple, modern and responsive frontend websites for businesses and individuals.">
+  <meta name="theme-color" content="#08080A">
+  <meta name="author" content="Aurevio">
+  <title>Aurevio — Modern Websites. Built for Your Business.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2308080A'/%3E%3Cpath d='M8 24L16 8l8 16h-3.2l-1.2-2.5h-7.2L11.2 24H8zm5.6-5h4.8L16 13.8 13.6 19z' fill='%238B5CF6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="header-inner">
+      <a class="logo" href="#home" aria-label="Aurevio home">AUREVIO</a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a class="btn btn-primary nav-cta" href="#contact">Get in Touch</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="nav-overlay" hidden></div>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-heading">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Independent Web Developer</p>
+          <h1 id="hero-heading">Modern Websites. Built for Your Business.</h1>
+          <p class="hero-lead">I create simple, modern and responsive websites that help businesses and individuals build a professional online presence.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#work">View My Work</a>
+            <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="browser-url">aurevio.dev</span>
+            </div>
+            <div class="browser-body">
+              <div class="mini-nav"></div>
+              <div class="mini-hero">
+                <span class="mini-line wide"></span>
+                <span class="mini-line mid"></span>
+                <span class="mini-btn"></span>
+              </div>
+              <div class="mini-grid">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <pre class="code-panel"><code><span class="c-kw">const</span> site = {
+  layout: <span class="c-str">"responsive"</span>,
+  stack: [<span class="c-str">"HTML"</span>, <span class="c-str">"CSS"</span>, <span class="c-str">"JS"</span>],
+  focus: <span class="c-str">"clarity"</span>
+};</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <div class="container about-grid">
+        <div class="about-copy">
+          <p class="eyebrow">About</p>
+          <h2 id="about-heading">Simple Websites. Built Well.</h2>
+          <p>I am an independent web developer. I focus on building clean, responsive websites that look great and work smoothly across different devices.</p>
+          <p>I work with HTML, CSS and JavaScript to create modern business sites, landing pages, portfolios and informational websites. The goal is a professional online presence — not a complicated application.</p>
+          <ul class="about-points">
+            <li>Frontend and static websites</li>
+            <li>Layouts that adapt from phone to desktop</li>
+            <li>Clear structure and considered design</li>
+          </ul>
+        </div>
+        <div class="about-visual" aria-hidden="true">
+          <div class="code-window">
+            <div class="code-window-bar">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="code-filename">index.html</span>
+            </div>
+            <pre class="code-window-body"><code><span class="c-tag">&lt;section</span> <span class="c-attr">class</span>=<span class="c-str">"hero"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h1&gt;</span>Your business,<span class="c-tag">&lt;/h1&gt;</span>
+  <span class="c-tag">&lt;p&gt;</span>online, clearly.<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/section&gt;</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="services" aria-labelledby="services-heading">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Services</p>
+          <h2 id="services-heading">What I Can Build</h2>
+          <p class="section-intro">Straightforward frontend websites — designed to look considered and work well on the devices people actually use.</p>
+        </header>
+       <div class="services-grid">
+
+  <!-- Business Websites -->
+  <article class="service-card">
+    <div
+      class="service-image"
+      style="background-image: url('first.jpeg');"
+      role="img"
+      aria-label="Modern business website displayed on a laptop"
+    ></div>
+
+    <div class="service-content">
+      <div class="service-heading">
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="4" width="18" height="14" rx="2"/>
+            <path d="M8 20h8M12 18v2"/>
+          </svg>
+        </div>
+
+        <h3>Business Websites</h3>
+      </div>
+
+      <p>
+        Simple, professional websites for businesses that need an online
+        presence — restaurants, clothing stores, gyms, hotels and local businesses.
+      </p>
+    </div>
+  </article>
+
+
+  <!-- Landing Pages -->
+  <article class="service-card">
+    <div
+      class="service-image"
+      style="background-image: url('sec.jpeg');"
+      role="img"
+      aria-label="Modern landing page interface"
+    ></div>
+
+    <div class="service-content">
+      <div class="service-heading">
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M4 5h16v6H4zM4 13h7v6H4zM13 13h7v6h-7z"/>
+          </svg>
+        </div>
+
+        <h3>Landing Pages</h3>
+      </div>
+
+      <p>
+        Focused single-page websites for businesses, products, services,
+        events and personal projects — one clear story, one clear action.
+      </p>
+    </div>
+  </article>
+
+
+  <!-- Portfolio Websites -->
+  <article class="service-card">
+    <div
+      class="service-image"
+      style="background-image: url('third.jpeg');"
+      role="img"
+      aria-label="Modern portfolio website layouts"
+    ></div>
+
+    <div class="service-content">
+      <div class="service-heading">
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <path d="M14 14h7v3h-7zM14 19h4v2h-4z"/>
+          </svg>
+        </div>
+
+        <h3>Portfolio Websites</h3>
+      </div>
+
+      <p>
+        Clean portfolio websites for students, creators, freelancers and
+        professionals who want their work presented with care.
+      </p>
+    </div>
+  </article>
+
+  <!-- Website Redesigns -->
+  <article class="service-card">
+    <div
+      class="service-image"
+      style="background-image: url('fourth.jpeg');"
+      role="img"
+      aria-label="Website redesign concept"
+    ></div>
+
+    <div class="service-content">
+      <div class="service-heading">
+        <div class="service-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M4 7h16M4 12h10M4 17h7"/>
+            <path d="M16 14l4 4-4 4"/>
+          </svg>
+        </div>
+
+        <h3>Website Redesigns</h3>
+      </div>
+
+      <p>
+        Refreshing outdated static websites with cleaner layouts,
+        better responsiveness and a more modern visual style.
+      </p>
+    </div>
+  </article>
+
+</div>
+      </div>
+    </section>
+
+    <section class="section" id="work" aria-labelledby="work-heading">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Work</p>
+          <h2 id="work-heading">Selected Work</h2>
+          <p class="section-intro">A small set of frontend concepts and a demo. These pieces show how I design and build static websites — they are not client case studies.</p>
+        </header>
+        <div class="work-grid">
+          <article class="project-card">
+            <div class="project-preview" aria-hidden="true">
+              <div class="preview-chrome">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="preview preview-restaurant">
+                <div class="pr-hero">
+                  <span class="pr-kicker">Kitchen</span>
+                  <span class="pr-title">Evening menu</span>
+                </div>
+                <div class="pr-row">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="pr-gallery">
+                  <span></span><span></span>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <p class="project-label">Concept Project</p>
+              <h3>Restaurant Website</h3>
+              <p>A modern restaurant website concept with a hero, menu preview, gallery, location information and a contact section.</p>
+              <button class="btn btn-small" type="button" data-open-project="restaurant">View Project</button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-preview" aria-hidden="true">
+              <div class="preview-chrome">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="preview preview-fashion">
+                <div class="pf-hero">
+                  <span class="pf-title">New collection</span>
+                  <span class="pf-sub">Lookbook</span>
+                </div>
+                <div class="pf-items">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <p class="project-label">Concept Project</p>
+              <h3>Clothing Store Website</h3>
+              <p>A fashion website concept focused on collection presentation, brand sections and contact — a visual storefront, not a checkout system.</p>
+              <button class="btn btn-small" type="button" data-open-project="fashion">View Project</button>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-preview" aria-hidden="true">
+              <div class="preview-chrome">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="preview preview-portfolio">
+                <div class="pp-intro">
+                  <span class="pp-avatar"></span>
+                  <span class="pp-lines">
+                    <i></i><i></i>
+                  </span>
+                </div>
+                <div class="pp-skills">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="pp-projects">
+                  <span></span><span></span>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <p class="project-label">Demo Project</p>
+              <h3>Personal Portfolio</h3>
+              <p>A clean personal portfolio website with an introduction, skills, projects and contact information — built as a static frontend demo.</p>
+              <button class="btn btn-small" type="button" data-open-project="portfolio">View Project</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="why" aria-labelledby="why-heading">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Approach</p>
+          <h2 id="why-heading">Built With Purpose.</h2>
+          <p class="section-intro">I keep the work focused: a website that is clear to look at, easy to use, and realistic to maintain.</p>
+        </header>
+        <ul class="why-grid">
+          <li class="why-card">
+            <h3>Responsive across devices</h3>
+            <p>Layouts are built to fit small phones, tablets, laptops and wide screens without sideways scrolling.</p>
+          </li>
+          <li class="why-card">
+            <h3>Modern design</h3>
+            <p>Quiet type, considered spacing and a visual system that feels current without noise.</p>
+          </li>
+          <li class="why-card">
+            <h3>Clean layouts</h3>
+            <p>Sections are organized so visitors can find what they need without extra clutter.</p>
+          </li>
+          <li class="why-card">
+            <h3>Mobile-friendly development</h3>
+            <p>I design for the phone first, then refine the layout as the screen grows.</p>
+          </li>
+          <li class="why-card">
+            <h3>Fast-loading static websites</h3>
+            <p>HTML, CSS and JavaScript — no heavy frameworks — so pages stay light.</p>
+          </li>
+          <li class="why-card">
+            <h3>Clear communication</h3>
+            <p>I keep the process straightforward so you always know what is being built and why.</p>
+          </li>
+          <li class="why-card why-card-wide">
+            <h3>Custom frontend layouts</h3>
+            <p>Each site is structured around your content, not a generic template dropped in place.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="process" aria-labelledby="process-heading">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Process</p>
+          <h2 id="process-heading">From idea to launch</h2>
+        </header>
+        <ol class="process-list">
+          <li class="process-step reveal">
+            <span class="process-num">01</span>
+            <div>
+              <h3>Discuss</h3>
+              <p>I learn about your website and what you need.</p>
+            </div>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">02</span>
+            <div>
+              <h3>Plan</h3>
+              <p>I organize the structure, sections and visual direction.</p>
+            </div>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">03</span>
+            <div>
+              <h3>Build</h3>
+              <p>I create the frontend website and make it responsive.</p>
+            </div>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">04</span>
+            <div>
+              <h3>Review</h3>
+              <p>You review the website and request reasonable changes.</p>
+            </div>
+          </li>
+          <li class="process-step reveal">
+            <span class="process-num">05</span>
+            <div>
+              <h3>Launch</h3>
+              <p>The completed website is prepared to go online.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="instagram" aria-labelledby="instagram-heading">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Social</p>
+          <h2 id="instagram-heading">On Instagram</h2>
+          <p class="section-intro">Follow along for updates and recent work.</p>
+        </header>
+        <article class="ig-card">
+          <div class="ig-photo">
+            <span class="ig-photo-fallback" aria-hidden="true">A</span>
+            <img
+              id="ig-profile-img"
+              class="ig-avatar"
+              src="profile.jpg"
+              alt="Aurevio Instagram profile photo. Replace profile.jpg in this folder to update."
+              width="96"
+              height="96"
+            >
+          </div>
+          <div class="ig-info">
+            <div class="ig-handle-row">
+              <svg class="ig-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="3" width="18" height="18" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+              <p class="ig-handle">@mrpapypants</p>
+            </div>
+            <p class="ig-desc">Independent web developer. Modern, responsive frontend websites.</p>
+            <a
+              class="btn btn-primary"
+              href="https://www.instagram.com/mrpapypants/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Follow on Instagram</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-heading">Have a website in mind?</h2>
+          <p class="section-intro">Tell me about your idea and let's see what I can build.</p>
+        </header>
+        <div class="contact-grid">
+          <article class="contact-card">
+            <h3>WhatsApp</h3>
+            <p class="contact-value">+92 315 2666723</p>
+            <a
+              class="btn btn-primary"
+              href="https://wa.me/923152666723"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Message on WhatsApp</a>
+          </article>
+          <article class="contact-card">
+            <h3>Instagram</h3>
+            <p class="contact-value">@mrpapypants</p>
+            <a
+              class="btn btn-primary"
+              href="https://www.instagram.com/mrpapypants/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Follow on Instagram</a>
+          </article>
+          <article class="contact-card">
+            <h3>Email</h3>
+            <p class="contact-value">
+              <a href="mailto:wajahat.a2010@gmail.com">wajahat.a2010@gmail.com</a>
+            </p>
+            <a class="btn btn-primary" href="mailto:wajahat.a2010@gmail.com">Send Email</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="faq" aria-labelledby="faq-heading">
+      <div class="container faq-wrap">
+        <header class="section-head">
+          <p class="eyebrow">FAQ</p>
+          <h2 id="faq-heading">Questions</h2>
+        </header>
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-btn-1">
+                <span>What type of websites can you build?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1" hidden>
+              <p>I build simple frontend websites with HTML, CSS and JavaScript — business sites, landing pages, portfolios, informational sites and other static pages. I do not build backends, logins, payment systems or complex web apps.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-btn-2">
+                <span>Will my website work on phones and tablets?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2" hidden>
+              <p>Yes. I build websites to be responsive so they adapt to phones, tablets, laptops and larger screens.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-btn-3">
+                <span>How long does a website take?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3" hidden>
+              <p>It depends on the number of pages and how custom the layout is. After I understand what you need, I can give you a realistic timeframe.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-4" id="faq-btn-4">
+                <span>Can I request changes?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4" hidden>
+              <p>Yes. After I share the site for review, you can request reasonable changes to layout, content and styling.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-5" id="faq-btn-5">
+                <span>Can you help connect a custom domain?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-btn-5" hidden>
+              <p>Yes. I can help you point a custom domain to your finished static website.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-6" id="faq-btn-6">
+                <span>Can you update a static website later?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-6" role="region" aria-labelledby="faq-btn-6" hidden>
+              <p>Yes. I can update the content, layout and styling of a static site when you need changes.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3>
+              <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-7" id="faq-btn-7">
+                <span>How do I get started?</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" id="faq-panel-7" role="region" aria-labelledby="faq-btn-7" hidden>
+              <p>Message me on WhatsApp, reach out on Instagram, or send an email. Tell me what kind of website you have in mind and I will take it from there.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="#home">AUREVIO</a>
+        <p>Modern websites. Built for your business.</p>
+      </div>
+      <nav aria-label="Footer">
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <ul class="footer-social">
+        <li>
+          <a href="https://www.instagram.com/mrpapypants/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </li>
+        <li>
+          <a href="https://wa.me/923152666723" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        </li>
+        <li>
+          <a href="mailto:wajahat.a2010@gmail.com">Email</a>
+        </li>
+      </ul>
+    </div>
+    <div class="container footer-copy">
+      <p>© 2026 Aurevio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="project-modal" id="project-modal" hidden>
+    <div class="project-modal-backdrop" data-close-modal></div>
+    <div
+      class="project-modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="project-modal-title"
+      tabindex="-1"
+    >
+      <button type="button" class="modal-close" data-close-modal aria-label="Close project details">&times;</button>
+      <div class="project-modal-preview" id="project-modal-preview" aria-hidden="true"></div>
+      <p class="project-label" id="project-modal-label"></p>
+      <h2 id="project-modal-title"></h2>
+      <p id="project-modal-text"></p>
+    </div>
+  </div>
+</body>
+</html>
