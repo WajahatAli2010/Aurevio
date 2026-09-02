@@ -184,20 +184,22 @@
   });
 
   // allow opening modal from service cards
-  function openModalWithContent(data) {
-    if (!data || !modal) return;
-    lastFocus = document.activeElement;
-    if (modalLabel) modalLabel.textContent = data.label || '';
-    if (modalTitle) modalTitle.textContent = data.title || '';
-    if (modalText) modalText.textContent = data.text || '';
-    if (modalPreview) {
-      if (data.previewHTML) modalPreview.innerHTML = '<div class="preview ' + (data.previewClass || '') + '">' + data.previewHTML + '</div>';
-      else modalPreview.innerHTML = '';
-    }
-    modal.hidden = false;
-    document.body.classList.add('modal-open');
-    if (modalDialog) modalDialog.focus();
+function openModalWithContent(data) {
+  if (!data || !modal) return;
+  lastFocus = document.activeElement;
+  if (modalLabel) modalLabel.textContent = data.label || '';
+  if (modalTitle) modalTitle.textContent = data.title || '';
+  if (modalText) modalText.textContent = data.text || '';
+  if (modalPreview) {
+    if (data.previewHTML) modalPreview.innerHTML = '<div class="preview ' + (data.previewClass || '') + '">' + data.previewHTML + '</div>';
+    else modalPreview.innerHTML = '';
   }
+  modal.hidden = false;
+  modal.removeAttribute('hidden');
+  modal.style.display = 'grid';
+  document.body.classList.add('modal-open');
+  if (modalDialog) modalDialog.focus();
+}
 
   document.querySelectorAll('.service-card').forEach(function (card) {
     // make card keyboard focusable and announceable as button
