@@ -23,8 +23,14 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-aurevio="iterative">
+  <div class="aurevio-body-aura" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="site-loader" id="site-loader" role="status" aria-label="Loading Aurevio">
+    <div class="loader-mark">AV</div>
+    <div class="loader-track"><span></span></div>
+    <span class="loader-label">AUREVIO / DIGITAL STUDIO</span>
+  </div>
 
   <header class="site-header" id="top">
     <div class="header-inner">
@@ -48,7 +54,7 @@
           <li><a href="#work">Work</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
-        <a class="btn btn-primary nav-cta" href="#contact">Get in Touch</a>
+        <a class="btn btn-primary nav-cta magnetic" href="#contact">Get in Touch</a>
       </nav>
     </div>
   </header>
@@ -64,12 +70,15 @@
           <h1 id="hero-heading">Modern Websites. Built for Your Business.</h1>
           <p class="hero-lead">I create simple, modern and responsive websites that help businesses and individuals build a professional online presence.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#work">View My Work</a>
-            <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+            <a class="btn btn-primary magnetic" href="#work">View My Work</a>
+            <a class="btn btn-ghost magnetic" href="#contact">Get in Touch</a>
           </div>
         </div>
 
         <div class="hero-visual" aria-hidden="true">
+          <div class="aurevio-float-chip aurevio-chip-a"><strong>HTML · CSS · JS</strong></div>
+          <div class="aurevio-float-chip aurevio-chip-b"><strong>Responsive by default</strong></div>
+          <div class="aurevio-float-chip aurevio-chip-c"><strong>AUREVIO / 04</strong><span>Selected studio build</span></div>
           <div class="browser-frame">
             <div class="browser-bar">
               <span class="dot"></span>
@@ -111,7 +120,7 @@
             <li>Clear structure and considered design</li>
           </ul>
         </div>
-        <div class="about-visual" aria-hidden="true">
+        <div class="about-visual scroll-art" aria-hidden="true">
           <div class="code-window">
             <div class="code-window-bar">
               <span class="dot"></span>
@@ -130,7 +139,7 @@
 
     <section class="section section-alt" id="services" aria-labelledby="services-heading">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">Services</p>
           <h2 id="services-heading">What I Can Build</h2>
           <p class="section-intro">Straightforward frontend websites — designed to look considered and work well on the devices people actually use.</p>
@@ -258,100 +267,124 @@
 
     <section class="section" id="work" aria-labelledby="work-heading">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">Work</p>
           <h2 id="work-heading">Selected Work</h2>
-          <p class="section-intro">A small set of frontend concepts and a demo. These pieces show how I design and build static websites — they are not client case studies.</p>
+          <p class="section-intro">A small selection of frontend websites I've built. Open any project to explore the full site.</p>
         </header>
-        <div class="work-grid">
+
+        <div class="work-grid reveal-block">
+
+          <!-- NOIRÉ -->
           <article class="project-card">
-            <div class="project-preview" aria-hidden="true">
+            <div class="project-preview live-project-preview">
               <div class="preview-chrome">
                 <span></span><span></span><span></span>
+                <span class="preview-url">wajahatali2010.github.io/NOIRE</span>
               </div>
-              <div class="preview preview-restaurant">
-                <div class="pr-hero">
-                  <span class="pr-kicker">Kitchen</span>
-                  <span class="pr-title">Evening menu</span>
-                </div>
-                <div class="pr-row">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="pr-gallery">
-                  <span></span><span></span>
-                </div>
+
+              <div class="live-preview-frame">
+                <iframe
+                  src="https://wajahatali2010.github.io/NOIRE/"
+                  title="NOIRÉ restaurant website preview"
+                  loading="lazy"
+                  tabindex="-1"
+                ></iframe>
               </div>
             </div>
+
             <div class="project-body">
-              <p class="project-label">Concept Project</p>
-              <h3>Restaurant Website</h3>
-              <p>A modern restaurant website concept with a hero, menu preview, gallery, location information and a contact section.</p>
-              <button class="btn btn-small" type="button" data-open-project="restaurant">View Project</button>
+              <p class="project-label">Frontend Website</p>
+              <h3>NOIRÉ — Restaurant Website</h3>
+              <p>A cinematic restaurant website focused on atmosphere, menu presentation, gallery imagery and reservations.</p>
+
+              <a
+                class="btn btn-small"
+                href="https://wajahatali2010.github.io/NOIRE/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >View Project ↗</a>
             </div>
           </article>
 
+
+          <!-- VÉLOR -->
           <article class="project-card">
-            <div class="project-preview" aria-hidden="true">
+            <div class="project-preview live-project-preview">
               <div class="preview-chrome">
                 <span></span><span></span><span></span>
+                <span class="preview-url">wajahatali2010.github.io/VELOR</span>
               </div>
-              <div class="preview preview-fashion">
-                <div class="pf-hero">
-                  <span class="pf-title">New collection</span>
-                  <span class="pf-sub">Lookbook</span>
-                </div>
-                <div class="pf-items">
-                  <span></span><span></span><span></span>
-                </div>
+
+              <div class="live-preview-frame">
+                <iframe
+                  src="https://wajahatali2010.github.io/VELOR/"
+                  title="VÉLOR fashion website preview"
+                  loading="lazy"
+                  tabindex="-1"
+                ></iframe>
               </div>
             </div>
+
             <div class="project-body">
-              <p class="project-label">Concept Project</p>
-              <h3>Clothing Store Website</h3>
-              <p>A fashion website concept focused on collection presentation, brand sections and contact — a visual storefront, not a checkout system.</p>
-              <button class="btn btn-small" type="button" data-open-project="fashion">View Project</button>
+              <p class="project-label">Frontend Website</p>
+              <h3>VÉLOR — Fashion Website</h3>
+              <p>A premium fashion storefront concept with editorial layouts, collections, lookbook content and interactive product elements.</p>
+
+              <a
+                class="btn btn-small"
+                href="https://wajahatali2010.github.io/VELOR/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >View Project ↗</a>
             </div>
           </article>
 
+
+          <!-- ALEX MORGAN -->
           <article class="project-card">
-            <div class="project-preview" aria-hidden="true">
+            <div class="project-preview live-project-preview">
               <div class="preview-chrome">
                 <span></span><span></span><span></span>
+                <span class="preview-url">wajahatali2010.github.io/work-portfolio</span>
               </div>
-              <div class="preview preview-portfolio">
-                <div class="pp-intro">
-                  <span class="pp-avatar"></span>
-                  <span class="pp-lines">
-                    <i></i><i></i>
-                  </span>
-                </div>
-                <div class="pp-skills">
-                  <span></span><span></span><span></span>
-                </div>
-                <div class="pp-projects">
-                  <span></span><span></span>
-                </div>
+
+              <div class="live-preview-frame">
+                <iframe
+                  src="https://wajahatali2010.github.io/work-portfolio/"
+                  title="Alex Morgan portfolio website preview"
+                  loading="lazy"
+                  tabindex="-1"
+                ></iframe>
               </div>
             </div>
+
             <div class="project-body">
-              <p class="project-label">Demo Project</p>
-              <h3>Personal Portfolio</h3>
-              <p>A clean personal portfolio website with an introduction, skills, projects and contact information — built as a static frontend demo.</p>
-              <button class="btn btn-small" type="button" data-open-project="portfolio">View Project</button>
+              <p class="project-label">Frontend Portfolio</p>
+              <h3>Alex Morgan — Portfolio</h3>
+              <p>A polished developer portfolio demonstrating responsive layouts, project presentations, interactive details and frontend motion.</p>
+
+              <a
+                class="btn btn-small"
+                href="https://wajahatali2010.github.io/work-portfolio/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >View Project ↗</a>
             </div>
           </article>
+
         </div>
       </div>
     </section>
 
     <section class="section section-alt" id="why" aria-labelledby="why-heading">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">Approach</p>
           <h2 id="why-heading">Built With Purpose.</h2>
           <p class="section-intro">I keep the work focused: a website that is clear to look at, easy to use, and realistic to maintain.</p>
         </header>
-        <ul class="why-grid">
+        <ul class="why-grid reveal-block">
           <li class="why-card">
             <h3>Responsive across devices</h3>
             <p>Layouts are built to fit small phones, tablets, laptops and wide screens without sideways scrolling.</p>
@@ -386,11 +419,11 @@
 
     <section class="section" id="process" aria-labelledby="process-heading">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">Process</p>
           <h2 id="process-heading">From idea to launch</h2>
         </header>
-        <ol class="process-list">
+        <ol class="process-list reveal-block">
           <li class="process-step reveal">
             <span class="process-num">01</span>
             <div>
@@ -432,12 +465,12 @@
 
     <section class="section section-alt" id="instagram" aria-labelledby="instagram-heading">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">Social</p>
           <h2 id="instagram-heading">On Instagram</h2>
           <p class="section-intro">Follow along for updates and recent work.</p>
         </header>
-        <article class="ig-card">
+        <article class="ig-card reveal-block">
           <div class="ig-photo">
             <span class="ig-photo-fallback" aria-hidden="true">A</span>
             <img
@@ -472,12 +505,12 @@
 
     <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
       <div class="container">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">Contact</p>
           <h2 id="contact-heading">Have a website in mind?</h2>
           <p class="section-intro">Tell me about your idea and let's see what I can build.</p>
         </header>
-        <div class="contact-grid">
+        <div class="contact-grid reveal-block">
           <article class="contact-card">
             <h3>WhatsApp</h3>
             <p class="contact-value">+92 315 2666723</p>
@@ -506,16 +539,43 @@
             <a class="btn btn-primary" href="mailto:wajahat.a2010@gmail.com">Send Email</a>
           </article>
         </div>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="form-heading">
+            <p class="eyebrow">Quick brief</p>
+            <h3>Tell me what you want to build.</h3>
+            <p>Send a few details and your email app will open with a ready-to-edit message.</p>
+          </div>
+          <label>
+            <span>Your name</span>
+            <input name="name" autocomplete="name" required maxlength="80" />
+          </label>
+          <label>
+            <span>What do you need?</span>
+            <select name="type" required>
+              <option value="">Choose a project type</option>
+              <option>Business website</option>
+              <option>Landing page</option>
+              <option>Portfolio website</option>
+              <option>Website redesign</option>
+            </select>
+          </label>
+          <label>
+            <span>Brief</span>
+            <textarea name="brief" rows="4" required maxlength="800" placeholder="Pages, style, deadline, anything useful."></textarea>
+          </label>
+          <button class="btn btn-primary" type="submit">Prepare Email ↗</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
     <section class="section section-alt" id="faq" aria-labelledby="faq-heading">
       <div class="container faq-wrap">
-        <header class="section-head">
+        <header class="section-head reveal-block">
           <p class="eyebrow">FAQ</p>
           <h2 id="faq-heading">Questions</h2>
         </header>
-        <div class="faq-list">
+        <div class="faq-list reveal-block">
           <div class="faq-item">
             <h3>
               <button type="button" class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-btn-1">
@@ -646,5 +706,4 @@
       <p id="project-modal-text"></p>
     </div>
   </div>
-</body>
 </html>
