@@ -676,6 +676,7 @@ body.nav-open .nav-toggle-bars::after {
 /* Slight zoom on hover */
 .service-card:hover .service-image {
   transform: scale(1.04);
+  cursor: pointer;
 }
 
 
@@ -747,6 +748,7 @@ body.nav-open .nav-toggle-bars::after {
   border-color: rgba(139, 92, 246, 0.50);
 
   transform: translateY(-2px);
+  cursor: pointer;
 }
 
 
@@ -1363,9 +1365,10 @@ body.nav-open .nav-toggle-bars::after {
 }
 
 .modal-close {
-  position: absolute;
+   position: absolute;
   top: 0.7rem;
   right: 0.7rem;
+  z-index: 10;
   width: 2.4rem;
   height: 2.4rem;
   border: 1px solid var(--border);
