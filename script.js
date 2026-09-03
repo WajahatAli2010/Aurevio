@@ -547,7 +547,6 @@ document.addEventListener('DOMContentLoaded', function(){
     reveals.forEach(function(el){ro.observe(el)});
   }
 
-  // Buttery section motion: subtle scroll-linked drift on the major visual blocks.
   var artSections=document.querySelectorAll('.hero-visual,.about-visual,.ig-card,.contact-card');
   if(!reduced && artSections.length){
     var raf=0;
@@ -568,7 +567,6 @@ document.addEventListener('DOMContentLoaded', function(){
     paintSectionDrift();
   }
 
-  // Art reveal: the visual settles in with a soft 3D glide when it enters the viewport.
   var artReveal=document.querySelectorAll('.scroll-art');
   if(reduced || !('IntersectionObserver' in window)){ artReveal.forEach(function(el){el.classList.add('is-art-visible')}); }
   else {
@@ -582,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function(){
     artReveal.forEach(function(el){artObserver.observe(el)});
   }
 
-  // Service cards act like disclosure cards, but clicks on nested links/buttons remain normal.
   document.querySelectorAll('.service-card').forEach(function(card){
     card.addEventListener('click',function(e){ if(e.target.closest('a,button,input,select,textarea')) return; });
   });
@@ -608,60 +605,58 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 
+(function () {
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia && window.matchMedia("(pointer:fine)").matches;
+  if (reduced) return;
 
-  /* V4 interaction polish: subtle magnetic buttons, pointer-reactive hero, cursor halo, and card light */
-  (function () {
-    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var finePointer = window.matchMedia && window.matchMedia("(pointer:fine)").matches;
-    if (reduced) return;
-
-    if (finePointer) {
-      document.body.classList.add("aurevio-pointer");
-      var aura=document.querySelector(".aurevio-body-aura");
-      var ax=window.innerWidth/2,ay=window.innerHeight/2,tx=ax,ty=ay;
-      function paintAura(){
-        ax+=(tx-ax)*.075; ay+=(ty-ay)*.075;
-        if(aura) aura.style.transform="translate3d("+ax+"px,"+ay+"px,0) translate3d(-50%,-50%,0)";
-        requestAnimationFrame(paintAura);
-      }
+  if (finePointer) {
+    document.body.classList.add("aurevio-pointer");
+    var aura=document.querySelector(".aurevio-body-aura");
+    var ax=window.innerWidth/2,ay=window.innerHeight/2,tx=ax,ty=ay;
+    function paintAura(){
+      ax+=(tx-ax)*.075; ay+=(ty-ay)*.075;
+      if(aura) aura.style.transform="translate3d("+ax+"px,"+ay+"px,0) translate3d(-50%,-50%,0)";
       requestAnimationFrame(paintAura);
-      window.addEventListener("pointermove",function(e){tx=e.clientX;ty=e.clientY},{passive:true});
+    }
+    requestAnimationFrame(paintAura);
+    window.addEventListener("pointermove",function(e){tx=e.clientX;ty=e.clientY},{passive:true});
 
-      document.querySelectorAll("a,button,.service-card,.project-card").forEach(function(el){
-        el.addEventListener("pointerenter",function(){document.body.classList.add("aurevio-cursor-active")});
-        el.addEventListener("pointerleave",function(){document.body.classList.remove("aurevio-cursor-active")});
+    document.querySelectorAll("a,button,.service-card,.project-card").forEach(function(el){
+      el.addEventListener("pointerenter",function(){document.body.classList.add("aurevio-cursor-active")});
+      el.addEventListener("pointerleave",function(){document.body.classList.remove("aurevio-cursor-active")});
+    });
+
+    var hero=document.querySelector(".hero-visual");
+    if(hero){
+      hero.addEventListener("pointermove",function(e){
+        var r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+        var frame=hero.querySelector(".browser-frame");
+        if(frame) frame.style.transform="rotateY("+(-5+x*7)+"deg) rotateX("+(2.5-y*5)+"deg) translate3d("+(x*8)+"px,"+(y*6)+"px,0)";
+        hero.querySelectorAll(".aurevio-float-chip").forEach(function(chip,i){
+          var s=[18,12,15][i]||12;
+          chip.style.setProperty("--fx",(x*s)+"px"); chip.style.setProperty("--fy",(y*s)+"px");
+        });
       });
-
-      var hero=document.querySelector(".hero-visual");
-      if(hero){
-        hero.addEventListener("pointermove",function(e){
-          var r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-          var frame=hero.querySelector(".browser-frame");
-          if(frame) frame.style.transform="rotateY("+(-5+x*7)+"deg) rotateX("+(2.5-y*5)+"deg) translate3d("+(x*8)+"px,"+(y*6)+"px,0)";
-          hero.querySelectorAll(".aurevio-float-chip").forEach(function(chip,i){
-            var s=[18,12,15][i]||12;
-            chip.style.setProperty("--fx",(x*s)+"px"); chip.style.setProperty("--fy",(y*s)+"px");
-          });
-        });
-        hero.addEventListener("pointerleave",function(){
-          var frame=hero.querySelector(".browser-frame"); if(frame) frame.style.transform="";
-          hero.querySelectorAll(".aurevio-float-chip").forEach(function(chip){chip.style.setProperty("--fx","0px");chip.style.setProperty("--fy","0px")});
-        });
-      }
-
-      document.querySelectorAll(".magnetic").forEach(function(el){
-        el.addEventListener("pointermove",function(e){
-          var r=el.getBoundingClientRect(),x=(e.clientX-(r.left+r.width/2))/r.width,y=(e.clientY-(r.top+r.height/2))/r.height;
-          el.style.setProperty("--mx",(x*7)+"px");el.style.setProperty("--my",(y*7)+"px");
-        });
-        el.addEventListener("pointerleave",function(){el.style.setProperty("--mx","0px");el.style.setProperty("--my","0px")});
-      });
-
-      document.querySelectorAll(".project-card,.service-card").forEach(function(card){
-        card.addEventListener("pointermove",function(e){
-          var r=card.getBoundingClientRect();
-          card.style.setProperty("--gx",(e.clientX-r.left)+"px");card.style.setProperty("--gy",(e.clientY-r.top)+"px");
-        });
+      hero.addEventListener("pointerleave",function(){
+        var frame=hero.querySelector(".browser-frame"); if(frame) frame.style.transform="";
+        hero.querySelectorAll(".aurevio-float-chip").forEach(function(chip){chip.style.setProperty("--fx","0px");chip.style.setProperty("--fy","0px")});
       });
     }
-  })();
+
+    document.querySelectorAll(".magnetic").forEach(function(el){
+      el.addEventListener("pointermove",function(e){
+        var r=el.getBoundingClientRect(),x=(e.clientX-(r.left+r.width/2))/r.width,y=(e.clientY-(r.top+r.height/2))/r.height;
+        el.style.setProperty("--mx",(x*7)+"px");el.style.setProperty("--my",(y*7)+"px");
+      });
+      el.addEventListener("pointerleave",function(){el.style.setProperty("--mx","0px");el.style.setProperty("--my","0px")});
+    });
+
+    document.querySelectorAll(".project-card,.service-card").forEach(function(card){
+      card.addEventListener("pointermove",function(e){
+        var r=card.getBoundingClientRect();
+        card.style.setProperty("--gx",(e.clientX-r.left)+"px");card.style.setProperty("--gy",(e.clientY-r.top)+"px");
+      });
+    });
+  }
+})();
