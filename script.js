@@ -7,7 +7,8 @@
   var navOverlay = document.querySelector(".nav-overlay");
 
   function openNav() {
-    document.body.classList.add("nav-open");
+    document.documentElement.classList.add("nav-open");
+    document.body.classList.add("nav-open"); 
 
     if (navToggle) {
       navToggle.setAttribute("aria-expanded", "true");
@@ -20,6 +21,7 @@
   }
 
   function closeNav() {
+    document.documentElement.classList.remove("nav-open");
     document.body.classList.remove("nav-open");
 
     if (navToggle) {
