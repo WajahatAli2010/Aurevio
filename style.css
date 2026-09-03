@@ -1637,12 +1637,13 @@ body.modal-open {
 }
 
 @media (max-width: 680px) {
-  .work-grid {
-    grid-template-columns: 1fr;
+  .project-preview {
+    aspect-ratio: auto;
   }
 
   .live-preview-frame {
-    aspect-ratio: 16 / 9;
+    height: 230px;
+    aspect-ratio: auto;
   }
 }
 
@@ -2559,10 +2560,6 @@ body {
 
   .service-image {
     aspect-ratio: 1.25;
-  }
-
-  .project-preview {
-    aspect-ratio: 1.05;
   }
 
   .section {
