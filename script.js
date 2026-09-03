@@ -535,10 +535,34 @@ document.addEventListener(
 
 // ===== Iteration polish =====
 document.addEventListener('DOMContentLoaded', function(){
-  var loader=document.getElementById('site-loader');
-  var reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var finishLoader=function(){ if(loader) loader.classList.add('is-done'); document.body.classList.add('page-ready'); };
-  if(loader){ window.setTimeout(finishLoader, reduced ? 50 : 950); }
+  var loader = document.getElementById('site-loader');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finishLoader = function(){ 
+    if(loader) loader.classList.add('is-done'); 
+    document.body.classList.add('page-ready'); 
+  };
+
+  if(loader) {
+    if (reduced) {
+      finishLoader();
+    } else {
+      var images = Array.from(document.querySelectorAll('img'));
+      var imagePromises = images.map(function(img) {
+        if (img.complete && img.naturalHeight !== 0) {
+          return Promise.resolve();
+        }
+        return new Promise(function(resolve) {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      });
+
+      // Wait until all images are fully loaded before dismissing
+      Promise.all(imagePromises).then(function() {
+        finishLoader();
+      });
+    }
+  }
 
   var reveals=document.querySelectorAll('.reveal-block');
   if(reduced || !('IntersectionObserver' in window)){ reveals.forEach(function(el){el.classList.add('is-visible')}); }
