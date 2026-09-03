@@ -1608,15 +1608,15 @@ body.modal-open {
   z-index: 2;
 }
 
-.live-preview-frame iframe {
+.live-preview-frame img {
   position: absolute;
   inset: 0;
 
   width: 100%;
   height: 100%;
 
+  object-fit: cover;
   border: 0;
-  background: #fff;
 
   transform: scale(1);
   transform-origin: top left;
@@ -1626,7 +1626,7 @@ body.modal-open {
   transition: transform 0.6s var(--ease);
 }
 
-.project-card:hover .live-preview-frame iframe {
+.project-card:hover .live-preview-frame img {
   transform: scale(1.015);
 }
 
@@ -1648,8 +1648,8 @@ body.modal-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .live-preview-frame iframe,
-  .project-card:hover .live-preview-frame iframe {
+  .live-preview-frame img,
+  .project-card:hover .live-preview-frame img {
     transform: none;
     transition: none;
   }
@@ -1813,12 +1813,12 @@ body.modal-open {
   contain: layout paint;
 }
 
-.project-preview iframe {
+.project-preview img {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
   border: 0;
-  background: #fff;
 }
 
 .project-preview {
@@ -2791,7 +2791,7 @@ body {
 
 
 /* =========================================
-   CURSOR AURA
+   CURSOR AURA (BLOB)
    ========================================= */
 
 .aurevio-body-aura {
@@ -2799,22 +2799,22 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  width: 280px;
-  height: 280px;
+  width: 290px;
+  height: 290px;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 9999; /* Higher z-index allows it to float above all background cards/sections */
   opacity: 0;
   transform: translate3d(-50%, -50%, 0);
   background:
     radial-gradient(
       circle,
-      rgba(83, 42, 132, 0.18) 0%,
-      rgba(68, 32, 110, 0.10) 28%,
-      rgba(60, 28, 96, 0.035) 55%,
-      transparent 74%
+      rgba(139, 92, 246, 0.32) 0%,   /* Boosted purple opacity */
+      rgba(108, 52, 170, 0.18) 32%,
+      rgba(60, 28, 96, 0.06) 58%,
+      transparent 75%
     );
-  filter: blur(24px);
+  filter: blur(22px) brightness(0.9); /* Adds 10% brightness boost */
   mix-blend-mode: screen;
   will-change: transform, opacity;
 }
@@ -2824,9 +2824,9 @@ body.aurevio-pointer .aurevio-body-aura {
 }
 
 body.aurevio-cursor-active .aurevio-body-aura {
-  width: 330px;
-  height: 330px;
-  opacity: 0.9;
+  width: 340px;
+  height: 340px;
+  opacity: 1;
 }
 
 
@@ -2902,14 +2902,6 @@ body.aurevio-cursor-active .aurevio-body-aura {
     left: 0;
     bottom: -2.5rem;
   }
-
-  .aurevio-body-aura {
-    display: none;
-  }
-}
-
-.aurevio-body-aura {
-  display: none;
 }
 
 
