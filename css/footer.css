@@ -1,0 +1,1 @@
+footer{border-top:1px solid var(--line);padding:24px 0}.footer-wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;color:#666670;font-size:11px}.footer-wrap .brand{color:#eee}.footer-wrap>a:last-child:hover{color:#fff}@media(max-width:560px){.footer-wrap{align-items:flex-start;flex-direction:column}.footer-wrap p{margin:0}}
