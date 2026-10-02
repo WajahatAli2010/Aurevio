@@ -13,122 +13,31 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/marquee.css">
+  <link rel="stylesheet" href="css/work.css">
+  <link rel="stylesheet" href="css/services.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/process.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/footer.css">
   <script defer src="script.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Aurevio home"><span class="brand-mark">A</span><span>AUREVIO</span></a>
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation"><span></span><span></span></button>
-      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
-        <a href="#work">Work</a><a href="#services">Services</a><a href="#process">Process</a><a href="#about">About</a>
-        <a class="nav-cta" href="#contact">Start a project <span>↗</span></a>
-      </nav>
-    </div>
-  </header>
-
+  <div id="site-header"></div>
   <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="eyebrow"><span class="eyebrow-dot"></span> Independent web developer</p>
-          <h1>Websites that make your business <em>look ready.</em></h1>
-          <p class="hero-lead">I design and build fast, responsive websites for businesses, creators and people who are tired of looking like they still live on social media alone.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">See the work <span>↗</span></a>
-            <a class="button button-ghost" href="#contact">Let's talk</a>
-          </div>
-          <div class="hero-notes"><span>HTML · CSS · JS</span><span>Responsive by default</span><span>Built without bloat</span></div>
-        </div>
-        <div class="hero-stage reveal delay-1" aria-label="Aurevio website interface preview">
-          <div class="stage-window">
-            <div class="window-top"><span class="window-dots"><i></i><i></i><i></i></span><span class="window-url">aurevio.dev</span><span class="window-status">● live</span></div>
-            <div class="stage-content">
-              <div class="stage-nav"><strong>AUREVIO</strong><span>Work</span><span>Services</span><span>Contact</span></div>
-              <div class="stage-main"><small>SELECTED BUILD / 01</small><h2>Make the first<br><span>impression count.</span></h2><p>Clean interfaces. Clear hierarchy. No unnecessary machinery.</p><div class="stage-line"></div></div>
-              <div class="stage-card"><span>01</span><strong>Responsive</strong><small>PHONE → DESKTOP</small></div>
-            </div>
-          </div>
-          <div class="floating-tag tag-top">01 / SELECTED WORK</div>
-          <div class="floating-tag tag-bottom">DESIGNED + BUILT</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="marquee-band" aria-label="Aurevio capabilities"><div class="marquee-track"><span>BUSINESS WEBSITES</span><b>✦</b><span>LANDING PAGES</span><b>✦</b><span>PORTFOLIOS</span><b>✦</b><span>REDESIGNS</span><b>✦</b><span>BUSINESS WEBSITES</span><b>✦</b><span>LANDING PAGES</span><b>✦</b></div></section>
-
-    <section class="section work" id="work">
-      <div class="container">
-        <div class="section-head reveal"><div><p class="eyebrow">Selected work</p><h2>Real pages. <span>Not iframe theatre.</span></h2></div><p>A few frontend builds exploring different industries, moods and layouts. Click through to see the live work.</p></div>
-        <div class="work-grid">
-          <article class="project project-large reveal">
-            <a class="project-visual" href="https://wajahatali2010.github.io/NOIRE/" target="_blank" rel="noopener" aria-label="Open NOIRÉ restaurant website">
-              <img src="assets/noire.svg" alt="Preview of the NOIRÉ restaurant website">
-              <span class="view-pill">View live ↗</span>
-            </a>
-            <div class="project-meta"><div><span class="project-number">01</span><h3>NOIRÉ</h3></div><div><p>Restaurant / Editorial</p><small>Cinematic layout · menu · gallery</small></div></div>
-          </article>
-          <article class="project reveal delay-1">
-            <a class="project-visual" href="https://wajahatali2010.github.io/VELOR/" target="_blank" rel="noopener" aria-label="Open VÉLOR fashion website">
-              <img src="assets/velor.svg" alt="Preview of the VÉLOR fashion website">
-              <span class="view-pill">View live ↗</span>
-            </a>
-            <div class="project-meta"><div><span class="project-number">02</span><h3>VÉLOR</h3></div><div><p>Fashion / Storefront</p><small>Editorial grid · collections</small></div></div>
-          </article>
-          <article class="project reveal delay-2">
-            <a class="project-visual" href="https://wajahatali2010.github.io/work-portfolio/" target="_blank" rel="noopener" aria-label="Open Alex Morgan portfolio">
-              <img src="assets/portfolio.svg" alt="Preview of the Alex Morgan portfolio website">
-              <span class="view-pill">View live ↗</span>
-            </a>
-            <div class="project-meta"><div><span class="project-number">03</span><h3>ALEX MORGAN</h3></div><div><p>Portfolio / Developer</p><small>Projects · motion · responsive UI</small></div></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section services" id="services">
-      <div class="container">
-        <div class="section-head reveal"><div><p class="eyebrow">What I build</p><h2>Simple offers. <span>Serious execution.</span></h2></div><p>No mystery package names. You tell me what the website needs to do, and I build the right thing.</p></div>
-        <div class="service-list">
-          <article class="service reveal"><span>01</span><div><h3>Business websites</h3><p>Professional sites for local businesses and growing brands that need a proper home online.</p></div><b>↗</b></article>
-          <article class="service reveal"><span>02</span><div><h3>Landing pages</h3><p>Focused pages built around one offer, product, campaign or action instead of ten competing messages.</p></div><b>↗</b></article>
-          <article class="service reveal"><span>03</span><div><h3>Portfolio websites</h3><p>Clean personal sites for developers, designers, photographers, freelancers and creators.</p></div><b>↗</b></article>
-          <article class="service reveal"><span>04</span><div><h3>Website redesigns</h3><p>Keep what works, remove what doesn't, and turn an outdated site into something people actually trust.</p></div><b>↗</b></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about" id="about">
-      <div class="container about-grid">
-        <div class="about-statement reveal"><p class="eyebrow">The Aurevio approach</p><h2>Good design is mostly knowing <span>what to leave out.</span></h2></div>
-        <div class="about-copy reveal delay-1"><p>I’m an independent frontend developer focused on clean, responsive websites that feel considered instead of assembled from a template.</p><p>That means strong hierarchy, deliberate spacing, useful motion and layouts that survive the trip from a big monitor to a very unforgiving phone screen.</p><div class="principles"><span>Clarity</span><span>Performance</span><span>Responsive UI</span><span>Human direction</span></div></div>
-      </div>
-    </section>
-
-    <section class="section process" id="process">
-      <div class="container">
-        <div class="section-head reveal"><div><p class="eyebrow">How it works</p><h2>From rough idea to <span>live URL.</span></h2></div></div>
-        <ol class="process-list">
-          <li class="reveal"><span>01</span><div><h3>Discuss</h3><p>Goals, audience, pages and the actual problem behind the website.</p></div></li>
-          <li class="reveal"><span>02</span><div><h3>Plan</h3><p>Structure, content direction and a visual route before code starts multiplying.</p></div></li>
-          <li class="reveal"><span>03</span><div><h3>Build</h3><p>Responsive HTML, CSS and JavaScript with performance and accessibility in mind.</p></div></li>
-          <li class="reveal"><span>04</span><div><h3>Review</h3><p>Test on real screen sizes, refine details and fix the things humans inevitably notice.</p></div></li>
-          <li class="reveal"><span>05</span><div><h3>Launch</h3><p>Deploy the finished site and hand over what you need to keep it moving.</p></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="container contact-card reveal">
-        <div><p class="eyebrow">Have a website in mind?</p><h2>Let's make it <span>real.</span></h2><p>Tell me what you're building, what isn't working, or what you wish your current site did better.</p></div>
-        <div class="contact-actions"><a class="button button-primary" href="mailto:wajahat.a2010@gmail.com">Email Aurevio ↗</a><a class="text-link" href="https://wa.me/923152666723" target="_blank" rel="noopener">WhatsApp <span>↗</span></a><a class="text-link" href="https://instagram.com/mrpapypants" target="_blank" rel="noopener">Instagram <span>↗</span></a></div>
-      </div>
-    </section>
+    <div id="hero-section"></div>
+    <div id="marquee-section"></div>
+    <div id="work-section"></div>
+    <div id="services-section"></div>
+    <div id="about-section"></div>
+    <div id="process-section"></div>
+    <div id="contact-section"></div>
   </main>
-
-  <footer><div class="container footer-wrap"><a class="brand" href="#top"><span class="brand-mark">A</span><span>AUREVIO</span></a><p>Independent web development · Pakistan · 2026</p><a href="#top">Back to top ↑</a></div></footer>
+  <div id="site-footer"></div>
+  <noscript><p style="padding:2rem;color:white;background:#08080a">Aurevio requires JavaScript to load its section files.</p></noscript>
 </body>
 </html>
