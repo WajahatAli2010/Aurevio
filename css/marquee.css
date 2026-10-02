@@ -1,0 +1,1 @@
+.marquee-band{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;color:#797983;font-size:11px;letter-spacing:.13em;white-space:nowrap}.marquee-track{display:flex;justify-content:space-around;min-width:900px}.marquee-track b{color:#8c62e4}
