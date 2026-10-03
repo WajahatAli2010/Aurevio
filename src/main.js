@@ -3,9 +3,12 @@ import "../css/main.css";
 (() => {
   "use strict";
 
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
   function initNavigation() {
-    const toggle = document.querySelector(".nav-toggle");
-    const nav = document.querySelector("#site-nav");
+    const toggle = $(".nav-toggle");
+    const nav = $("#site-nav");
     if (!toggle || !nav) return;
 
     toggle.addEventListener("click", () => {
@@ -23,33 +26,32 @@ import "../css/main.css";
   }
 
   function initReveal() {
-    const items = document.querySelectorAll(".reveal");
+    const items = $$(".reveal");
     if (!items.length) return;
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion || !("IntersectionObserver" in window)) {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || !("IntersectionObserver" in window)) {
       items.forEach(item => item.classList.add("is-visible"));
       return;
     }
 
-    const observer = new IntersectionObserver((entries, currentObserver) => {
+    const observer = new IntersectionObserver((entries, current) => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add("is-visible");
-        currentObserver.unobserve(entry.target);
+        current.unobserve(entry.target);
       });
     }, { threshold: 0.12 });
 
     items.forEach((item, index) => {
-      item.style.transitionDelay = `${Math.min(index * 70, 350)}ms`;
+      item.style.transitionDelay = `${Math.min(index * 65, 300)}ms`;
       observer.observe(item);
     });
   }
 
-  function initProgress() {
+  function initScrollProgress() {
     const bar = document.createElement("div");
     bar.className = "scroll-progress";
-    bar.setAttribute("aria-hidden", "true");
     document.body.appendChild(bar);
 
     let ticking = false;
@@ -57,95 +59,41 @@ import "../css/main.css";
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+        const max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
         ticking = false;
       });
     };
-
-    window.addEventListener("scroll", update, { passive: true });
+    addEventListener("scroll", update, { passive: true });
     update();
   }
 
-  function initParallax() {
-    const targets = document.querySelectorAll("[data-parallax]");
-    if (!targets.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let ticking = false;
-    const update = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        targets.forEach(target => {
-          const speed = Number(target.dataset.parallax) || 0.15;
-          target.style.transform = `translate3d(0,${window.scrollY * speed}px,0)`;
-        });
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", update, { passive: true });
-    update();
-  }
-
-  function initTilt() {
-    const items = document.querySelectorAll("[data-tilt]");
-    if (!items.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  function initSubtleCursor() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!window.matchMedia("(pointer:fine)").matches) return;
 
-    items.forEach(item => {
-      item.addEventListener("pointermove", event => {
-        const rect = item.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        const max = item.classList.contains("hero-stage") ? 2.5 : 1.4;
-        item.style.transform = `perspective(1100px) rotateX(${-y * max}deg) rotateY(${x * max}deg) translateY(-3px)`;
-      });
+    const art = $(".hero-art");
+    if (!art) return;
 
-      item.addEventListener("pointerleave", () => {
-        item.style.transform = "";
-      });
+    art.addEventListener("pointermove", event => {
+      const rect = art.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      art.style.transform = `rotate(${x * 1.2}deg) translateY(${-y * 4}px)`;
     });
-  }
 
-  function initTheme() {
-    const button = document.querySelector(".theme-toggle");
-    if (!button) return;
-
-    const saved = localStorage.getItem("aurevio-theme");
-    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-    const light = saved ? saved === "light" : prefersLight;
-
-    document.body.classList.toggle("light-mode", light);
-    syncThemeButton(button, light);
-
-    button.addEventListener("click", () => {
-      const nextLight = !document.body.classList.contains("light-mode");
-      document.body.classList.toggle("light-mode", nextLight);
-      localStorage.setItem("aurevio-theme", nextLight ? "light" : "dark");
-      syncThemeButton(button, nextLight);
+    art.addEventListener("pointerleave", () => {
+      art.style.transform = "rotate(1.2deg)";
     });
-  }
-
-  function syncThemeButton(button, light) {
-    button.textContent = light ? "DARK" : "LIGHT";
-    button.setAttribute("aria-label", light ? "Switch to dark mode" : "Switch to light mode");
-    button.setAttribute("aria-pressed", String(light));
   }
 
   function init() {
     document.documentElement.classList.add("js");
     initNavigation();
     initReveal();
-    initProgress();
-    initParallax();
-    initTilt();
-    initTheme();
+    initScrollProgress();
+    initSubtleCursor();
   }
 
-  try {
-    init();
-  } catch (error) {
-    console.error("Aurevio initialization error:", error);
-  }
+  try { init(); } catch (error) { console.error("Aurevio initialization error:", error); }
 })();
