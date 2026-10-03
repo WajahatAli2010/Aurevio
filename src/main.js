@@ -8,40 +8,42 @@ import "../css/about.css";
 import "../css/process.css";
 import "../css/contact.css";
 import "../css/footer.css";
-import "../css/v2.css";
 
 (() => {
   "use strict";
 
-  /** Add accessible mobile navigation behavior. */
+  /** Handle the compact mobile navigation. */
   function initNavigation() {
     const toggle = document.querySelector(".nav-toggle");
     const nav = document.querySelector("#site-nav");
     if (!toggle || !nav) return;
 
+    const close = () => {
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
+    };
+
     toggle.addEventListener("click", () => {
-      const open = nav.classList.toggle("open");
+      const open = !nav.classList.contains("open");
+      nav.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
     });
 
     nav.addEventListener("click", event => {
-      if (!event.target.closest("a")) return;
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Open navigation");
+      if (event.target.closest("a")) close();
     });
 
     document.addEventListener("keydown", event => {
-      if (event.key !== "Escape" || !nav.classList.contains("open")) return;
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Open navigation");
-      toggle.focus();
+      if (event.key === "Escape") {
+        close();
+        toggle.focus();
+      }
     });
   }
 
-  /** Reveal content as it enters the viewport, with a reduced-motion fallback. */
+  /** Reveal marked elements as they enter the viewport. */
   function initReveal() {
     const items = document.querySelectorAll(".reveal");
     if (!items.length) return;
@@ -57,28 +59,12 @@ import "../css/v2.css";
         entry.target.classList.add("is-visible");
         currentObserver.unobserve(entry.target);
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     items.forEach(item => observer.observe(item));
   }
 
-  /** Show reading progress at the top of the viewport. */
-  /** Highlight the navigation item for the section currently in view. */
-  function initActiveNavigation() {
-    const links = [...document.querySelectorAll(".site-nav a")];
-    const sections = links.map(link => document.querySelector(link.getAttribute("href"))).filter(Boolean);
-    if (!links.length || !sections.length || !("IntersectionObserver" in window)) return;
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        links.forEach(link => link.classList.toggle("is-active", link.getAttribute("href") === "#" + entry.target.id));
-      });
-    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
-
-    sections.forEach(section => observer.observe(section));
-  }
-
+  /** Show reading progress at the top of the page. */
   function initProgress() {
     const bar = document.createElement("div");
     bar.className = "scroll-progress";
@@ -86,29 +72,29 @@ import "../css/v2.css";
     document.body.appendChild(bar);
 
     const update = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+      const max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
     };
-    window.addEventListener("scroll", update, { passive: true });
+
+    addEventListener("scroll", update, { passive: true });
     update();
   }
 
-  /** Persist the user's light/dark preference locally. */
+  /** Persist the user's light/dark preference. */
   function initTheme() {
     const button = document.querySelector(".theme-toggle");
     if (!button) return;
 
     const saved = localStorage.getItem("aurevio-theme");
-    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-    const light = saved ? saved === "light" : prefersLight;
+    const light = saved ? saved === "light" : matchMedia("(prefers-color-scheme: light)").matches;
     document.body.classList.toggle("light-mode", light);
     syncThemeButton(button, light);
 
     button.addEventListener("click", () => {
-      const nextLight = !document.body.classList.contains("light-mode");
-      document.body.classList.toggle("light-mode", nextLight);
-      localStorage.setItem("aurevio-theme", nextLight ? "light" : "dark");
-      syncThemeButton(button, nextLight);
+      const next = !document.body.classList.contains("light-mode");
+      document.body.classList.toggle("light-mode", next);
+      localStorage.setItem("aurevio-theme", next ? "light" : "dark");
+      syncThemeButton(button, next);
     });
   }
 
@@ -123,7 +109,6 @@ import "../css/v2.css";
     initNavigation();
     initReveal();
     initProgress();
-    initActiveNavigation();
     initTheme();
   }
 
