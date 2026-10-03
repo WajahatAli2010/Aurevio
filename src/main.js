@@ -31,6 +31,14 @@ import "../css/v2.css";
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Open navigation");
     });
+
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape" || !nav.classList.contains("open")) return;
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
+      toggle.focus();
+    });
   }
 
   /** Reveal content as it enters the viewport, with a reduced-motion fallback. */
@@ -55,6 +63,22 @@ import "../css/v2.css";
   }
 
   /** Show reading progress at the top of the viewport. */
+  /** Highlight the navigation item for the section currently in view. */
+  function initActiveNavigation() {
+    const links = [...document.querySelectorAll(".site-nav a")];
+    const sections = links.map(link => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+    if (!links.length || !sections.length || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        links.forEach(link => link.classList.toggle("is-active", link.getAttribute("href") === "#" + entry.target.id));
+      });
+    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
+
+    sections.forEach(section => observer.observe(section));
+  }
+
   function initProgress() {
     const bar = document.createElement("div");
     bar.className = "scroll-progress";
@@ -99,6 +123,7 @@ import "../css/v2.css";
     initNavigation();
     initReveal();
     initProgress();
+    initActiveNavigation();
     initTheme();
   }
 
