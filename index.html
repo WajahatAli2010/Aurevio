@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://wajahatali2010.github.io/Aurevio/">
   <meta property="og:image" content="https://wajahatali2010.github.io/Aurevio/assets/noire.jpeg">
   <link rel="canonical" href="https://wajahatali2010.github.io/Aurevio/">
+
   <title>Aurevio — Independent frontend web development</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,23 +23,26 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="scroll-line" aria-hidden="true"></div>
 
   <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Aurevio home">AUREVIO<span>®</span></a>
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Aurevio home">
+        <span class="brand-word">AUREVIO</span><span class="brand-mark">®</span>
+      </a>
 
-      <nav id="site-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#practice">Practice</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="#work">Work<span>01</span></a>
+        <a href="#practice">Practice<span>02</span></a>
+        <a href="#about">About<span>03</span></a>
+        <a href="#contact">Contact<span>04</span></a>
       </nav>
 
-      <div class="header-side">
+      <div class="header-status">
         <span class="availability"><i aria-hidden="true"></i> Open for select projects</span>
         <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation">
-          <span></span><span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
     </div>
@@ -46,101 +50,118 @@
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-rules" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
+      <div class="hero-gridlines" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
       </div>
 
       <div class="container">
-        <div class="hero-meta">
+        <div class="hero-top">
           <span>01 / AUREVIO</span>
-          <span>INDEPENDENT FRONTEND DEVELOPMENT</span>
+          <span>INDEPENDENT WEB DEVELOPMENT</span>
           <span>PAKISTAN — 2026</span>
         </div>
 
         <div class="hero-layout">
           <div class="hero-copy">
-            <p class="eyebrow hero-in hero-delay-1">Web development / design / code</p>
+            <p class="eyebrow hero-enter enter-1">Web development / design / code</p>
 
             <h1 id="hero-title" class="hero-title">
-              <span class="title-line hero-in hero-delay-2">I build the</span>
-              <span class="title-line hero-in hero-delay-3"><em>first impression.</em></span>
+              <span class="hero-line hero-enter enter-2">I build the</span>
+              <span class="hero-line hero-enter enter-3"><em>first impression.</em></span>
             </h1>
 
-            <div class="hero-lower hero-in hero-delay-4">
+            <div class="hero-description hero-enter enter-4">
               <p>
                 Aurevio is my independent web-development practice. I design and build responsive frontend websites from scratch with HTML, CSS and JavaScript.
               </p>
 
-              <div class="hero-links">
-                <a class="line-link" href="#work">See the work <span>↘</span></a>
-                <a class="quiet-link" href="#contact">Start a conversation <span>→</span></a>
+              <div class="hero-actions">
+                <a class="primary-link" href="#work">See the work <span>↘</span></a>
+                <a class="secondary-link" href="#contact">Have an idea? <span>→</span></a>
               </div>
             </div>
           </div>
 
-          <div class="hero-art hero-in hero-delay-3" aria-hidden="true">
-            <div class="art-frame">
-              <div class="art-top">
+          <div class="hero-object hero-enter enter-3" aria-hidden="true">
+            <div class="object-shell">
+              <div class="object-top">
                 <span>LIVE / FRONTEND</span>
                 <span>SCROLL</span>
               </div>
 
-              <div class="art-field">
-                <div class="art-axis art-axis-x"></div>
-                <div class="art-axis art-axis-y"></div>
-                <div class="art-orbit art-orbit-a"></div>
-                <div class="art-orbit art-orbit-b"></div>
-                <div class="art-square art-square-a"></div>
-                <div class="art-square art-square-b"></div>
-                <span class="art-cross art-cross-a">+</span>
-                <span class="art-cross art-cross-b">+</span>
-                <span class="art-word">AUREVIO</span>
-                <span class="art-note">HTML / CSS / JS</span>
-                <span class="art-arrow">↗</span>
+              <div class="object-canvas">
+                <div class="object-axis axis-h"></div>
+                <div class="object-axis axis-v"></div>
+                <div class="object-orbit orbit-1"></div>
+                <div class="object-orbit orbit-2"></div>
+                <div class="object-block block-1"></div>
+                <div class="object-block block-2"></div>
+                <div class="object-dot dot-1"></div>
+                <div class="object-dot dot-2"></div>
+                <div class="object-cross cross-1">+</div>
+                <div class="object-cross cross-2">+</div>
+                <strong class="object-word">AUREVIO</strong>
+                <span class="object-note">HTML / CSS / JS</span>
+                <span class="object-arrow">↗</span>
               </div>
 
-              <div class="art-bottom">
+              <div class="object-bottom">
                 <span>DESIGN → CODE → LAUNCH</span>
-                <span>01—05</span>
+                <span>01—06</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="hero-foot">
+        <div class="hero-bottom">
           <span>BUILT FOR REAL SCREENS</span>
           <span>SCROLL ↓</span>
         </div>
       </div>
     </section>
 
-    <section class="statement section section-dark" aria-labelledby="statement-title">
-      <div class="container split-grid">
-        <span class="section-index reveal">02</span>
+    <section class="signal-band" aria-label="Aurevio practice">
+      <div class="signal-track">
+        <span>WEBSITES</span><b>✦</b>
+        <span>LANDING PAGES</span><b>✦</b>
+        <span>PORTFOLIOS</span><b>✦</b>
+        <span>REDESIGNS</span><b>✦</b>
+        <span>WEBSITES</span><b>✦</b>
+        <span>LANDING PAGES</span><b>✦</b>
+        <span>PORTFOLIOS</span><b>✦</b>
+        <span>REDESIGNS</span><b>✦</b>
+      </div>
+    </section>
 
-        <div class="statement-main">
+    <section class="statement section section-dark" aria-labelledby="statement-title">
+      <div class="container editorial-grid">
+        <span class="section-number reveal">02</span>
+
+        <div class="statement-copy">
           <p class="eyebrow reveal">The point</p>
-          <h2 id="statement-title" class="reveal reveal-mask">
+
+          <h2 id="statement-title" class="statement-title reveal reveal-mask">
             Good websites do not need twenty effects fighting for attention.
             <em>They need a point of view.</em>
           </h2>
+
           <p class="body-large reveal">
-            Aurevio focuses on responsive frontend work with a visual direction that stays clear, personal and useful.
+            Aurevio is an independent web-development practice focused on responsive frontend websites built from scratch with HTML, CSS and JavaScript.
           </p>
         </div>
 
-        <aside class="fact-stack reveal" aria-label="Aurevio facts">
-          <div>
+        <aside class="fact-column reveal" aria-label="Aurevio facts">
+          <div class="fact-row">
             <span>Focus</span>
             <strong>Frontend</strong>
             <small>Design + development</small>
           </div>
-          <div>
-            <span>Core stack</span>
+          <div class="fact-row">
+            <span>Stack</span>
             <strong>HTML / CSS / JS</strong>
-            <small>Vanilla frontend</small>
+            <small>Core build stack</small>
           </div>
-          <div>
+          <div class="fact-row">
             <span>Based</span>
             <strong>Pakistan</strong>
             <small>Independent practice</small>
@@ -151,99 +172,107 @@
 
     <section class="work section" id="work" aria-labelledby="work-title">
       <div class="container">
-        <header class="section-head">
-          <span class="section-index reveal">03</span>
-          <div>
+        <header class="section-intro-grid">
+          <span class="section-number reveal">03</span>
+
+          <div class="section-heading">
             <p class="eyebrow reveal">Selected work</p>
             <h2 id="work-title" class="reveal reveal-mask">
               A small archive of <em>real builds.</em>
             </h2>
           </div>
-          <p class="head-note reveal">
-            The projects already represented in Aurevio, presented as featured pieces rather than a card grid.
+
+          <p class="section-note reveal">
+            Three existing Aurevio builds. No invented results, no padded case studies—just the work and where it leads.
           </p>
         </header>
 
-        <div class="project-list">
-          <a class="project project-primary reveal" href="https://wajahatali2010.github.io/NOIRE/" target="_blank" rel="noopener">
-            <div class="project-meta">
+        <div class="work-archive">
+          <a class="project-card project-main reveal" href="https://wajahatali2010.github.io/NOIRE/" target="_blank" rel="noopener">
+            <div class="project-info">
               <span>(01)</span>
               <span>Restaurant / Editorial</span>
               <span>HTML · CSS · JS</span>
             </div>
 
-            <div class="project-stage">
+            <div class="project-media">
               <div class="project-image">
                 <img src="assets/noire.jpeg" alt="NOIRÉ restaurant website preview" loading="eager" decoding="async" width="1200" height="675">
               </div>
-              <div class="project-overlay">
-                <span>VIEW PROJECT</span>
+
+              <div class="project-corner project-corner-top">
+                <span>VIEW</span>
                 <strong>↗</strong>
               </div>
-              <span class="project-stamp">01</span>
+
+              <div class="project-corner project-corner-bottom">01</div>
             </div>
 
-            <div class="project-caption">
+            <div class="project-title">
               <div>
                 <h3>NOIRÉ</h3>
                 <p>Restaurant / Editorial</p>
               </div>
-              <span class="caption-arrow">↗</span>
+              <span>↗</span>
             </div>
           </a>
 
-          <div class="project-split">
-            <a class="project project-side reveal" href="https://wajahatali2010.github.io/VELOR/" target="_blank" rel="noopener">
-              <div class="project-meta">
+          <div class="project-pair">
+            <a class="project-card project-secondary reveal" href="https://wajahatali2010.github.io/VELOR/" target="_blank" rel="noopener">
+              <div class="project-info">
                 <span>(02)</span>
                 <span>Fashion / Storefront</span>
                 <span>HTML · CSS · JS</span>
               </div>
 
-              <div class="project-stage">
+              <div class="project-media">
                 <div class="project-image">
                   <img src="assets/velor.jpeg" alt="VÉLOR fashion website preview" loading="lazy" decoding="async" width="1200" height="675">
                 </div>
-                <div class="project-overlay">
-                  <span>VIEW PROJECT</span>
+
+                <div class="project-corner project-corner-top">
+                  <span>VIEW</span>
                   <strong>↗</strong>
                 </div>
-                <span class="project-stamp">02</span>
+
+                <div class="project-corner project-corner-bottom">02</div>
               </div>
 
-              <div class="project-caption">
+              <div class="project-title">
                 <div>
                   <h3>VÉLOR</h3>
                   <p>Fashion / Storefront</p>
                 </div>
-                <span class="caption-arrow">↗</span>
+                <span>↗</span>
               </div>
             </a>
 
-            <a class="project project-side project-side-low reveal" href="https://wajahatali2010.github.io/work-portfolio/" target="_blank" rel="noopener">
-              <div class="project-meta">
+            <a class="project-card project-secondary project-low reveal" href="https://wajahatali2010.github.io/work-portfolio/" target="_blank" rel="noopener">
+              <div class="project-info">
                 <span>(03)</span>
                 <span>Portfolio / Developer</span>
                 <span>HTML · CSS · JS</span>
               </div>
 
-              <div class="project-stage">
+              <div class="project-media">
                 <div class="project-image">
                   <img src="assets/alex-morgan.jpeg" alt="Alex Morgan portfolio website preview" loading="lazy" decoding="async" width="1200" height="675">
                 </div>
-                <div class="project-overlay">
-                  <span>VIEW PROJECT</span>
+
+                <div class="project-corner project-corner-top">
+                  <span>VIEW</span>
                   <strong>↗</strong>
                 </div>
-                <span class="project-stamp">03</span>
+
+                <div class="project-corner project-corner-bottom">03</div>
               </div>
 
-              <div class="project-caption">
+              <div class="project-title">
                 <div>
                   <h3>ALEX MORGAN</h3>
                   <p>Portfolio / Developer</p>
                 </div>
-                <span class="caption-arrow">↗</span>
+                <span>↗</span>
               </div>
             </a>
           </div>
@@ -253,91 +282,85 @@
 
     <section class="practice section section-paper" id="practice" aria-labelledby="practice-title">
       <div class="container">
-        <header class="section-head practice-head">
-          <span class="section-index reveal">04</span>
-          <div>
+        <header class="section-intro-grid practice-intro">
+          <span class="section-number reveal">04</span>
+
+          <div class="section-heading">
             <p class="eyebrow reveal">Practice</p>
             <h2 id="practice-title" class="reveal reveal-mask">
               Focused work.<br><em>Clear steps.</em>
             </h2>
           </div>
-          <p class="head-note reveal">
-            A concise description of what Aurevio already presents as its offer and working approach.
+
+          <p class="section-note reveal">
+            A straightforward offer already represented by the existing Aurevio content.
           </p>
         </header>
 
-        <div class="service-list" aria-label="Services">
-          <article class="service-row reveal">
+        <div class="service-list">
+          <article class="service-item reveal">
             <span class="service-no">01</span>
-            <div>
+            <div class="service-copy">
               <h3>Business websites</h3>
               <p>For local businesses and small brands that need a serious online home.</p>
             </div>
-            <span class="service-mark">↗</span>
+            <span class="service-arrow">↗</span>
           </article>
 
-          <article class="service-row reveal">
+          <article class="service-item reveal">
             <span class="service-no">02</span>
-            <div>
+            <div class="service-copy">
               <h3>Landing pages</h3>
-              <p>One focused page built around a single offer, campaign or action.</p>
+              <p>One sharp page built around one offer, campaign or action.</p>
             </div>
-            <span class="service-mark">↗</span>
+            <span class="service-arrow">↗</span>
           </article>
 
-          <article class="service-row reveal">
+          <article class="service-item reveal">
             <span class="service-no">03</span>
-            <div>
+            <div class="service-copy">
               <h3>Portfolio websites</h3>
               <p>A personal site that makes projects easier to discover and remember.</p>
             </div>
-            <span class="service-mark">↗</span>
+            <span class="service-arrow">↗</span>
           </article>
 
-          <article class="service-row reveal">
+          <article class="service-item reveal">
             <span class="service-no">04</span>
-            <div>
+            <div class="service-copy">
               <h3>Redesigns</h3>
               <p>Strip away dated parts and rebuild the experience around what matters.</p>
             </div>
-            <span class="service-mark">↗</span>
+            <span class="service-arrow">↗</span>
           </article>
         </div>
 
-        <div class="process-block">
+        <div class="process">
           <div class="process-label reveal">Working flow</div>
 
-          <ol class="process-line">
+          <ol class="process-grid">
             <li class="reveal">
               <span>01</span>
-              <div>
-                <small>START</small>
-                <strong>Talk</strong>
-              </div>
-              <p>Goals, audience, pages and what the site actually needs.</p>
+              <small>START</small>
+              <h3>Talk</h3>
+              <p>Goals, audience, pages and what the site actually needs to accomplish.</p>
             </li>
             <li class="reveal">
               <span>02</span>
-              <div>
-                <small>PLAN</small>
-                <strong>Shape</strong>
-              </div>
+              <small>PLAN</small>
+              <h3>Shape</h3>
               <p>Structure, content and visual direction before the code gets messy.</p>
             </li>
             <li class="reveal">
               <span>03</span>
-              <div>
-                <small>BUILD</small>
-                <strong>Develop</strong>
-              </div>
+              <small>BUILD</small>
+              <h3>Develop</h3>
               <p>Responsive HTML, CSS and JavaScript built around the direction.</p>
             </li>
             <li class="reveal">
               <span>04</span>
-              <div>
-                <small>FINISH</small>
-                <strong>Launch</strong>
-              </div>
+              <small>FINISH</small>
+              <h3>Launch</h3>
               <p>Polish, test real screen sizes, fix the annoying bits, then ship.</p>
             </li>
           </ol>
@@ -346,11 +369,12 @@
     </section>
 
     <section class="about section section-dark" id="about" aria-labelledby="about-title">
-      <div class="container split-grid about-grid">
-        <span class="section-index reveal">05</span>
+      <div class="container editorial-grid about-layout">
+        <span class="section-number reveal">05</span>
 
-        <div class="about-main">
+        <div class="about-copy">
           <p class="eyebrow reveal">About Aurevio</p>
+
           <h2 id="about-title" class="reveal reveal-mask">
             Built small.<br><em>Built properly.</em>
           </h2>
@@ -358,12 +382,13 @@
           <p class="body-large reveal">
             Aurevio is my independent web-development practice. I design and build responsive frontend websites from scratch with HTML, CSS and JavaScript.
           </p>
+
           <p class="body-copy reveal">
             The goal is straightforward: make the business, person or idea look like itself — only sharper.
           </p>
         </div>
 
-        <aside class="about-stack reveal" aria-label="Aurevio core skills">
+        <aside class="skill-column reveal" aria-label="Aurevio skills">
           <div>
             <strong>HTML</strong>
             <span>STRUCTURE</span>
@@ -382,22 +407,27 @@
 
     <section class="contact section" id="contact" aria-labelledby="contact-title">
       <div class="container contact-layout">
-        <span class="section-index reveal">06</span>
+        <div class="contact-topline reveal">
+          <span>06 / CONTACT</span>
+          <span>OPEN FOR SELECT PROJECTS</span>
+        </div>
 
-        <div>
-          <p class="eyebrow reveal">Contact</p>
+        <div class="contact-main">
+          <p class="eyebrow reveal">Have something in mind?</p>
+
           <h2 id="contact-title" class="contact-title reveal reveal-mask">
-            Have an idea<br><em>worth building?</em>
+            Let's build<br><em>something real.</em>
           </h2>
 
-          <p class="body-large reveal">
-            Send the idea, the problem or the roughest version of what you have. We can start there.
+          <p class="contact-intro reveal">
+            Send me the idea, the problem or even the roughest version of what you have. We can start there.
           </p>
 
-          <a class="contact-action reveal" href="https://instagram.com/mrpapypants" target="_blank" rel="noopener">
-            DM @MRPAPYPANTS
-            <span>↗</span>
+          <a class="contact-link reveal" href="https://instagram.com/mrpapypants" target="_blank" rel="noopener">
+            <span>DM @MRPAPYPANTS</span>
+            <strong>↗</strong>
           </a>
+
           <small class="contact-note reveal">INSTAGRAM / DIRECT MESSAGE</small>
         </div>
       </div>
@@ -406,10 +436,11 @@
 
   <footer>
     <div class="container footer-grid">
-      <div>
+      <div class="footer-identity">
         <strong>AUREVIO</strong>
         <span>Independent frontend development / Pakistan / 2026</span>
       </div>
+
       <a href="https://github.com/WajahatAli2010/Aurevio" target="_blank" rel="noopener">GitHub ↗</a>
       <a href="#top">Back to top ↑</a>
     </div>

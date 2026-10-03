@@ -6,17 +6,17 @@ import "../css/main.css";
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-  const motionState = () => ({
+  const getMotionState = () => ({
     reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     finePointer: window.matchMedia("(pointer: fine)").matches
   });
 
   function initNavigation() {
+    const header = $(".site-header");
     const toggle = $(".nav-toggle");
     const nav = $("#site-nav");
-    const header = $(".site-header");
 
-    if (!toggle || !nav || !header) return;
+    if (!header || !toggle || !nav) return;
 
     const closeMenu = () => {
       nav.classList.remove("open");
@@ -26,10 +26,12 @@ import "../css/main.css";
     };
 
     toggle.addEventListener("click", () => {
-      const isOpen = nav.classList.toggle("open");
-      header.classList.toggle("menu-open", isOpen);
-      toggle.setAttribute("aria-expanded", String(isOpen));
-      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      const open = !nav.classList.contains("open");
+
+      nav.classList.toggle("open", open);
+      header.classList.toggle("menu-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
     });
 
     nav.addEventListener("click", event => {
@@ -41,7 +43,7 @@ import "../css/main.css";
     });
   }
 
-  function initHeader() {
+  function initHeaderState() {
     const header = $(".site-header");
     if (!header) return;
 
@@ -53,11 +55,11 @@ import "../css/main.css";
     update();
   }
 
-  function initReveals() {
+  function initReveal() {
     const items = $$(".reveal");
     if (!items.length) return;
 
-    const { reduced } = motionState();
+    const { reduced } = getMotionState();
 
     if (reduced || !("IntersectionObserver" in window)) {
       items.forEach(item => item.classList.add("is-visible"));
@@ -74,7 +76,9 @@ import "../css/main.css";
           : [];
         const index = Math.max(0, siblings.indexOf(entry.target));
 
-        entry.target.style.transitionDelay = Math.min(index * 80, 360) + "ms";
+        entry.target.style.transitionDelay =
+          Math.min(index * 80, 360) + "ms";
+
         entry.target.classList.add("is-visible");
         current.unobserve(entry.target);
       });
@@ -86,18 +90,43 @@ import "../css/main.css";
     items.forEach(item => observer.observe(item));
   }
 
-  function initSectionNav() {
+  function initScrollProgress() {
+    const bar = $(".scroll-line");
+    if (!bar) return;
+
+    let frame = 0;
+
+    const update = () => {
+      if (frame) return;
+
+      frame = requestAnimationFrame(() => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0
+          ? Math.min(1, Math.max(0, window.scrollY / max))
+          : 0;
+
+        bar.style.transform = "scaleX(" + progress + ")";
+        frame = 0;
+      });
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+
+  function initSectionNavigation() {
     const links = $$("#site-nav a");
-    const ids = links
+    const targets = links
       .map(link => link.getAttribute("href"))
-      .filter(Boolean)
-      .map(href => href.slice(1))
-      .filter(id => id !== "top");
+      .map(href => href ? document.querySelector(href) : null)
+      .filter(Boolean);
 
-    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
-    if (!sections.length || !("IntersectionObserver" in window)) return;
+    if (!links.length || !targets.length || !("IntersectionObserver" in window)) {
+      return;
+    }
 
-    const clearActive = () => {
+    const clear = () => {
       links.forEach(link => {
         link.classList.remove("is-active");
         link.removeAttribute("aria-current");
@@ -111,9 +140,10 @@ import "../css/main.css";
 
       if (!visible) return;
 
-      clearActive();
-      const active = links.find(link =>
-        link.getAttribute("href") === "#" + visible.target.id
+      clear();
+
+      const active = links.find(
+        link => link.getAttribute("href") === "#" + visible.target.id
       );
 
       if (active) {
@@ -121,53 +151,74 @@ import "../css/main.css";
         active.setAttribute("aria-current", "page");
       }
     }, {
-      rootMargin: "-35% 0px -55% 0px",
-      threshold: [0, 0.12, 0.35]
+      rootMargin: "-38% 0px -52% 0px",
+      threshold: [0, 0.12, 0.3]
     });
 
-    sections.forEach(section => observer.observe(section));
+    targets.forEach(target => observer.observe(target));
   }
 
-  function initScrollProgress() {
-    const bar = $(".scroll-progress");
-    if (!bar) return;
+  function initProjectMotion() {
+    const projects = $$(".project-card");
+    const { reduced, finePointer } = getMotionState();
 
-    let frame = 0;
+    if (!projects.length || reduced || !finePointer) return;
 
-    const update = () => {
-      if (frame) return;
+    projects.forEach(project => {
+      const image = $(".project-image", project);
+      if (!image) return;
 
-      frame = requestAnimationFrame(() => {
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
-        bar.style.transform = "scaleX(" + progress + ")";
+      let frame = 0;
+      let currentShift = 0;
+      let targetShift = 0;
+
+      const render = () => {
         frame = 0;
-      });
-    };
 
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
-    update();
+        const rect = image.getBoundingClientRect();
+        const centerDelta =
+          (rect.top + rect.height / 2 - window.innerHeight / 2) /
+          window.innerHeight;
+
+        targetShift = Math.max(-10, Math.min(10, centerDelta * -11));
+        currentShift += (targetShift - currentShift) * 0.1;
+
+        image.style.setProperty(
+          "--project-shift",
+          currentShift.toFixed(2) + "px"
+        );
+      };
+
+      const requestRender = () => {
+        if (!frame) frame = requestAnimationFrame(render);
+      };
+
+      window.addEventListener("scroll", requestRender, { passive: true });
+      window.addEventListener("resize", requestRender, { passive: true });
+
+      requestRender();
+    });
   }
 
-  function initHeroMotion() {
-    const art = $(".hero-art");
-    const { reduced, finePointer } = motionState();
+  function initHeroObject() {
+    const object = $(".hero-object");
+    const { reduced, finePointer } = getMotionState();
 
-    if (!art || reduced || !finePointer) return;
+    if (!object || reduced || !finePointer) return;
 
     let frame = 0;
-    let targetX = 0;
-    let targetY = 0;
     let currentX = 0;
     let currentY = 0;
+    let targetX = 0;
+    let targetY = 0;
 
     const render = () => {
       frame = 0;
+
       currentX += (targetX - currentX) * 0.11;
       currentY += (targetY - currentY) * 0.11;
 
-      art.style.transform =
+      object.style.transform =
         "translate3d(" +
         currentX.toFixed(2) +
         "px," +
@@ -186,8 +237,8 @@ import "../css/main.css";
       if (!frame) frame = requestAnimationFrame(render);
     };
 
-    art.addEventListener("pointermove", event => {
-      const rect = art.getBoundingClientRect();
+    object.addEventListener("pointermove", event => {
+      const rect = object.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width - 0.5;
       const y = (event.clientY - rect.top) / rect.height - 0.5;
 
@@ -196,62 +247,9 @@ import "../css/main.css";
       requestRender();
     });
 
-    art.addEventListener("pointerleave", () => {
+    object.addEventListener("pointerleave", () => {
       targetX = 0;
       targetY = 0;
-      requestRender();
-    });
-  }
-
-  function initProjectMotion() {
-    const projects = $$(".project");
-    const { reduced, finePointer } = motionState();
-
-    if (!projects.length || reduced || !finePointer) return;
-
-    projects.forEach(project => {
-      const image = $(".project-image", project);
-      if (!image) return;
-
-      let frame = 0;
-      let targetShift = 0;
-      let currentShift = 0;
-      let hovered = false;
-
-      const render = () => {
-        frame = 0;
-        const rect = image.getBoundingClientRect();
-        const centerOffset =
-          (rect.top + rect.height / 2 - window.innerHeight / 2) /
-          window.innerHeight;
-
-        targetShift = Math.max(-10, Math.min(10, centerOffset * -12));
-        currentShift += (targetShift - currentShift) * 0.1;
-        image.style.setProperty("--project-shift", currentShift.toFixed(2) + "px");
-
-        if (hovered) {
-          project.classList.add("hovered");
-        } else {
-          project.classList.remove("hovered");
-        }
-      };
-
-      const requestRender = () => {
-        if (!frame) frame = requestAnimationFrame(render);
-      };
-
-      project.addEventListener("pointerenter", () => {
-        hovered = true;
-        requestRender();
-      });
-
-      project.addEventListener("pointerleave", () => {
-        hovered = false;
-        requestRender();
-      });
-
-      window.addEventListener("scroll", requestRender, { passive: true });
-      window.addEventListener("resize", requestRender, { passive: true });
       requestRender();
     });
   }
@@ -259,16 +257,19 @@ import "../css/main.css";
   function initAnchors() {
     $$('a[href^="#"]').forEach(link => {
       link.addEventListener("click", event => {
-        const targetId = link.getAttribute("href");
-        const target = $(targetId);
+        const id = link.getAttribute("href");
+        const target = $(id);
 
         if (!target) return;
 
         event.preventDefault();
+
         target.scrollIntoView({
-          behavior: motionState().reduced ? "auto" : "smooth",
+          behavior: getMotionState().reduced ? "auto" : "smooth",
           block: "start"
         });
+
+        history.replaceState(null, "", id);
       });
     });
   }
@@ -276,12 +277,12 @@ import "../css/main.css";
   function init() {
     document.documentElement.classList.add("js");
     initNavigation();
-    initHeader();
-    initReveals();
-    initSectionNav();
+    initHeaderState();
+    initReveal();
     initScrollProgress();
-    initHeroMotion();
+    initSectionNavigation();
     initProjectMotion();
+    initHeroObject();
     initAnchors();
   }
 
