@@ -3,21 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Aurevio — independent web design and development for businesses, creators and people with something to say.">
-  <meta name="theme-color" content="#0c0d0b">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="Aurevio — independent web design and frontend development.">
+  <meta name="theme-color" content="#0b0c0a">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Aurevio — Web, but with a point of view.">
   <meta property="og:description" content="Independent web design and frontend development by Aurevio.">
   <meta property="og:url" content="https://wajahatali2010.github.io/Aurevio/">
   <meta property="og:image" content="https://wajahatali2010.github.io/Aurevio/assets/noire.jpeg">
-  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://wajahatali2010.github.io/Aurevio/">
   <title>Aurevio — Web, but with a point of view.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
-  <script type="module" src="/src/main.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <script type="module" src="./src/main.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -31,45 +29,57 @@
         <a href="#contact">Contact</a>
       </nav>
       <div class="header-right">
-        <span class="availability"><i></i> Available for projects</span>
-        <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation"><span></span><span></span></button>
+        <span class="availability"><i></i> Available for selected projects</span>
+        <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation">
+          <span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-noise" aria-hidden="true"></div>
       <div class="container">
         <div class="topline"><span>Independent web developer</span><span>Pakistan / 2026</span></div>
+
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Web design / development / interaction</p>
-            <h1>Web, but<br><em>with a point of view.</em></h1>
-            <p class="hero-intro">I design and build distinctive websites for businesses, creators and people with something worth putting online.</p>
-            <a class="lime-link" href="#work">Explore selected work <span>↘</span></a>
+            <p class="eyebrow hero-reveal">Web design / development / interaction</p>
+            <h1 class="hero-title"><span class="line"><span>Web, but</span></span><span class="line"><em>with a point</em></span><span class="line"><em>of view.</em></span></h1>
+            <p class="hero-intro hero-reveal">I design and build distinctive websites for businesses, creators and people with something worth putting online.</p>
+            <div class="hero-actions hero-reveal">
+              <a class="lime-link" href="#work">Explore selected work <span>↘</span></a>
+              <a class="quiet-link" href="#contact">Start a project <span>→</span></a>
+            </div>
           </div>
-          <div class="hero-art" aria-hidden="true">
+
+          <div class="hero-art hero-reveal" aria-hidden="true">
             <div class="art-grid"></div>
+            <div class="art-orbit art-orbit-one"></div>
+            <div class="art-orbit art-orbit-two"></div>
             <div class="art-lime"></div>
             <div class="art-word">AUREVIO</div>
             <span class="art-label">01 / FRONTEND</span>
             <span class="art-code">HTML<br>CSS<br>JS</span>
+            <span class="art-corner">DESIGN → CODE → LAUNCH</span>
+            <span class="art-pointer">↗</span>
           </div>
         </div>
-        <div class="hero-foot"><span>Design → Code → Launch</span><span>Scroll to explore ↓</span></div>
+
+        <div class="hero-foot"><span>Built for real screens</span><span>Scroll to explore ↓</span></div>
       </div>
     </section>
 
-    <section class="intro section">
+    <section class="intro section dark-section">
       <div class="container editorial-grid">
-        <span class="section-tag">(01)</span>
+        <span class="section-tag reveal">(01)</span>
         <div class="editorial-main">
-          <p class="eyebrow">Aurevio</p>
-          <h2>I turn ideas into clear, <em>well-built interfaces.</em></h2>
-          <p class="large-copy">The work moves between visual direction and code. Every decision is made around the actual project — what it needs to say, how it needs to feel and how it needs to work on a real screen.</p>
+          <p class="eyebrow reveal">Aurevio</p>
+          <h2 class="reveal">Ideas deserve a website that feels <em>like them.</em></h2>
+          <p class="large-copy reveal">Aurevio moves between visual direction and code. The goal is not to decorate a template — it is to give each idea a clear structure, a distinct voice and an interface that works on an actual screen.</p>
         </div>
-        <div class="facts">
+        <div class="facts reveal">
           <div><span>Availability</span><strong>Open</strong><small>Selected projects</small></div>
           <div><span>Location</span><strong>Pakistan</strong><small>Working worldwide</small></div>
           <div><span>Focus</span><strong>Frontend</strong><small>Design + development</small></div>
@@ -79,18 +89,21 @@
 
     <section class="capabilities section">
       <div class="container capability-grid">
-        <span class="section-tag">/ Skills</span>
-        <div class="cap-list">
-          <div>Web Development <b>↗</b></div>
-          <div>Web Design <b>↗</b></div>
-          <div>UX / UI <b>↗</b></div>
-          <div>Motion & Micro-interactions <b>↗</b></div>
-          <div>Responsive Design <b>↗</b></div>
-          <div>SEO & Performance <b>↗</b></div>
+        <span class="section-tag reveal">(01.5)</span>
+        <div class="cap-main">
+          <p class="eyebrow reveal">Capabilities</p>
+          <div class="cap-list">
+            <div class="reveal"><span>Web design</span><b>↗</b></div>
+            <div class="reveal"><span>Frontend development</span><b>↗</b></div>
+            <div class="reveal"><span>Interactive experiences</span><b>↗</b></div>
+            <div class="reveal"><span>Responsive websites</span><b>↗</b></div>
+            <div class="reveal"><span>Motion & micro-interactions</span><b>↗</b></div>
+          </div>
         </div>
-        <span class="section-tag">/ Stack</span>
-        <div class="stack-list">
-          <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Figma</span><span>GitHub</span>
+        <div class="stack-wrap reveal">
+          <p class="eyebrow">Stack</p>
+          <div class="stack-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Figma</span><span>GitHub</span></div>
+          <p class="stack-note">Lightweight tools. Deliberate output.</p>
         </div>
       </div>
     </section>
@@ -98,26 +111,28 @@
     <section class="work section" id="work">
       <div class="container">
         <div class="work-head">
-          <span class="section-tag">(02)</span>
-          <div><p class="eyebrow">Selected work</p><h2>A collection of builds,<br><em>experiments & proof.</em></h2></div>
-          <p>From editorial restaurant sites to fashion storefronts and developer portfolios — each build is a chance to solve the visual problem differently.</p>
+          <span class="section-tag reveal">(02)</span>
+          <div><p class="eyebrow reveal">Selected work</p><h2 class="reveal">Less portfolio.<br><em>More proof.</em></h2></div>
+          <p class="reveal">A small set of builds showing how the design changes when the subject actually matters.</p>
         </div>
 
         <div class="project-list">
           <a class="project reveal" href="https://wajahatali2010.github.io/NOIRE/" target="_blank" rel="noopener">
             <div class="project-meta"><span>(01)</span><span>Restaurant / Editorial</span><span>HTML · CSS · JS</span></div>
-            <div class="project-image"><img src="assets/noire.jpeg" alt="NOIRÉ restaurant website preview" loading="lazy" decoding="async" width="1200" height="675"><span>VIEW ↗</span></div>
-            <div class="project-title"><h3>NOIRÉ</h3><p>Restaurant experience</p></div>
+            <div class="project-image"><img src="assets/noire.jpeg" alt="NOIRÉ restaurant website preview" loading="lazy" decoding="async" width="1200" height="675"><span>VIEW ↗</span><div class="image-index">01</div></div>
+            <div class="project-title"><h3>NOIRÉ</h3><p>Restaurant experience</p><span class="project-arrow">↗</span></div>
           </a>
+
           <a class="project reveal" href="https://wajahatali2010.github.io/VELOR/" target="_blank" rel="noopener">
             <div class="project-meta"><span>(02)</span><span>Fashion / Storefront</span><span>HTML · CSS · JS</span></div>
-            <div class="project-image"><img src="assets/velor.jpeg" alt="VÉLOR fashion website preview" loading="lazy" decoding="async" width="1200" height="675"><span>VIEW ↗</span></div>
-            <div class="project-title"><h3>VÉLOR</h3><p>Fashion storefront</p></div>
+            <div class="project-image"><img src="assets/velor.jpeg" alt="VÉLOR fashion website preview" loading="lazy" decoding="async" width="1200" height="675"><span>VIEW ↗</span><div class="image-index">02</div></div>
+            <div class="project-title"><h3>VÉLOR</h3><p>Fashion storefront</p><span class="project-arrow">↗</span></div>
           </a>
+
           <a class="project reveal" href="https://wajahatali2010.github.io/work-portfolio/" target="_blank" rel="noopener">
             <div class="project-meta"><span>(03)</span><span>Portfolio / Developer</span><span>HTML · CSS · JS</span></div>
-            <div class="project-image"><img src="assets/alex-morgan.jpeg" alt="Alex Morgan portfolio preview" loading="lazy" decoding="async" width="1200" height="675"><span>VIEW ↗</span></div>
-            <div class="project-title"><h3>ALEX MORGAN</h3><p>Developer portfolio</p></div>
+            <div class="project-image"><img src="assets/alex-morgan.jpeg" alt="Alex Morgan portfolio preview" loading="lazy" decoding="async" width="1200" height="675"><span>VIEW ↗</span><div class="image-index">03</div></div>
+            <div class="project-title"><h3>ALEX MORGAN</h3><p>Developer portfolio</p><span class="project-arrow">↗</span></div>
           </a>
         </div>
       </div>
@@ -125,36 +140,36 @@
 
     <section class="about section" id="about">
       <div class="container editorial-grid">
-        <span class="section-tag">(03)</span>
+        <span class="section-tag reveal">(03)</span>
         <div class="about-main">
-          <p class="eyebrow">About Aurevio</p>
-          <h2>Built small.<br><em>Built properly.</em></h2>
-          <p class="large-copy">Aurevio is an independent web-development practice focused on responsive frontend websites built from scratch. The goal is simple: make the person, business or idea look like itself — only sharper.</p>
+          <p class="eyebrow reveal">About Aurevio</p>
+          <h2 class="reveal">Built small.<br><em>Built properly.</em></h2>
+          <p class="large-copy reveal">Aurevio is an independent web-development practice focused on responsive frontend websites built from scratch. The goal is simple: make the person, business or idea look like itself — only sharper.</p>
         </div>
-        <div class="about-note"><span>Principle</span><strong>Less noise.<br>More intent.</strong><p>No fake clients. No inflated claims. Just work that shows what Aurevio can build.</p></div>
+        <div class="about-note reveal"><span>Principle</span><strong>Less noise.<br>More intent.</strong><p>No fake clients. No inflated claims. Just work that shows what Aurevio can build.</p></div>
       </div>
     </section>
 
-    <section class="process section">
+    <section class="process section dark-teal" id="process">
       <div class="container">
-        <div class="process-head"><span class="section-tag">(04)</span><div><p class="eyebrow">Process</p><h2>From idea<br>to <em>interface.</em></h2></div></div>
+        <div class="process-head"><span class="section-tag reveal">(04)</span><div><p class="eyebrow reveal">Process</p><h2 class="reveal">From idea<br>to <em>interface.</em></h2></div></div>
         <ol class="process-list">
-          <li><span>01</span><div><small>START</small><h3>Talk</h3></div><p>Goals, audience, pages and what the site needs to accomplish.</p></li>
-          <li><span>02</span><div><small>PLAN</small><h3>Shape</h3></div><p>Structure, content and visual direction before the code gets messy.</p></li>
-          <li><span>03</span><div><small>BUILD</small><h3>Develop</h3></div><p>Responsive HTML, CSS and JavaScript built around the direction.</p></li>
-          <li><span>04</span><div><small>FINISH</small><h3>Launch</h3></div><p>Polish, test real screens, fix the annoying bits, then ship.</p></li>
+          <li class="reveal"><span>01</span><div><small>START</small><h3>Discover</h3></div><p>Goals, audience, pages and what the site needs to accomplish.</p></li>
+          <li class="reveal"><span>02</span><div><small>SHAPE</small><h3>Design</h3></div><p>Structure, content and visual direction before the code gets messy.</p></li>
+          <li class="reveal"><span>03</span><div><small>BUILD</small><h3>Develop</h3></div><p>Responsive HTML, CSS and JavaScript built around the direction.</p></li>
+          <li class="reveal"><span>04</span><div><small>REFINE</small><h3>Launch</h3></div><p>Polish, test real screens, fix the annoying bits, then ship.</p></li>
         </ol>
       </div>
     </section>
 
     <section class="contact section" id="contact">
       <div class="container contact-grid">
-        <span class="section-tag">(05)</span>
+        <span class="section-tag reveal">(05)</span>
         <div>
-          <p class="eyebrow">Contact</p>
-          <h2>Have something<br><em>worth building?</em></h2>
-          <p class="large-copy">Send the idea, the problem or even the roughest version of what you have. We can start there.</p>
-          <a class="contact-link" href="https://instagram.com/mrpapypants" target="_blank" rel="noopener">DM @MRPAPYPANTS <span>↗</span></a>
+          <p class="eyebrow reveal">Contact</p>
+          <h2 class="reveal">Have something<br><em>worth building?</em></h2>
+          <p class="large-copy reveal">Send the idea, the problem or even the roughest version of what you have. We can start there.</p>
+          <a class="contact-link reveal" href="https://instagram.com/mrpapypants" target="_blank" rel="noopener">DM @MRPAPYPANTS <span>↗</span></a>
         </div>
       </div>
     </section>
