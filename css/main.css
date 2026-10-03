@@ -137,7 +137,7 @@ footer{background:var(--black);color:var(--paper);border-top:1px solid var(--lin
 .footer-grid a:hover{color:var(--lime)}
 .footer-grid>a{justify-self:end;color:var(--lime)}
 
-.reveal{opacity:1;transform:none}
+.scroll-progress{position:fixed;z-index:300;top:0;left:0;width:100%;height:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;pointer-events:none}.reveal{opacity:1;transform:none}
 .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
 .js .reveal.is-visible{opacity:1;transform:none}
 
