@@ -1,49 +1,30 @@
-import "../css/base.css";
-import "../css/header.css";
-import "../css/hero.css";
-import "../css/marquee.css";
-import "../css/work.css";
-import "../css/services.css";
-import "../css/about.css";
-import "../css/process.css";
-import "../css/contact.css";
-import "../css/footer.css";
 
 (() => {
+  import "../css/main.css";
+
   "use strict";
 
-  /** Handle the compact mobile navigation. */
+  /** Add accessible mobile navigation behavior. */
   function initNavigation() {
     const toggle = document.querySelector(".nav-toggle");
     const nav = document.querySelector("#site-nav");
     if (!toggle || !nav) return;
 
-    const close = () => {
-      nav.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-label", "Open navigation");
-    };
-
     toggle.addEventListener("click", () => {
-      const open = !nav.classList.contains("open");
-      nav.classList.toggle("open", open);
+      const open = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
     });
 
     nav.addEventListener("click", event => {
-      if (event.target.closest("a")) close();
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        close();
-        toggle.focus();
-      }
+      if (!event.target.closest("a")) return;
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open navigation");
     });
   }
 
-  /** Reveal marked elements as they enter the viewport. */
+  /** Reveal content as it enters the viewport, with a reduced-motion fallback. */
   function initReveal() {
     const items = document.querySelectorAll(".reveal");
     if (!items.length) return;
@@ -59,12 +40,12 @@ import "../css/footer.css";
         entry.target.classList.add("is-visible");
         currentObserver.unobserve(entry.target);
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.12 });
 
     items.forEach(item => observer.observe(item));
   }
 
-  /** Show reading progress at the top of the page. */
+  /** Show reading progress at the top of the viewport. */
   function initProgress() {
     const bar = document.createElement("div");
     bar.className = "scroll-progress";
@@ -72,29 +53,29 @@ import "../css/footer.css";
     document.body.appendChild(bar);
 
     const update = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
     };
-
-    addEventListener("scroll", update, { passive: true });
+    window.addEventListener("scroll", update, { passive: true });
     update();
   }
 
-  /** Persist the user's light/dark preference. */
+  /** Persist the user's light/dark preference locally. */
   function initTheme() {
     const button = document.querySelector(".theme-toggle");
     if (!button) return;
 
     const saved = localStorage.getItem("aurevio-theme");
-    const light = saved ? saved === "light" : matchMedia("(prefers-color-scheme: light)").matches;
+    const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+    const light = saved ? saved === "light" : prefersLight;
     document.body.classList.toggle("light-mode", light);
     syncThemeButton(button, light);
 
     button.addEventListener("click", () => {
-      const next = !document.body.classList.contains("light-mode");
-      document.body.classList.toggle("light-mode", next);
-      localStorage.setItem("aurevio-theme", next ? "light" : "dark");
-      syncThemeButton(button, next);
+      const nextLight = !document.body.classList.contains("light-mode");
+      document.body.classList.toggle("light-mode", nextLight);
+      localStorage.setItem("aurevio-theme", nextLight ? "light" : "dark");
+      syncThemeButton(button, nextLight);
     });
   }
 
