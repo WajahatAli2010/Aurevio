@@ -5,10 +5,11 @@ import "../css/main.css";
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-  const prefersReducedMotion = () =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const finePointer = () =>
-    window.matchMedia("(pointer:fine)").matches;
+
+  const motionState = () => ({
+    reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    finePointer: window.matchMedia("(pointer: fine)").matches
+  });
 
   function initNavigation() {
     const toggle = $(".nav-toggle");
@@ -22,49 +23,43 @@ import "../css/main.css";
       header.classList.remove("menu-open");
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Open navigation");
-      document.body.classList.remove("menu-active");
     };
 
     toggle.addEventListener("click", () => {
-      const open = !nav.classList.contains("open");
-
-      if (open) {
-        nav.classList.add("open");
-        header.classList.add("menu-open");
-        toggle.setAttribute("aria-expanded", "true");
-        toggle.setAttribute("aria-label", "Close navigation");
-        document.body.classList.add("menu-active");
-      } else {
-        closeMenu();
-      }
+      const isOpen = nav.classList.toggle("open");
+      header.classList.toggle("menu-open", isOpen);
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      toggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
     });
 
     nav.addEventListener("click", event => {
       if (event.target.closest("a")) closeMenu();
     });
 
-    addEventListener("resize", () => {
-      if (innerWidth > 900) closeMenu();
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) closeMenu();
     });
   }
 
-  function initHeaderState() {
+  function initHeader() {
     const header = $(".site-header");
     if (!header) return;
 
     const update = () => {
-      header.classList.toggle("is-scrolled", scrollY > 20);
+      header.classList.toggle("is-scrolled", window.scrollY > 18);
     };
 
-    addEventListener("scroll", update, { passive: true });
+    window.addEventListener("scroll", update, { passive: true });
     update();
   }
 
-  function initReveal() {
-    const items = $$(".reveal:not(.hero-reveal)");
+  function initReveals() {
+    const items = $$(".reveal");
     if (!items.length) return;
 
-    if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+    const { reduced } = motionState();
+
+    if (reduced || !("IntersectionObserver" in window)) {
       items.forEach(item => item.classList.add("is-visible"));
       return;
     }
@@ -79,15 +74,13 @@ import "../css/main.css";
           : [];
         const index = Math.max(0, siblings.indexOf(entry.target));
 
-        entry.target.style.transitionDelay =
-          Math.min(index * 75, 360) + "ms";
-
+        entry.target.style.transitionDelay = Math.min(index * 80, 360) + "ms";
         entry.target.classList.add("is-visible");
         current.unobserve(entry.target);
       });
     }, {
       threshold: 0.12,
-      rootMargin: "0px 0px -7% 0px"
+      rootMargin: "0px 0px -8% 0px"
     });
 
     items.forEach(item => observer.observe(item));
@@ -95,124 +88,73 @@ import "../css/main.css";
 
   function initSectionNav() {
     const links = $$("#site-nav a");
-    const sections = links
-      .map(link => $(link.getAttribute("href")))
-      .filter(Boolean);
+    const ids = links
+      .map(link => link.getAttribute("href"))
+      .filter(Boolean)
+      .map(href => href.slice(1))
+      .filter(id => id !== "top");
 
-    if (!links.length || !sections.length || !("IntersectionObserver" in window)) {
-      return;
-    }
+    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+    if (!sections.length || !("IntersectionObserver" in window)) return;
+
+    const clearActive = () => {
+      links.forEach(link => {
+        link.classList.remove("is-active");
+        link.removeAttribute("aria-current");
+      });
+    };
 
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-        links.forEach(link => {
-          link.removeAttribute("aria-current");
-          link.classList.remove("is-active");
-        });
+      if (!visible) return;
 
-        const active = links.find(
-          link => link.getAttribute("href") === "#" + entry.target.id
-        );
+      clearActive();
+      const active = links.find(link =>
+        link.getAttribute("href") === "#" + visible.target.id
+      );
 
-        if (active) {
-          active.setAttribute("aria-current", "page");
-          active.classList.add("is-active");
-        }
-      });
+      if (active) {
+        active.classList.add("is-active");
+        active.setAttribute("aria-current", "page");
+      }
     }, {
       rootMargin: "-35% 0px -55% 0px",
-      threshold: 0
+      threshold: [0, 0.12, 0.35]
     });
 
     sections.forEach(section => observer.observe(section));
   }
 
   function initScrollProgress() {
-    const bar = document.createElement("div");
-    bar.className = "scroll-progress";
-    document.body.appendChild(bar);
+    const bar = $(".scroll-progress");
+    if (!bar) return;
 
-    let ticking = false;
+    let frame = 0;
 
     const update = () => {
-      if (ticking) return;
-      ticking = true;
+      if (frame) return;
 
-      requestAnimationFrame(() => {
-        const max = document.documentElement.scrollHeight - innerHeight;
-        const progress = max > 0 ? scrollY / max : 0;
+      frame = requestAnimationFrame(() => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
         bar.style.transform = "scaleX(" + progress + ")";
-        ticking = false;
+        frame = 0;
       });
     };
 
-    addEventListener("scroll", update, { passive: true });
-    addEventListener("resize", update, { passive: true });
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
     update();
   }
 
-  function initProjectMotion() {
-    const projects = $$(".project");
-    if (!projects.length) return;
+  function initHeroMotion() {
+    const art = $(".hero-art");
+    const { reduced, finePointer } = motionState();
 
-    projects.forEach(project => {
-      const image = $(".project-image", project);
-      const img = $("img", project);
-
-      if (!image || !img) return;
-
-      let hovered = false;
-      let frame = 0;
-      let latestY = 0;
-
-      const render = () => {
-        frame = 0;
-
-        const rect = image.getBoundingClientRect();
-        const center = innerHeight / 2;
-        const delta = Math.max(
-          -1,
-          Math.min(1, (rect.top + rect.height / 2 - center) / innerHeight)
-        );
-
-        latestY = delta * -9;
-        const scale = hovered ? 1.095 : 1.055;
-
-        img.style.transform =
-          "translate3d(0," + latestY.toFixed(2) + "px,0) scale(" +
-          scale +
-          ")";
-      };
-
-      const requestRender = () => {
-        if (frame) return;
-        frame = requestAnimationFrame(render);
-      };
-
-      if (!prefersReducedMotion() && finePointer()) {
-        addEventListener("scroll", requestRender, { passive: true });
-        addEventListener("resize", requestRender, { passive: true });
-
-        project.addEventListener("pointerenter", () => {
-          hovered = true;
-          requestRender();
-        });
-
-        project.addEventListener("pointerleave", () => {
-          hovered = false;
-          requestRender();
-        });
-
-        requestRender();
-      }
-    });
-  }
-
-  function initHeroInteraction() {
-    const art = $(".hero-stage");
-    if (!art || prefersReducedMotion() || !finePointer()) return;
+    if (!art || reduced || !finePointer) return;
 
     let frame = 0;
     let targetX = 0;
@@ -222,19 +164,19 @@ import "../css/main.css";
 
     const render = () => {
       frame = 0;
-      currentX += (targetX - currentX) * 0.12;
-      currentY += (targetY - currentY) * 0.12;
+      currentX += (targetX - currentX) * 0.11;
+      currentY += (targetY - currentY) * 0.11;
 
       art.style.transform =
-        "rotate(" +
+        "translate3d(" +
         currentX.toFixed(2) +
-        "deg) translate3d(0," +
-        currentY.toFixed(1) +
+        "px," +
+        currentY.toFixed(2) +
         "px,0)";
 
       if (
-        Math.abs(targetX - currentX) > 0.01 ||
-        Math.abs(targetY - currentY) > 0.05
+        Math.abs(targetX - currentX) > 0.02 ||
+        Math.abs(targetY - currentY) > 0.02
       ) {
         frame = requestAnimationFrame(render);
       }
@@ -249,48 +191,98 @@ import "../css/main.css";
       const x = (event.clientX - rect.left) / rect.width - 0.5;
       const y = (event.clientY - rect.top) / rect.height - 0.5;
 
-      targetX = x * 1.6;
-      targetY = -y * 5;
+      targetX = x * 7;
+      targetY = y * -7;
       requestRender();
     });
 
     art.addEventListener("pointerleave", () => {
-      targetX = 1.4;
+      targetX = 0;
       targetY = 0;
       requestRender();
     });
   }
 
-  function initSmoothAnchors() {
+  function initProjectMotion() {
+    const projects = $$(".project");
+    const { reduced, finePointer } = motionState();
+
+    if (!projects.length || reduced || !finePointer) return;
+
+    projects.forEach(project => {
+      const image = $(".project-image", project);
+      if (!image) return;
+
+      let frame = 0;
+      let targetShift = 0;
+      let currentShift = 0;
+      let hovered = false;
+
+      const render = () => {
+        frame = 0;
+        const rect = image.getBoundingClientRect();
+        const centerOffset =
+          (rect.top + rect.height / 2 - window.innerHeight / 2) /
+          window.innerHeight;
+
+        targetShift = Math.max(-10, Math.min(10, centerOffset * -12));
+        currentShift += (targetShift - currentShift) * 0.1;
+        image.style.setProperty("--project-shift", currentShift.toFixed(2) + "px");
+
+        if (hovered) {
+          project.classList.add("hovered");
+        } else {
+          project.classList.remove("hovered");
+        }
+      };
+
+      const requestRender = () => {
+        if (!frame) frame = requestAnimationFrame(render);
+      };
+
+      project.addEventListener("pointerenter", () => {
+        hovered = true;
+        requestRender();
+      });
+
+      project.addEventListener("pointerleave", () => {
+        hovered = false;
+        requestRender();
+      });
+
+      window.addEventListener("scroll", requestRender, { passive: true });
+      window.addEventListener("resize", requestRender, { passive: true });
+      requestRender();
+    });
+  }
+
+  function initAnchors() {
     $$('a[href^="#"]').forEach(link => {
       link.addEventListener("click", event => {
-        const id = link.getAttribute("href");
-        const target = $(id);
+        const targetId = link.getAttribute("href");
+        const target = $(targetId);
 
         if (!target) return;
 
         event.preventDefault();
         target.scrollIntoView({
-          behavior: prefersReducedMotion() ? "auto" : "smooth",
+          behavior: motionState().reduced ? "auto" : "smooth",
           block: "start"
         });
-
-        history.replaceState(null, "", id);
       });
     });
   }
 
   function init() {
     document.documentElement.classList.add("js");
-
     initNavigation();
-    initHeaderState();
-    initReveal();
+    initHeader();
+    initReveals();
     initSectionNav();
     initScrollProgress();
+    initHeroMotion();
     initProjectMotion();
-    initHeroInteraction();
-    initSmoothAnchors();
+    initAnchors();
   }
 
   try {

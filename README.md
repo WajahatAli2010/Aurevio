@@ -1,42 +1,40 @@
 # Aurevio
 
-Aurevio is a small, performance-focused frontend portfolio built with semantic HTML, CSS and vanilla JavaScript.
+Aurevio is an independent frontend portfolio built with semantic HTML, CSS and vanilla JavaScript. The site uses a pre-rendered page structure so the core content is available immediately without waiting for JavaScript to fetch sections.
 
 ## Stack
 
 - Vite for development and production builds
-- HTML for structure and content
-- CSS split into focused section files and bundled by Vite
-- Vanilla JavaScript for navigation, reveal animations, theme switching and scroll progress
+- HTML for page structure and content
+- CSS for layout, typography, responsive behavior and motion styling
+- Vanilla JavaScript for navigation, reveals, scroll progress and lightweight pointer/scroll interactions
 
 ## Development
 
 Requires Node.js 20+.
 
-```bash
+\`\`\`bash
 npm install
 npm run dev
-```
+\`\`\`
 
 For a production build:
 
-```bash
+\`\`\`bash
 npm run build
 npm run preview
-```
+\`\`\`
 
-The production output is generated in `dist/`.
+The production output is generated in \`dist/\`.
 
 ## Content
 
-The live page is intentionally pre-rendered in `index.html`. This avoids waiting for JavaScript to fetch every section before the page can display.
-
-The `sections/` directory is kept as a legacy content reference while the site is being migrated to the pre-rendered structure. New content should be edited in `index.html` so the first HTML response contains the actual page content.
+The live page is intentionally pre-rendered in \`index.html\`. The \`sections/\` directory remains as a legacy content reference from the earlier structure; the live page should be edited in \`index.html\`.
 
 ## Deployment
 
-GitHub Actions builds the Vite project and deploys `dist/` to GitHub Pages whenever `main` changes.
+GitHub Actions builds the Vite project and deploys \`dist/\` to GitHub Pages whenever \`main\` changes.
 
 ## Accessibility
 
-The site includes a skip link, semantic section headings, labelled navigation, keyboard-friendly controls, reduced-motion handling, descriptive project image alt text and accessible theme/mobile navigation controls.
+The site includes a skip link, semantic headings and sections, labelled navigation, keyboard-friendly controls, descriptive project image alt text, touch-safe mobile navigation, and reduced-motion handling.
