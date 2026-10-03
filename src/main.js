@@ -1,7 +1,7 @@
 
-(() => {
-  import "../css/main.css";
+import "../css/main.css";
 
+(() => {
   "use strict";
 
   /** Add accessible mobile navigation behavior. */
