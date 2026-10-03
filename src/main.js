@@ -8,6 +8,7 @@ import "../css/about.css";
 import "../css/process.css";
 import "../css/contact.css";
 import "../css/footer.css";
+import "../css/v2.css";
 
 (() => {
   "use strict";
