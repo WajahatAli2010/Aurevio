@@ -1,1 +1,0 @@
-.marquee-band{overflow:hidden;background:var(--accent);color:var(--ink);padding:17px 0;border:0;white-space:nowrap}.marquee-track{width:max-content;display:flex;gap:27px;align-items:center;font:600 10px/1 "DM Mono",monospace;letter-spacing:.12em;animation:scroll 28s linear infinite}.marquee-track i{font-style:normal;font-size:13px}@keyframes scroll{to{transform:translateX(-50%)}}
