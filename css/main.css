@@ -42,9 +42,41 @@ button{font:inherit}
 .scroll-progress{position:fixed;z-index:301;inset:0 0 auto;height:3px;background:var(--cool-bright);transform:scaleX(0);transform-origin:left;pointer-events:none}
 .light-mode{
   --ink:#e8e0d1;--paper:#171a17;--surface:#f1eadf;--surface-2:#e6dfd3;
-  --soft:#625f58;--line:rgba(23,26,23,.16);--line-strong:rgba(23,26,23,.28);
-  --accent:#171a17;--cool:#536e69;--cool-bright:#45645f;--muted:#706d65;
+  --soft:#57544d;--line:rgba(23,26,23,.18);--line-strong:rgba(23,26,23,.32);
+  --accent:#66751a;--cool:#536e69;--cool-bright:#4b625d;--muted:#625f58;
 }
+
+/* LIGHT MODE — replace dark-theme literals that would otherwise disappear on light surfaces. */
+.light-mode .hero-meta,.light-mode .hero-bottom{color:#5f5c55}
+.light-mode .hero-lead{color:#57544d}
+.light-mode .text-link{color:#57544d}
+.light-mode .text-link:hover{color:var(--paper)}
+.light-mode .hero-copy h1 span{color:#66751a}
+.light-mode .hero-accent{border-color:rgba(83,110,105,.30)}
+.light-mode .hero-accent:before{border-color:rgba(83,110,105,.18)}
+.light-mode .stage-label{color:#625f58}
+.light-mode .stage-copy{color:#171a17}
+.light-mode .stage-copy>span:last-child{color:#57544d}
+.light-mode .stage-cursor{background:rgba(23,26,23,.72);color:#f1eadf;border-color:rgba(23,26,23,.35)}
+.light-mode .work .section-head h2 span,.light-mode .about .section-head h2 span{color:#66751a}
+.light-mode .project-num,.light-mode .project-name small{color:#625f58}
+.light-mode .project-arrow{border-color:rgba(23,26,23,.42)}
+.light-mode .services .section-head h2 span,.light-mode .process .section-head h2 span{color:#9fb53a}
+.light-mode .services .section-number,.light-mode .process .section-number{color:#9fb53a}
+.light-mode .services .eyebrow,.light-mode .process .eyebrow{color:#9fb53a}
+.light-mode .service-num,.light-mode .process-card>span{color:#a8bd46}
+.light-mode .service-title p,.light-mode .process-card p{color:#b4b1a7}
+.light-mode .service-mark{color:#a8bd46;border-color:rgba(168,189,70,.42)}
+.light-mode .service-row:hover,.light-mode .process-card:hover{background:rgba(168,189,70,.08)}
+.light-mode .about-copy>p,.light-mode .about .section-intro-copy{color:#57544d}
+.light-mode .about-facts span{color:#625f58}
+.light-mode .contact-top,.light-mode .contact-action small{color:#d8e2de}
+.light-mode .contact-main>p:last-child{color:#e2e8e4}
+.light-mode .contact-action{border-color:rgba(241,234,223,.35)}
+.light-mode .contact-action a:hover{color:#ffffff}
+.light-mode .footer-wrap p,.light-mode .footer-wrap a{color:#625f58}
+.light-mode .footer-wrap a:hover{color:#66751a}
+.light-mode .scroll-progress{background:#66751a}
 .light-mode body:after{opacity:.025;background-image:radial-gradient(#171a17 .65px,transparent .65px)}
 .light-mode .site-header{background:rgba(232,224,209,.78);border-color:rgba(23,26,23,.12)}
 .light-mode .site-nav{color:#625f58}
