@@ -1451,3 +1451,18 @@ html[data-theme="dark"] .contact-link{
 html[data-theme="dark"] .inquiry-panel{
   border-color:var(--line);
 }
+html[data-theme="dark"] .inquiry-form input,
+html[data-theme="dark"] .inquiry-form textarea,
+html[data-theme="dark"] .inquiry-form select{
+  background:var(--surface);
+  color:var(--dark-text);
+  border-bottom-color:var(--line);
+}
+html[data-theme="dark"] .inquiry-form input::placeholder,
+html[data-theme="dark"] .inquiry-form textarea::placeholder{
+  color:var(--text-soft);
+}
+html[data-theme="dark"] .inquiry-form select option{
+  background:var(--surface);
+  color:var(--dark-text);
+}
