@@ -1185,3 +1185,162 @@ footer{
 .inquiry-status{grid-column:1/-1;margin:0;color:#cfd8d4;font-size:11px;line-height:1.6}
 @media(max-width:850px){.why-grid{grid-template-columns:34px minmax(0,1fr);gap:20px}.package-grid{grid-template-columns:1fr}.case-study{grid-template-columns:1fr}}
 @media(max-width:760px){.why-grid{grid-template-columns:24px 1fr;gap:13px}.why-item{grid-template-columns:29px 1fr 18px;gap:14px}.inquiry-form{grid-template-columns:1fr}.inquiry-full{grid-column:auto}.inquiry-submit{width:100%}}
+
+
+/* =========================================================
+   Theme system
+   Light = cobalt editorial / Dark = acid-lime editorial
+   ========================================================= */
+:root{
+  color-scheme:light;
+  --page:#f1ede4;
+  --surface:#f7f3eb;
+  --surface-alt:#e8e3d8;
+  --text:#0b0c0a;
+  --text-soft:#5b5851;
+  --accent:#315cff;
+  --accent-strong:#2446d9;
+  --accent-contrast:#ffffff;
+  --teal:#315b57;
+  --teal-light:#93afa9;
+  --line:rgba(11,12,10,.15);
+  --line-light:rgba(237,231,220,.17);
+  --header-bg:rgba(241,237,228,.78);
+  --header-bg-scrolled:rgba(241,237,228,.96);
+  --dark-surface:#0b0c0a;
+  --dark-text:#ede7dc;
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0b0c0a;
+  --surface:#12140f;
+  --surface-alt:#171914;
+  --text:#ede7dc;
+  --text-soft:#aaa69d;
+  --accent:#c8ff24;
+  --accent-strong:#b4eb00;
+  --accent-contrast:#0b0c0a;
+  --teal:#82b9af;
+  --teal-light:#a5c8c0;
+  --line:rgba(237,231,220,.16);
+  --line-light:rgba(237,231,220,.17);
+  --header-bg:rgba(11,12,10,.76);
+  --header-bg-scrolled:rgba(11,12,10,.96);
+  --dark-surface:#0b0c0a;
+  --dark-text:#ede7dc;
+}
+body{
+  background:var(--page);
+  color:var(--text);
+  transition:background .45s ease,color .45s ease;
+}
+.site-header{
+  background:var(--header-bg);
+  border-color:var(--line);
+}
+.site-header.is-scrolled{background:var(--header-bg-scrolled);border-color:var(--line)}
+.site-nav a{color:var(--text-soft)}
+.site-nav a:hover,.site-nav a:focus-visible,.site-nav a.is-active{color:var(--text)}
+.site-nav a span{color:var(--muted)}
+.brand-mark{color:var(--teal)}
+.nav-toggle span{background:var(--text)}
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-left:18px;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--text);
+  cursor:pointer;
+  font:600 8px/1 "JetBrains Mono",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  transition:background .3s ease,border-color .3s ease,color .3s ease,transform .3s var(--ease);
+}
+.theme-toggle:hover{border-color:var(--accent);transform:translateY(-1px)}
+.theme-icon{font:500 13px/1 Manrope,sans-serif}
+html[data-theme="dark"] .theme-icon{transform:rotate(180deg)}
+.hero,.work,.practice,.faq{background:var(--page)}
+.section-paper{background:var(--surface)}
+.section-dark,.statement,.about{background:var(--dark-surface);color:var(--dark-text)}
+.hero-title .hero-line:first-child{color:var(--text)}
+.hero-line em,h2 em{color:var(--accent)}
+.section-dark h2 em{color:var(--accent)}
+.hero-description>p,.section-note,.body-large,.body-copy,.why-item p,.case-study p,.package p,.package ul,.faq-answer{
+  color:var(--text-soft);
+}
+.section-dark .body-large,.section-dark .body-copy{color:#a8a49a}
+.hero-gridlines i{background:var(--line)}
+.hero-top,.hero-bottom{border-color:var(--line);color:var(--text-soft)}
+.primary-link{border-color:var(--text)}
+.primary-link span,.secondary-link span{color:var(--accent)}
+.signal-band{
+  background:var(--accent);
+  color:var(--accent-contrast);
+  border-color:var(--text);
+}
+.object-shell{background:#0b0c0a;color:#ede7dc}
+.object-top span:first-child,.object-arrow,.object-cross{color:var(--accent)}
+.object-dot{background:var(--accent)}
+.object-block{border-color:rgba(237,231,220,.18)}
+.object-orbit{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.work-archive,.project-card,.project-image:after,.fact-column,.fact-row,.section-intro-grid,.why-list,.why-item,.faq-list,.faq-item{border-color:var(--line)}
+.project-image{background:var(--surface-alt)}
+.section-heading .eyebrow,.why-item>span:first-child,.package .package-no,.package-cta,.faq-item summary span:first-child,.faq-item summary span:last-child{color:var(--teal)}
+.package-grid{background:var(--line)}
+.package{background:var(--surface)}
+.package.featured{background:#0b0c0a;color:#ede7dc}
+.package.featured .package-no,.package.featured .package-cta{color:var(--accent)}
+.package.featured p,.package.featured ul{color:#b9b5ac}
+.about-kicker,.about-signature{color:var(--accent)}
+.contact{
+  background:var(--accent);
+  color:var(--accent-contrast);
+}
+.contact .eyebrow,.contact-link,.contact-title,.contact-intro,.contact-note{color:var(--accent-contrast)}
+.contact-link{border-color:color-mix(in srgb,var(--accent-contrast) 35%,transparent)}
+.inquiry-panel{border-color:color-mix(in srgb,var(--accent-contrast) 25%,transparent)}
+.inquiry-form label{color:color-mix(in srgb,var(--accent-contrast) 72%,transparent)}
+.inquiry-form input,.inquiry-form textarea,.inquiry-form select{
+  color:var(--accent-contrast);
+  border-color:color-mix(in srgb,var(--accent-contrast) 35%,transparent);
+}
+.inquiry-form input::placeholder,.inquiry-form textarea::placeholder{color:color-mix(in srgb,var(--accent-contrast) 55%,transparent)}
+.inquiry-form input:focus,.inquiry-form textarea:focus,.inquiry-form select:focus{border-color:var(--accent-contrast)}
+.inquiry-submit{background:var(--accent-contrast);border-color:var(--accent-contrast);color:var(--accent)}
+.inquiry-status{color:color-mix(in srgb,var(--accent-contrast) 78%,transparent)}
+footer{background:var(--surface);color:var(--text);border-top:1px solid var(--line)}
+footer a{color:var(--text)}
+.skill-column div{border-color:var(--line-light)}
+.skill-column strong{color:var(--dark-text)}
+.skill-column span{color:#87837a}
+.availability{color:var(--text-soft)}
+.availability i{background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent)}
+.scroll-line{background:var(--accent)}
+.skip-link{background:var(--text);color:var(--page)}
+body:before{opacity:.028}
+@media(max-width:760px){
+  .theme-toggle{margin-left:10px;padding:7px 9px}
+  .theme-label{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  body,.site-header,.theme-toggle{transition:none}
+}
+
+/* Keep content present if JavaScript is delayed or unavailable.
+   This also prevents the section "blank spots" caused by hidden reveal nodes. */
+html.js .reveal{
+  opacity:0;
+  transform:translateY(28px);
+}
+html.js .reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+html:not(.js) .reveal{
+  opacity:1;
+  transform:none;
+}
