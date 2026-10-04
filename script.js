@@ -1,1 +1,0 @@
-// Aurevio now uses Vite with a pre-rendered index.html. Runtime code lives in src/main.js.
