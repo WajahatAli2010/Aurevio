@@ -1402,3 +1402,52 @@ html[data-theme="dark"] .why-section{
 .why-section .package.featured h3{color:var(--dark-text)}
 .why-section .package.featured .package-no,
 .why-section .package.featured .package-cta{color:var(--accent)}
+
+
+/* Final theme polish */
+.package,
+.package.featured{
+  transition:background-color .45s ease,color .45s ease,border-color .45s ease;
+  will-change:background-color,color;
+}
+.package h3,
+.package p,
+.package ul,
+.package-cta,
+.package-no{
+  transition:color .45s ease;
+}
+html[data-theme="light"] .contact{
+  background:var(--teal);
+}
+html[data-theme="light"] .contact-title em,
+html[data-theme="light"] .contact .eyebrow,
+html[data-theme="light"] .contact-link strong{
+  color:var(--lime);
+}
+html[data-theme="dark"] .contact{
+  background:var(--dark-surface);
+  color:var(--dark-text);
+  border-top:1px solid var(--line);
+}
+html[data-theme="dark"] .contact-title,
+html[data-theme="dark"] .contact-intro,
+html[data-theme="dark"] .contact-note{
+  color:var(--dark-text);
+}
+html[data-theme="dark"] .contact-title em,
+html[data-theme="dark"] .contact .eyebrow,
+html[data-theme="dark"] .contact-link strong{
+  color:var(--accent);
+}
+html[data-theme="dark"] .contact-topline{
+  color:var(--text-soft);
+  border-color:var(--line);
+}
+html[data-theme="dark"] .contact-link{
+  color:var(--dark-text);
+  border-color:var(--line);
+}
+html[data-theme="dark"] .inquiry-panel{
+  border-color:var(--line);
+}
