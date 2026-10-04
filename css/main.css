@@ -95,22 +95,15 @@ h2 em{
 }
 
 /* Motion primitives */
-.reveal{
-  opacity:0;
-  transform:translateY(28px);
-  transition:opacity .75s var(--ease-soft),transform .85s var(--ease);
-}
+.reveal,
 .reveal.is-visible{
   opacity:1;
   transform:none;
 }
-.reveal-mask{
-  clip-path:inset(0 0 100% 0);
-  transform:translateY(28px);
-  transition:clip-path 1.05s var(--ease),transform 1.05s var(--ease);
-}
+.reveal-mask,
 .reveal-mask.is-visible{
-  clip-path:inset(0 0 0 0);
+  clip-path:none;
+  opacity:1;
   transform:none;
 }
 
@@ -1137,6 +1130,32 @@ footer{
 
 /* Aurevio business layer */
 .why-section{background:var(--paper);border-top:1px solid var(--line)}
+.why-section,
+.why-section .why-item,
+.why-section .why-item h3,
+.why-section .why-item p,
+.why-section .why-item > span,
+.why-section .package,
+.why-section .package h3,
+.why-section .package p,
+.why-section .package ul,
+.why-section .package-cta{
+  color:var(--text);
+}
+.why-section .why-item p,
+.why-section .package p,
+.why-section .package ul{color:var(--text-soft)}
+.why-section .why-item > span:first-child,
+.why-section .why-item > span:last-child,
+.why-section .package .package-no,
+.why-section .package .package-cta{color:var(--teal)}
+.why-section .package{background:var(--surface)}
+.why-section .package.featured{background:var(--dark-surface);color:var(--dark-text)}
+.why-section .package.featured h3{color:var(--dark-text)}
+.why-section .package.featured p,
+.why-section .package.featured ul{color:#b9b5ac}
+.why-section .package.featured .package-no,
+.why-section .package.featured .package-cta{color:var(--accent)}
 .why-grid{display:grid;grid-template-columns:80px minmax(0,1fr);gap:48px}
 .why-copy{max-width:900px}
 .why-list{margin-top:58px;border-top:1px solid var(--line)}
