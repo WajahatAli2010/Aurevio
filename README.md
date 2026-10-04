@@ -29,7 +29,7 @@ The production output is generated in `dist/`.
 
 ## Content
 
-The live page is intentionally pre-rendered in `index.html`. The `sections/` directory remains as a legacy content reference from the earlier structure; the live page should be edited in `index.html`.
+The live page is intentionally pre-rendered in `index.html`; the page structure and content are edited directly there.
 
 ## Deployment
 
