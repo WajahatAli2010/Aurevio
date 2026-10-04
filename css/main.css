@@ -1332,15 +1332,54 @@ body:before{opacity:.028}
 
 /* Keep content present if JavaScript is delayed or unavailable.
    This also prevents the section "blank spots" caused by hidden reveal nodes. */
-html.js .reveal{
-  opacity:0;
-  transform:translateY(28px);
-}
-html.js .reveal.is-visible{
+/* Content must never disappear while reveal animation initializes. */
+.reveal{
   opacity:1;
   transform:none;
 }
-html:not(.js) .reveal{
+.reveal.is-visible{
   opacity:1;
   transform:none;
 }
+
+/* Explicit theme colors for the full Why Aurevio section. */
+.why-section{
+  background:var(--page);
+  color:var(--text);
+}
+html[data-theme="dark"] .why-section{
+  background:var(--page);
+  color:var(--text);
+}
+.why-section h2,
+.why-section h3,
+.why-section .section-number,
+.why-section .eyebrow{
+  color:var(--text);
+}
+.why-section h2 em{
+  color:var(--accent);
+}
+.why-section .why-item p,
+.why-section .package p,
+.why-section .package ul{
+  color:var(--text-soft);
+}
+.why-section .why-item>span:last-child{
+  color:var(--teal);
+}
+.why-section .package{
+  background:var(--surface);
+  color:var(--text);
+}
+.why-section .package.featured{
+  background:var(--dark-surface);
+  color:var(--dark-text);
+}
+.why-section .package.featured p,
+.why-section .package.featured ul{
+  color:#b9b5ac;
+}
+.why-section .package.featured h3{color:var(--dark-text)}
+.why-section .package.featured .package-no,
+.why-section .package.featured .package-cta{color:var(--accent)}
