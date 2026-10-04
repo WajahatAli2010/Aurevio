@@ -1,4 +1,9 @@
-import { $, $$, getMotionState } from "./dom.js";
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+const getMotionState = () => ({
+  reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  finePointer: window.matchMedia("(pointer: fine)").matches
+});
 
 export function initNavigation() {
   const header = $(".site-header");
