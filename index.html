@@ -17,6 +17,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("aurevio-theme");
+        const device = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = saved === "dark" || saved === "light" ? saved : device;
+      } catch {
+        document.documentElement.dataset.theme =
+          window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+    })();
+  </script>
   <script type="module" src="./src/main.js"></script>
 </head>
 
@@ -42,6 +54,10 @@
 
       <div class="header-status">
         <span class="availability"><i aria-hidden="true"></i> Open for select projects</span>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true">☼</span>
+          <span class="theme-label">Light</span>
+        </button>
         <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open navigation">
           <span></span>
           <span></span>
