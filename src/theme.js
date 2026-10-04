@@ -1,4 +1,4 @@
-import { $ } from "./dom.js";
+const $ = (selector, root = document) => root.querySelector(selector);
 
 export function initTheme() {
   const root = document.documentElement;
