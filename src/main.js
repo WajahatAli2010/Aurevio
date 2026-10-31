@@ -3,6 +3,7 @@ import "../css/header.css";
 import "../css/sections.css";
 import "../css/responsive.css";
 import "../css/theme.css";
+import "../css/astra-polish.css";
 
 import { initNavigation, initHeaderState, initSectionNavigation, initAnchors } from "./navigation.js";
 import { initTheme } from "./theme.js";
