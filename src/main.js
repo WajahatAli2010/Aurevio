@@ -1,12 +1,13 @@
 import "../css/base.css";
 import "../css/header.css";
 import "../css/sections.css";
-import "../css/responsive.css";
 import "../css/theme.css";
+import "../css/responsive.css";
 
 import { initNavigation, initHeaderState, initSectionNavigation, initAnchors } from "./navigation.js";
 import { initTheme } from "./theme.js";
-import { initReveal, initScrollProgress, initProjectMotion, initHeroObject } from "./animations.js";
+import { initPackageSelection } from "./packages.js";
+import { initReveal, initScrollProgress, initProjectMotion } from "./animations.js";
 
 function initInquiryForm() {
   const form = document.querySelector("#inquiry-form");
@@ -44,7 +45,7 @@ function init() {
   initScrollProgress();
   initSectionNavigation();
   initProjectMotion();
-  initHeroObject();
+  initPackageSelection();
   initAnchors();
   initInquiryForm();
 }

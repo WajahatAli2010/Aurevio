@@ -1,105 +1,34 @@
-/* Header */
-.site-header{
-  position:fixed;
-  z-index:1050;
-  top:0;
-  left:0;
-  right:0;
-  height:74px;
-  border-bottom:1px solid rgba(11,12,10,.1);
-  background:rgba(237,231,220,.72);
-  backdrop-filter:blur(18px);
-  transition:background .4s ease,border-color .4s ease;
+/* Fixed navigation with a compact menu below 1100px. */
+.site-header{position:fixed;z-index:1050;inset:0 0 auto;height:76px;background:var(--header-bg);border-bottom:1px solid var(--line);backdrop-filter:blur(18px);transition:background .25s ease}
+.site-header.is-scrolled{background:var(--header-bg-scrolled)}
+.header-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:2px;min-height:44px}
+.brand-word{font:800 15px/1 "JetBrains Mono",monospace;letter-spacing:.15em}
+.brand-mark{margin-top:-10px;color:var(--teal);font:500 9px/1 "JetBrains Mono",monospace}
+.site-nav{display:flex;align-items:center;gap:22px}
+.site-nav a{position:relative;display:flex;align-items:center;gap:6px;min-height:44px;color:var(--text-soft);font:500 12px/1.4 "JetBrains Mono",monospace;transition:color .2s ease}
+.site-nav a span{color:var(--text-soft);font-size:10px}
+.site-nav a:after{content:"";position:absolute;left:0;right:100%;bottom:4px;height:2px;background:var(--accent);transition:right .25s ease}
+.site-nav a:hover,.site-nav a:focus-visible,.site-nav a.is-active{color:var(--text)}
+.site-nav a:hover:after,.site-nav a:focus-visible:after,.site-nav a.is-active:after{right:0}
+.site-nav .nav-contact{padding:0 14px;border:1px solid var(--line);color:var(--text)}
+.site-nav .nav-contact:after{left:14px}.site-nav .nav-contact:hover:after,.site-nav .nav-contact.is-active:after{right:14px}
+.header-status{display:flex;align-items:center;gap:16px}
+.availability{font-size:10px;color:var(--text-soft);white-space:nowrap}
+.availability i{display:inline-block;width:6px;height:6px;margin-right:8px;border-radius:50%;background:var(--accent)}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:44px;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--text);cursor:pointer;font:600 11px/1 "JetBrains Mono",monospace;transition:border-color .2s ease}
+.theme-toggle:hover{border-color:var(--accent)}.theme-icon{font:500 18px/1 Manrope,sans-serif}
+.nav-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;width:44px;height:44px;gap:6px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--text);transition:transform .25s ease}
+.site-header.menu-open .nav-toggle span:first-child{transform:translateY(4px) rotate(45deg)}
+.site-header.menu-open .nav-toggle span:last-child{transform:translateY(-4px) rotate(-45deg)}
+@media(max-width:1430px){.availability{display:none}}
+@media(min-width:1101px) and (max-width:1200px){.site-nav{gap:16px}.header-inner{gap:16px}.theme-label{display:none}}
+@media(max-width:1100px){
+ .site-header{height:68px}.nav-toggle{display:flex}.theme-label{display:none}
+ .site-nav{position:fixed;top:68px;left:0;right:0;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:12px 24px 20px;max-height:calc(100dvh - 68px);overflow-y:auto;overscroll-behavior:contain;background:var(--header-bg-scrolled);border-bottom:1px solid var(--line);visibility:hidden;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .2s ease,transform .2s ease,visibility .2s}
+ .site-nav.open{visibility:visible;opacity:1;transform:none;pointer-events:auto}
+ .site-nav a{justify-content:space-between;min-height:52px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+ .site-nav a span{font-size:12px}.site-nav .nav-contact{padding:14px 0;border:0;border-bottom:1px solid var(--line)}
+ .site-nav a:after,.site-nav .nav-contact:after{left:0}.site-nav .nav-contact:hover:after,.site-nav .nav-contact.is-active:after{right:0}
 }
-.site-header.is-scrolled{
-  background:rgba(237,231,220,.94);
-  border-color:rgba(11,12,10,.16);
-}
-.header-inner{
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.brand{
-  display:flex;
-  align-items:flex-start;
-  gap:2px;
-}
-.brand-word{
-  font:800 13px/1 "JetBrains Mono",monospace;
-  letter-spacing:.17em;
-}
-.brand-mark{
-  color:var(--teal);
-  font:500 8px/1 "JetBrains Mono",monospace;
-}
-.site-nav{
-  display:flex;
-  align-items:center;
-  gap:28px;
-}
-.site-nav a{
-  position:relative;
-  display:flex;
-  align-items:baseline;
-  gap:5px;
-  padding:10px 0;
-  color:#46423b;
-  font:500 9px/1 "JetBrains Mono",monospace;
-  text-transform:uppercase;
-  transition:color .25s ease,transform .35s var(--ease);
-}
-.site-nav a span{
-  color:#959087;
-  font-size:7px;
-  transition:color .25s ease;
-}
-.site-nav a:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:100%;
-  bottom:3px;
-  height:1px;
-  background:var(--lime);
-  transition:right .45s var(--ease);
-}
-.site-nav a:hover,
-.site-nav a:focus-visible,
-.site-nav a.is-active{color:var(--ink)}
-.site-nav a:hover span,
-.site-nav a.is-active span{color:var(--teal)}
-.site-nav a:hover:after,
-.site-nav a:focus-visible:after,
-.site-nav a.is-active:after{right:0}
-.header-status{display:flex;align-items:center}
-.availability{
-  color:var(--muted);
-  font-size:8px;
-}
-.availability i{
-  display:inline-block;
-  width:6px;
-  height:6px;
-  margin-right:7px;
-  border-radius:50%;
-  background:var(--lime);
-  box-shadow:0 0 0 4px rgba(215,255,63,.1);
-}
-.nav-toggle{
-  display:none;
-  border:0;
-  background:transparent;
-  padding:6px 1px;
-}
-.nav-toggle span{
-  display:block;
-  width:24px;
-  height:2px;
-  margin:5px 0;
-  background:var(--ink);
-  transition:transform .45s var(--ease);
-}
-.site-header.menu-open .nav-toggle span:first-child{transform:translateY(3.5px) rotate(45deg)}
-.site-header.menu-open .nav-toggle span:last-child{transform:translateY(-3.5px) rotate(-45deg)}

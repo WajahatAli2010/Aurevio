@@ -68,33 +68,3 @@ export function initProjectMotion() {
     requestRender();
   });
 }
-
-export function initHeroObject() {
-  const object = $(".hero-object");
-  const { reduced, finePointer } = getMotionState();
-  if (!object || reduced || !finePointer) return;
-  let frame = 0, currentX = 0, currentY = 0, targetX = 0, targetY = 0;
-
-  const render = () => {
-    frame = 0;
-    currentX += (targetX - currentX) * 0.11;
-    currentY += (targetY - currentY) * 0.11;
-    object.style.transform = "translate3d(" + currentX.toFixed(2) + "px," + currentY.toFixed(2) + "px,0)";
-    if (Math.abs(targetX - currentX) > 0.02 || Math.abs(targetY - currentY) > 0.02) frame = requestAnimationFrame(render);
-  };
-  const requestRender = () => { if (!frame) frame = requestAnimationFrame(render); };
-
-  object.addEventListener("pointermove", event => {
-    const rect = object.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    targetX = x * 7;
-    targetY = y * -7;
-    requestRender();
-  });
-  object.addEventListener("pointerleave", () => {
-    targetX = 0;
-    targetY = 0;
-    requestRender();
-  });
-}

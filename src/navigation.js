@@ -1,89 +1,87 @@
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-const getMotionState = () => ({
-  reduced: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  finePointer: window.matchMedia("(pointer: fine)").matches
-});
 
 export function initNavigation() {
-  const header = $(".site-header");
-  const toggle = $(".nav-toggle");
-  const nav = $("#site-nav");
+  const header = $('.site-header');
+  const toggle = $('.nav-toggle');
+  const nav = $('#site-nav');
   if (!header || !toggle || !nav) return;
-
-  const closeMenu = () => {
-    nav.classList.remove("open");
-    header.classList.remove("menu-open");
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Open navigation");
+  const mobile = window.matchMedia('(max-width: 1100px)');
+  const setOpen = open => {
+    nav.classList.toggle('open', open);
+    header.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    nav.inert = mobile.matches && !open;
   };
-
-  toggle.addEventListener("click", () => {
-    const open = !nav.classList.contains("open");
-    nav.classList.toggle("open", open);
-    header.classList.toggle("menu-open", open);
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a')) setOpen(false);
   });
-
-  nav.addEventListener("click", event => {
-    if (event.target.closest("a")) closeMenu();
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && nav.classList.contains('open')) {
+      setOpen(false);
+      toggle.focus();
+    }
   });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 760) closeMenu();
+  document.addEventListener('click', event => {
+    if (!header.contains(event.target)) setOpen(false);
   });
+  mobile.addEventListener('change', () => {
+    if (mobile.matches && nav.contains(document.activeElement)) toggle.focus();
+    setOpen(false);
+  });
+  setOpen(false);
 }
 
 export function initHeaderState() {
-  const header = $(".site-header");
+  const header = $('.site-header');
   if (!header) return;
-  const update = () => header.classList.toggle("is-scrolled", window.scrollY > 18);
-  window.addEventListener("scroll", update, { passive: true });
+  const update = () => header.classList.toggle('is-scrolled', window.scrollY > 18);
+  window.addEventListener('scroll', update, { passive: true });
   update();
 }
 
 export function initSectionNavigation() {
-  const links = $$("#site-nav a");
-  const targets = links.map(link => link.getAttribute("href"))
-    .map(href => href ? document.querySelector(href) : null)
-    .filter(Boolean);
-  if (!links.length || !targets.length || !("IntersectionObserver" in window)) return;
-
-  const clear = () => {
-    links.forEach(link => {
-      link.classList.remove("is-active");
-      link.removeAttribute("aria-current");
-    });
-  };
-
-  const observer = new IntersectionObserver(entries => {
-    const visible = entries.filter(entry => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (!visible) return;
-    clear();
-    const active = links.find(link => link.getAttribute("href") === "#" + visible.target.id);
-    if (active) {
-      active.classList.add("is-active");
-      active.setAttribute("aria-current", "page");
+  const links = $$('#site-nav a');
+  const targets = links.map(link => $(link.getAttribute('href'))).filter(Boolean);
+  if (!targets.length) return;
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    const boundary = ($('.site-header')?.getBoundingClientRect().bottom || 76) + 48;
+    let active = null;
+    for (const section of targets) {
+      if (section.getBoundingClientRect().top <= boundary) active = section.id;
     }
-  }, { rootMargin: "-38% 0px -52% 0px", threshold: [0, 0.12, 0.3] });
-
-  targets.forEach(target => observer.observe(target));
+    for (const link of links) {
+      const selected = link.getAttribute('href') === '#' + active;
+      link.classList.toggle('is-active', selected);
+      if (selected) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    }
+  };
+  const requestUpdate = () => { if (!frame) frame = requestAnimationFrame(update); };
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate, { passive: true });
+  window.addEventListener('load', requestUpdate);
+  document.fonts?.ready.then(requestUpdate);
+  update();
 }
 
 export function initAnchors() {
   $$('a[href^="#"]').forEach(link => {
-    link.addEventListener("click", event => {
-      const id = link.getAttribute("href");
-      const target = $(id);
-      if (!target) return;
+    const id = link.getAttribute('href');
+    if (!id || id === '#') return;
+    const target = $(id);
+    if (!target) return;
+    link.addEventListener('click', event => {
       event.preventDefault();
-      target.scrollIntoView({
-        behavior: getMotionState().reduced ? "auto" : "smooth",
-        block: "start"
-      });
-      history.replaceState(null, "", id);
+      target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      // Move keyboard focus with the visual destination, including the skip link.
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+      history.replaceState(null, '', id);
     });
   });
 }

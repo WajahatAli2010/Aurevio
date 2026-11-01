@@ -29,7 +29,7 @@ The production output is generated in `dist/`.
 
 ## Content
 
-The live page is intentionally pre-rendered in `index.html`; the page structure and content are edited directly there.
+Page sections live in `sections/`; Vite expands their include markers in `index.html` into one pre-rendered page.
 
 ## Deployment
 
@@ -38,3 +38,16 @@ GitHub Actions builds the Vite project and deploys `dist/` to GitHub Pages whene
 ## Accessibility
 
 The site includes a skip link, semantic headings and sections, labelled navigation, keyboard-friendly controls, descriptive project image alt text, touch-safe mobile navigation, and reduced-motion handling.
+
+## UI checks
+
+```bash
+npx playwright install chromium
+npm run build
+npm test
+```
+
+The smoke checks launch a local production preview and cover package selection,
+keyboard navigation, anchor alignment, both themes, seven viewport widths, image
+loading and navigation without JavaScript. Set `AUREVIO_TEST_URL` to check an
+already running preview, or `AUREVIO_CHROMIUM_PATH` to use an existing Chromium.
