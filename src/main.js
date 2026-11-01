@@ -32,7 +32,7 @@ function initInquiryForm() {
     } catch {
       status.textContent = "Inquiry prepared. Copy the details and send them through the Aurevio Instagram DM.";
     }
-    window.open("https://instagram.com/mrpapypants", "_blank", "noopener,noreferrer");
+    window.open("https://instagram.com/lilwebypants", "_blank", "noopener,noreferrer");
   });
 }
 
