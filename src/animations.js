@@ -1,7 +1,6 @@
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 const entranceEase = 'cubic-bezier(.16,1,.3,1)';
 const running = new Set();
 
@@ -27,27 +26,45 @@ export function initReveal() {
   const groups = '.fact-row, .skill-column > div';
   const items = $$('.reveal, ' + groups).filter(item => !item.matches('.fact-column, .skill-column'));
   if (!('IntersectionObserver' in window)) return;
+  const entrances = new Map();
   const observer = new IntersectionObserver(entries => {
-    for (const { target, isIntersecting } of entries) {
-      if (!isIntersecting) continue;
-      observer.unobserve(target);
+    for (const { target, isIntersecting, boundingClientRect: rect } of entries) {
+      if (!isIntersecting) {
+        // A fast scroll can leave before the entrance finishes. Settle offscreen
+        // and never replay an entrance when the visitor scrolls back.
+        if (entrances.has(target)) {
+          entrances.get(target).cancel();
+          entrances.delete(target);
+          observer.unobserve(target);
+        }
+        continue;
+      }
+      if (entrances.has(target)) continue;
       target.classList.add('is-visible');
-      const siblings = [...target.parentElement.children].filter(item => items.includes(item));
-      const delay = Math.min(Math.max(0, siblings.indexOf(target)) * 65, 195);
+      // Start just ahead of the viewport. If a jump or a delayed observer has
+      // already put content on screen, leave it readable instead of fading back.
+      if (reduced.matches || rect.top < innerHeight - 24) {
+        observer.unobserve(target);
+        continue;
+      }
       const row = target.matches('.service-item, .why-item, .fact-row, .skill-column > div');
       const quiet = target.matches('.faq-item, .section-number, .eyebrow');
-      const project = target.matches('.project-card');
-      const card = target.matches('.package, .inquiry-panel');
-      play(target, [
-        { opacity: quiet ? .65 : .2, transform: row ? 'translateX(-10px)' : `translateY(${quiet ? 5 : card ? 12 : 18}px)` },
+      const surface = target.matches('.project-card, .package, .inquiry-panel');
+      // Large panels stay in place; avoid nested project opacity/scale effects.
+      const frames = surface ? [{ opacity: .8 }, { opacity: 1 }] : [
+        { opacity: quiet ? .8 : .65, transform: row ? 'translateX(-6px)' : `translateY(${quiet ? 4 : 10}px)` },
         { opacity: 1, transform: 'none' }
-      ], { duration: quiet ? 450 : project ? 650 : 560, delay });
-      if (project) play($('.project-image', target), [
-        { opacity: .5, transform: 'scale(.98)' },
-        { opacity: 1, transform: 'scale(1)' }
-      ], { duration: 650, delay });
+      ];
+      const animation = play(target, frames, { duration: quiet ? 320 : 420 });
+      if (animation) {
+        entrances.set(target, animation);
+        animation.finished.catch(() => {}).finally(() => {
+          entrances.delete(target);
+          observer.unobserve(target);
+        });
+      } else observer.unobserve(target);
     }
-  }, { threshold: 0, rootMargin: '0px 0px 32px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 160px 0px' });
   items.forEach(item => observer.observe(item));
   // Focusing an interactive descendant must never wait for its entrance.
   document.addEventListener('focusin', event => {
@@ -58,7 +75,7 @@ export function initReveal() {
   });
 }
 
-// One passive scroll listener / frame shared by progress and visible project images.
+// Progress updates are coalesced into a frame; image motion is hover/focus only.
 const scrollTasks = new Set();
 let frame = 0;
 function requestScrollFrame() {
@@ -86,40 +103,6 @@ export function initScrollProgress() {
     bar.style.transform = `scaleX(${progress})`;
   });
 }
-export function initProjectMotion() {
-  const images = $$('.project-image');
-  if (!images.length || !('IntersectionObserver' in window)) return;
-  const visible = new Set();
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) visible.add(entry.target);
-      else {
-        visible.delete(entry.target);
-        entry.target.style.removeProperty('--project-shift');
-      }
-    });
-    requestScrollFrame();
-  });
-  const configure = () => {
-    observer.disconnect();
-    visible.clear();
-    images.forEach(image => image.style.removeProperty('--project-shift'));
-    if (!reduced.matches && finePointer.matches) images.forEach(image => observer.observe(image));
-  };
-  reduced.addEventListener('change', configure);
-  finePointer.addEventListener('change', configure);
-  configure();
-  onScrollFrame(() => {
-    // Batch reads before writes; nothing runs continuously when scrolling stops.
-    const positions = [...visible].map(image => {
-      const rect = image.getBoundingClientRect();
-      const delta = (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight;
-      return [image, Math.max(-6, Math.min(6, delta * -8))];
-    });
-    positions.forEach(([image, shift]) => image.style.setProperty('--project-shift', `${shift.toFixed(2)}px`));
-  });
-}
-
 export function initAccordions() {
   const finishers = new Set();
   $$('.faq-item').forEach(details => {

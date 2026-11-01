@@ -107,6 +107,36 @@ try {
     assert.ok(await fallback.locator('.reveal').evaluateAll(items => items.every(el => getComputedStyle(el).opacity === '1')));
     await fallback.close();
   });
+  await check('reveals start before entry, settle after fast scrolling and never replay', async () => {
+    const scroll = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    try {
+      await scroll.goto(url);
+      const card = scroll.locator('.package').first();
+      await card.evaluate(el => window.scrollTo({ top: el.getBoundingClientRect().top + scrollY - innerHeight - 80, behavior: 'instant' }));
+      await scroll.waitForFunction(() => document.querySelector('.package').getAnimations().length > 0);
+      assert.ok(await card.evaluate(el => {
+        const a = el.getAnimations()[0];
+        return el.getBoundingClientRect().top >= innerHeight && a.effect.getTiming().delay === 0;
+      }), 'A card should start before reaching the viewport, without waiting');
+      await scroll.locator('#contact').evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
+      await scroll.waitForFunction(() => document.querySelector('.package').getAnimations().length === 0);
+      await card.evaluate(el => el.scrollIntoView({ behavior: 'instant' }));
+      await scroll.waitForTimeout(100);
+      assert.ok(await card.evaluate(el => !el.getAnimations().length && getComputedStyle(el).opacity === '1'));
+      assert.ok(await scroll.locator('.project-image').evaluateAll(items => items.every(el => !el.style.getPropertyValue('--project-shift'))));
+    } finally { await scroll.close(); }
+  });
+  await check('a direct contact jump never fades already-visible content backwards', async () => {
+    const jump = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    try {
+      await jump.goto(url + '#contact');
+      await jump.waitForTimeout(100);
+      assert.ok(await jump.locator('#contact .reveal').evaluateAll(items => items.every(el => {
+        const r = el.getBoundingClientRect();
+        return r.top >= innerHeight || r.bottom <= 0 || (getComputedStyle(el).opacity === '1' && !el.getAnimations().length);
+      })));
+    } finally { await jump.close(); }
+  });
   for (const width of [390, 768, 1440]) for (const theme of ['light', 'dark']) {
     await check(`${width}px ${theme} motion/touch layout and theme persistence`, async () => {
       const touch = width < 1000;

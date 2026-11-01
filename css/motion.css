@@ -25,11 +25,11 @@
 .theme-toggle[aria-pressed="true"] .theme-icon{transform:rotate(-18deg)}
 .nav-toggle span{transition-duration:180ms}
 
-/* Keep image motion on its own layer; parallax never moves text or hit targets. */
+/* Images respond only to interaction, never chase scroll via a CSS transition. */
 .project-image{transition:none}
-.project-image img{transition:transform 220ms var(--motion-ease),filter 200ms ease}
+.project-image img{transform:scale(1.055);transition:transform 220ms var(--motion-ease),filter 200ms ease}
 .project-card:hover .project-image img,.project-card:focus-visible .project-image img{
- transform:translate3d(0,var(--project-shift,0px),0) scale(1.075);filter:saturate(1);
+ transform:scale(1.075);filter:saturate(1);
 }
 .project-title>span,.project-corner-top,.project-corner-top strong{transition-duration:200ms}
 .project-card:focus-visible .project-title>span,.project-card:active .project-title>span{transform:translate(3px,-3px)}

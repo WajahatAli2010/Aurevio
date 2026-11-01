@@ -8,7 +8,7 @@ import "../css/motion.css";
 import { initNavigation, initHeaderState, initSectionNavigation, initAnchors } from "./navigation.js";
 import { initTheme } from "./theme.js";
 import { initPackageSelection } from "./packages.js";
-import { initReveal, initScrollProgress, initProjectMotion, initAccordions, initFormFeedback } from "./animations.js";
+import { initReveal, initScrollProgress, initAccordions, initFormFeedback } from "./animations.js";
 
 function initInquiryForm() {
   const form = document.querySelector("#inquiry-form");
@@ -52,7 +52,6 @@ function init() {
   initReveal();
   initScrollProgress();
   initSectionNavigation();
-  initProjectMotion();
   initPackageSelection();
   initAnchors();
   initInquiryForm();
