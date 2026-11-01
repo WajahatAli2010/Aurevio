@@ -97,18 +97,8 @@ h2 em{
   line-height:1.8;
 }
 
-/* Motion primitives */
-.reveal,
-.reveal.is-visible{
-  opacity:1;
-  transform:none;
-}
-.reveal-mask,
-.reveal-mask.is-visible{
-  clip-path:none;
-  opacity:1;
-  transform:none;
-}
+/* Content stays visible at rest. Entrances run only after intersection. */
+.reveal,.reveal-mask{opacity:1;transform:none;clip-path:none}
 
 /* Scroll line */
 .scroll-line{

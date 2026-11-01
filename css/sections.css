@@ -136,7 +136,7 @@
   position:relative;
   overflow:hidden;
   background:#d6cfc2;
-  clip-path:inset(7% 0 7% 0);
+  clip-path:none;
   transition:clip-path 1s var(--ease);
 }
 .project-card.is-visible .project-image{clip-path:inset(0 0 0 0)}
@@ -156,7 +156,6 @@
   transform:translate3d(0,var(--project-shift,0px),0) scale(1.055);
   filter:saturate(.78);
   transition:transform 1.15s var(--ease),filter .8s ease;
-  will-change:transform;
 }
 .project-card:hover .project-image img{
   transform:translate3d(0,var(--project-shift,0px),0) scale(1.09);

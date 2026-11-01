@@ -65,5 +65,4 @@ footer a:hover{color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:5px}
 .section-dark :focus-visible{outline-color:var(--on-dark-accent)}
 body:before{opacity:.028}
-/* Readable content is the default; animation never gates visibility. */
-.reveal,.reveal.is-visible,.reveal-mask,.reveal-mask.is-visible{opacity:1;transform:none;clip-path:none}
+/* Reveal resting states live in base.css; motion does not hide pending content. */

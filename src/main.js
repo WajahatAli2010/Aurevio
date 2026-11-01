@@ -3,11 +3,12 @@ import "../css/header.css";
 import "../css/sections.css";
 import "../css/theme.css";
 import "../css/responsive.css";
+import "../css/motion.css";
 
 import { initNavigation, initHeaderState, initSectionNavigation, initAnchors } from "./navigation.js";
 import { initTheme } from "./theme.js";
 import { initPackageSelection } from "./packages.js";
-import { initReveal, initScrollProgress, initProjectMotion } from "./animations.js";
+import { initReveal, initScrollProgress, initProjectMotion, initAccordions, initFormFeedback } from "./animations.js";
 
 function initInquiryForm() {
   const form = document.querySelector("#inquiry-form");
@@ -16,6 +17,11 @@ function initInquiryForm() {
 
   form.addEventListener("submit", async event => {
     event.preventDefault();
+    const button = form.querySelector('button[type="submit"]');
+    if (button.disabled) return;
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+    status.textContent = 'Preparing your inquiry…';
     const data = new FormData(form);
     const brief = [
       "AUREVIO PROJECT INQUIRY","",
@@ -32,6 +38,8 @@ function initInquiryForm() {
     } catch {
       status.textContent = "Inquiry prepared. Copy the details and send them through the Aurevio Instagram DM.";
     }
+    button.disabled = false;
+    button.removeAttribute('aria-busy');
     window.open("https://instagram.com/lilwebypants", "_blank", "noopener,noreferrer");
   });
 }
@@ -48,6 +56,8 @@ function init() {
   initPackageSelection();
   initAnchors();
   initInquiryForm();
+  initAccordions();
+  initFormFeedback();
 }
 
 try {

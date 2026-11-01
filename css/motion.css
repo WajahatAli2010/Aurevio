@@ -1,0 +1,84 @@
+/* Motion only: resting geometry, typography, palette and content are unchanged. */
+:root{--motion-fast:200ms;--motion-ease:cubic-bezier(.22,.75,.2,1)}
+.hero-enter{animation-duration:650ms}
+.enter-1{animation-delay:40ms}.enter-2{animation-delay:100ms}.enter-3{animation-delay:170ms}.enter-4{animation-delay:250ms}
+.hero-preview.hero-enter{animation-name:preview-in;animation-delay:210ms}
+@keyframes preview-in{from{opacity:.15;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+.hero-enter:focus-within{animation:none}
+
+/* Transform-based nav indicator, including current section and keyboard focus. */
+.site-nav a:after{right:0;transform:scaleX(0);transform-origin:left;transition:transform var(--motion-fast) var(--motion-ease)}
+.site-nav .nav-contact:after{right:14px}
+.site-nav a:hover:after,.site-nav a:focus-visible:after,.site-nav a.is-active:after{transform:scaleX(1)}
+.primary-link,.secondary-link,.preview-window,.package-cta,.theme-toggle,.nav-toggle,.inquiry-submit{
+ transition:transform var(--motion-fast) var(--motion-ease),border-color var(--motion-fast),background-color var(--motion-fast),opacity var(--motion-fast);
+}
+.primary-link span,.secondary-link span,.preview-action,.package-cta span,.theme-icon,.contact-link strong{
+ display:inline-block;transition:transform var(--motion-fast) var(--motion-ease);
+}
+.primary-link:focus-visible span,.primary-link:active span{transform:translate(2px,-2px)}
+.secondary-link:focus-visible span,.secondary-link:active span{transform:translateY(3px)}
+.preview-window:focus-visible .preview-action,.preview-window:active .preview-action{transform:translateX(3px)}
+.package-cta:focus-visible span,.package-cta:active span{transform:translateX(4px)}
+.primary-link:active,.preview-window:active,.theme-toggle:active,.nav-toggle:active,.inquiry-submit:active{transform:translateY(1px) scale(.99)}
+.theme-icon{transform:rotate(0)}
+.theme-toggle[aria-pressed="true"] .theme-icon{transform:rotate(-18deg)}
+.nav-toggle span{transition-duration:180ms}
+
+/* Keep image motion on its own layer; parallax never moves text or hit targets. */
+.project-image{transition:none}
+.project-image img{transition:transform 220ms var(--motion-ease),filter 200ms ease}
+.project-card:hover .project-image img,.project-card:focus-visible .project-image img{
+ transform:translate3d(0,var(--project-shift,0px),0) scale(1.075);filter:saturate(1);
+}
+.project-title>span,.project-corner-top,.project-corner-top strong{transition-duration:200ms}
+.project-card:focus-visible .project-title>span,.project-card:active .project-title>span{transform:translate(3px,-3px)}
+.project-card:focus-visible .project-corner-top strong{transform:translate(2px,-2px)}
+.project-card:active .project-image img{transform:scale(1.055)}
+
+/* Native details semantics are retained; JS animates only the opening interval. */
+.faq-item summary{transition:opacity 180ms ease}
+.faq-item summary:active{opacity:.72}
+.faq-item summary span:last-child{transition:transform 200ms var(--motion-ease)}
+.faq-item[data-closing="true"] summary span:last-child{transform:rotate(0)}
+.contact-link{transition:border-color 200ms,color 200ms}
+.contact-link:hover{padding-left:0}
+.contact-link:focus-visible strong,.contact-link:active strong{transform:translate(3px,-3px)}
+.inquiry-form input,.inquiry-form textarea,.inquiry-form select{transition:border-color 180ms ease,outline-color 180ms ease,opacity 180ms ease}
+.inquiry-form label{transition:opacity 180ms ease}
+.inquiry-form [data-field-state="valid"]{border-bottom-color:#c8ff24}
+.inquiry-form [aria-invalid="true"]{border-bottom-style:dashed}
+.inquiry-submit:hover{box-shadow:none;transform:translateY(-2px)}
+.inquiry-submit:active{transform:translateY(1px)}
+.inquiry-submit[aria-busy="true"]{opacity:.65;cursor:progress;transform:none}
+
+@media(hover:hover) and (pointer:fine){
+ .primary-link:hover span{transform:translate(2px,-2px)}
+ .secondary-link:hover span{transform:translateY(3px)}
+ .preview-window:hover{transform:translateY(-3px)}
+ .preview-window:hover .preview-action{transform:translateX(3px)}
+ .package-cta:hover span{transform:translateX(4px)}
+ .faq-item summary:hover span:last-child{transform:rotate(90deg)}
+ .faq-item[open] summary:hover span:last-child{transform:rotate(135deg)}
+}
+@media(hover:none){
+ .primary-link:hover,.preview-window:hover,.inquiry-submit:hover{transform:none}
+ .project-card:hover .project-image img{transform:scale(1.055)}
+ .primary-link:active,.preview-window:active,.inquiry-submit:active{transform:scale(.99)}
+}
+@media(max-width:1100px){
+ .site-nav .nav-contact:after{right:0}
+ .site-nav.open a{animation:menu-link-in 200ms var(--motion-ease) backwards}
+ .site-nav.open a:nth-child(2){animation-delay:15ms}.site-nav.open a:nth-child(3){animation-delay:30ms}
+ .site-nav.open a:nth-child(4){animation-delay:45ms}.site-nav.open a:nth-child(5){animation-delay:60ms}
+ .site-nav.open a:nth-child(6){animation-delay:75ms}.site-nav.open a:nth-child(7){animation-delay:90ms}
+ .site-nav.open a:focus-visible{animation:none}
+}
+@keyframes menu-link-in{from{opacity:.3;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+ .hero-enter,.reveal,.reveal-mask{opacity:1!important;transform:none!important;clip-path:none!important}
+ .project-image img{transform:none!important}
+ .primary-link,.secondary-link,.preview-window,.inquiry-submit,.theme-toggle,.nav-toggle,
+ .primary-link span,.secondary-link span,.preview-action,.package-cta span,.contact-link strong,.project-title>span{transform:none!important}
+}
