@@ -1,119 +1,118 @@
 import * as THREE from 'three';
 import { createWorld } from './world.js';
-import { measureRoute, sampleRoute } from './route.js';
+import { destinations, measureRoute, sampleRoute } from './route.js';
 
-export function createStudio(canvas) {
+// Keep the original semantic portfolio intact until the entire building is ready.
+export async function createStudio(canvas, onSimple, mayStart=()=>true) {
+  const experience=document.querySelector('#studio-experience');
+  if(!experience||!canvas)return null;
   let renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({canvas, antialias:false, alpha:false, powerPreference:'low-power'});
-  } catch { return null; }
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(46,1,.1,90);
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.setClearColor(0x10140f);
-  const world = createWorld(scene);
-  const controls = [...document.querySelectorAll('[data-exhibit]')];
-  const close = document.querySelector('#close-exhibit');
-  const label = document.querySelector('#studio-location');
-  const header = document.querySelector('.site-header');
-  const main = document.querySelector('main');
-  const faq = document.querySelector('#faq');
-  const contact = document.querySelector('#contact');
-  let stops = [], frame = 0, selection = null, transition = null, disposed = false, faqFrozen = null;
-  let faqStart = Infinity, faqEnd = Infinity;
-  let current = {position:[0,2.15,10],target:[1,2.2,-2]};
-  const depths = [-30,-39,-48];
-  const names = ['NOIRÉ','VÉLOR','Alex Morgan'];
-  function queue() { if (!frame && !document.hidden && !disposed) frame = requestAnimationFrame(draw); }
-  function updateRoute() {
-    const offset = (header?.offsetHeight || 76) + 1;
-    stops = measureRoute(document, offset);
-    faqStart = faq ? faq.getBoundingClientRect().top + scrollY - offset : Infinity;
-    faqEnd = contact ? contact.getBoundingClientRect().top + scrollY - offset : Infinity;
-    queue();
+  try { renderer=new THREE.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'low-power'}); }
+  catch { return null; }
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;
+  const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(48,1,.1,120);
+  let frame=0,active=false,disposed=false,stops=[],activeIndex=-1,current=null;
+  function queue(){if(active&&!frame&&!document.hidden&&!disposed)frame=requestAnimationFrame(draw);}
+  let world;
+  try {world=await createWorld(scene,queue);} catch(error){renderer.dispose();throw error;}
+  if(!mayStart()){world.dispose();renderer.dispose();return null;}
+  const root=document.documentElement, header=document.querySelector('.site-header');
+  const originalForm=document.querySelector('#contact .inquiry-panel');
+  const parent=originalForm?.parentNode, nextSibling=originalForm?.nextSibling;
+  const contact=document.querySelector('#walk-contact'),packages=document.querySelector('#walk-packages'),faq=document.querySelector('#walk-faq');
+  const dialogs={contact,packages,faq};
+  if(originalForm)contact.querySelector('[data-contact-slot]').append(originalForm);
+  const packageGrid=document.querySelector('#packages .package-grid');
+  const faqList=document.querySelector('#faq .faq-list');
+  if(packageGrid)packages.querySelector('[data-package-slot]').append(packageGrid.cloneNode(true));
+  if(faqList)faq.querySelector('[data-faq-slot]').append(faqList.cloneNode(true));
+  const panels=[...experience.querySelectorAll('[data-panel]')],links=[...experience.querySelectorAll('[data-go]')];
+  const nav=[...experience.querySelectorAll('.walk-nav [data-go]')], locationLabel=document.querySelector('#walk-location');
+  const themeButton=document.querySelector('#walk-theme'),simpleButton=document.querySelector('#walk-simple');
+  function measure(){stops=measureRoute(document);queue();}
+  function setPanel(index){
+    if(index===activeIndex)return;activeIndex=index;
+    const id=destinations[index].id;
+    panels.forEach(panel=>{panel.hidden=panel.dataset.panel!==id;});
+    const navId=['noire','velor','alex'].includes(id)?'work':id;
+    nav.forEach(button=>{if(button.dataset.go===navId)button.setAttribute('aria-current','location');else button.removeAttribute('aria-current');});
+    if(locationLabel)locationLabel.textContent=destinations[index].label;
+    if(index>=2&&index<=5)world.loadGallery();
   }
-  function updateButtons() {
-    controls.forEach((button,i) => button.setAttribute('aria-pressed', String(selection === i)));
-    if (close) close.hidden = selection === null;
-    if (label) label.textContent = selection === null ? 'Scroll to explore the studio' : `${names[selection]} exhibit`;
+  function draw(){
+    frame=0;if(!active||disposed||document.hidden)return;
+    const scroll=window.scrollY;
+    current=sampleRoute(stops,scroll)||current;
+    if(current){camera.position.set(...current.position);camera.lookAt(...current.target);}
+    let closest=0;
+    for(let i=1;i<stops.length;i++)if(Math.abs(stops[i].scroll-scroll)<Math.abs(stops[closest].scroll-scroll))closest=i;
+    setPanel(closest);renderer.render(scene,camera);
+    canvas.dataset.ready='true';canvas.dataset.stage=destinations[closest].id;
   }
-  function interpolate(from,to,t) {
-    const mix = (a,b) => a.map((v,i) => v+(b[i]-v)*t);
-    return {position:mix(from.position,to.position), target:mix(from.target,to.target)};
-  }
-  function draw(now) {
-    frame = 0; if (disposed || document.hidden) return;
-    const route = sampleRoute(stops,window.scrollY) || current;
-    let destination = route;
-    if (window.scrollY >= faqStart && window.scrollY < faqEnd && faq?.querySelector('details[open]')) {
-      faqFrozen ||= {position:[...current.position],target:[...current.target]};
-      destination=faqFrozen;
-    } else faqFrozen=null;
-    if (selection !== null) {
-      const z = depths[selection];
-      destination = {position:[.8,2.35,z+7.6],target:[4.2,2.65,z]};
-    }
-    if (transition) {
-      const p=Math.min(1,(now-transition.start)/300), t=1-Math.pow(1-p,3);
-      current=interpolate(transition.from,destination,t);
-      if (p<1) queue(); else transition=null;
-    } else current=destination;
-    camera.position.set(...current.position); camera.lookAt(...current.target);
-    renderer.render(scene,camera);
-    document.documentElement.classList.add('studio-ready');
-    canvas.dataset.ready='true'; canvas.dataset.position=current.position[2].toFixed(2);
-  }
-  function resize() {
+  function resize(){
     const small=window.innerWidth<=700;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1 : 1.25));
-    renderer.setSize(window.innerWidth,window.innerHeight,false);
-    camera.aspect=window.innerWidth/window.innerHeight; camera.fov=small ? 58 : 46; camera.updateProjectionMatrix();
-    updateRoute();
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,small?1:1.25));
+    renderer.setSize(window.innerWidth,window.innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.fov=small?57:48;camera.updateProjectionMatrix();measure();
   }
-  function select(index) {
-    if (selection === index) index=null;
-    selection=index; transition={from:current,start:performance.now()};
-    if (index !== null) world.loadGallery(queue);
-    updateButtons(); queue();
+  function findIndex(id){const i=destinations.findIndex(item=>item.id===id);return i<0?0:i;}
+  function navigate(id,{historyEntry=true,instant=false}={}){
+    const index=findIndex(id),destination=stops[index];if(!destination)return;
+    if(historyEntry&&location.hash!==`#${id}`)history.pushState(null,'',`#${id}`);
+    window.scrollTo({top:destination.scroll,behavior:instant?'auto':'smooth'});
   }
-  const actions = controls.map((button,i) => {
-    const handler=()=>{select(i); if (selection !== null) close?.focus({preventScroll:true});}; button.hidden=false; button.addEventListener('click',handler); return handler;
-  });
-  // Keep the close action close to the initiating control for keyboard users.
-  const closeHandler=()=>{ const previous=selection; select(null); if (previous !== null) controls[previous]?.focus(); };
-  close?.addEventListener('click',closeHandler);
-  function scroll() {
-    if (selection !== null) { selection=null; transition=null; updateButtons(); }
-    queue();
+  function syncDialogLock(){document.body.classList.toggle('walk-dialog-open',Object.values(dialogs).some(dialog=>dialog?.open));}
+  function openDialog(name){
+    const dialog=dialogs[name];if(!dialog)return;
+    Object.values(dialogs).forEach(item=>{if(item?.open)item.close();});
+    if(typeof dialog.showModal==='function')dialog.showModal();else dialog.setAttribute('open','');
+    syncDialogLock();
   }
-  const theme = new MutationObserver(() => {world.setTheme(document.documentElement.dataset.theme); queue();});
-  theme.observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  const gallery=document.querySelector('#work');
-  let galleryObserver;
-  if (gallery && 'IntersectionObserver' in window) {
-    galleryObserver=new IntersectionObserver(entries=>{
-      if(entries.some(entry=>entry.isIntersecting)){world.loadGallery(queue);galleryObserver.disconnect();}
-    },{rootMargin:'1200px 0px'});
-    galleryObserver.observe(gallery);
-  } else world.loadGallery(queue);
-  const resizeObserver = 'ResizeObserver' in window && main ? new ResizeObserver(updateRoute) : null;
-  resizeObserver?.observe(main);
-  window.addEventListener('scroll',scroll,{passive:true}); window.addEventListener('resize',resize,{passive:true});
-  document.addEventListener('visibilitychange',queue);
-  const contextLost = event => {event.preventDefault(); dispose();};
-  canvas.addEventListener('webglcontextlost',contextLost);
-  world.setTheme(document.documentElement.dataset.theme); updateButtons(); resize();
-  document.fonts?.ready.then(() => {if (!disposed) updateRoute();});
-  function dispose() {
-    if (disposed) return; disposed=true;
-    if(frame) cancelAnimationFrame(frame);
-    window.removeEventListener('scroll',scroll);window.removeEventListener('resize',resize);
-    document.removeEventListener('visibilitychange',queue);canvas.removeEventListener('webglcontextlost',contextLost);
-    theme.disconnect();galleryObserver?.disconnect();resizeObserver?.disconnect();
-    controls.forEach((button,i)=>{button.removeEventListener('click',actions[i]);button.hidden=true;button.setAttribute('aria-pressed','false');});
-    close?.removeEventListener('click',closeHandler);if(close)close.hidden=true;
-    document.documentElement.classList.remove('studio-ready');
-    world.dispose();renderer.dispose();
+  function closeDialog(dialog){if(dialog.open&&typeof dialog.close==='function')dialog.close();else dialog.removeAttribute('open');syncDialogLock();queue();}
+  function click(event){
+    const go=event.target.closest('[data-go]');
+    if(go&&experience.contains(go)){navigate(go.dataset.go);return;}
+    const opener=event.target.closest('[data-dialog]');
+    if(opener){openDialog(opener.dataset.dialog);return;}
+    const close=event.target.closest('[data-close]');
+    if(close){closeDialog(close.closest('dialog'));return;}
+    const service=event.target.closest('#walk-packages a[data-service]');
+    if(service){
+      event.preventDefault();const select=contact.querySelector('select[name="service"]');
+      if(select){select.value=service.dataset.service;select.dispatchEvent(new Event('change',{bubbles:true}));}
+      closeDialog(packages);openDialog('contact');
+    }
+  }
+  function syncTheme(){
+    world.setTheme(root.dataset.theme);
+    const dark=root.dataset.theme==='dark';themeButton.setAttribute('aria-pressed',String(dark));
+    themeButton.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+  }
+  const themeObserver=new MutationObserver(syncTheme);themeObserver.observe(root,{attributes:true,attributeFilter:['data-theme']});
+  function toggleTheme(){header.querySelector('.theme-toggle')?.click();}
+  function pop(){navigate(location.hash.slice(1)||'top',{historyEntry:false,instant:true});}
+  function contextLost(event){event.preventDefault();dispose();onSimple?.();}
+  const dialogClosed=()=>{syncDialogLock();queue();};
+  const simple=()=>{dispose();onSimple?.();};
+  experience.addEventListener('click',click);themeButton.addEventListener('click',toggleTheme);simpleButton.addEventListener('click',simple);
+  Object.values(dialogs).forEach(dialog=>dialog?.addEventListener('close',dialogClosed));
+  window.addEventListener('scroll',queue,{passive:true});window.addEventListener('resize',resize,{passive:true});
+  window.addEventListener('popstate',pop);document.addEventListener('visibilitychange',queue);canvas.addEventListener('webglcontextlost',contextLost);
+  const initial=location.hash.slice(1)||'top';
+  experience.hidden=false;root.classList.add('studio-active');active=true;syncTheme();resize();
+  navigate(initial,{historyEntry:false,instant:true});queue();
+  function dispose(){
+    if(disposed)return;disposed=true;active=false;if(frame)cancelAnimationFrame(frame);
+    Object.values(dialogs).forEach(dialog=>{if(dialog?.open)dialog.close();dialog?.removeEventListener('close',dialogClosed);});
+    document.body.classList.remove('walk-dialog-open');
+    experience.removeEventListener('click',click);themeButton.removeEventListener('click',toggleTheme);simpleButton.removeEventListener('click',simple);
+    window.removeEventListener('scroll',queue);window.removeEventListener('resize',resize);window.removeEventListener('popstate',pop);
+    document.removeEventListener('visibilitychange',queue);canvas.removeEventListener('webglcontextlost',contextLost);themeObserver.disconnect();
+    if(originalForm&&parent)parent.insertBefore(originalForm,nextSibling&&nextSibling.parentNode===parent?nextSibling:null);
+    packages.querySelector('[data-package-slot]').replaceChildren();faq.querySelector('[data-faq-slot]').replaceChildren();
+    root.classList.remove('studio-active');experience.hidden=true;world.dispose();renderer.dispose();
+    const id=['noire','velor','alex'].includes(location.hash.slice(1))?'work':location.hash.slice(1);
+    if(id)document.getElementById(id)?.scrollIntoView({behavior:'auto',block:'start'});
   }
   return {dispose};
 }

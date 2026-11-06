@@ -38,9 +38,9 @@
   <script type="module" src="./src/main.js"></script>
 </head>
 <body>
-  <canvas id="studio-scene" aria-hidden="true"></canvas>
-  <div class="studio-caption" aria-hidden="true"><span>AUREVIO / DIGITAL STUDIO</span><span id="studio-location">Scroll to explore the studio</span></div>
-  <button type="button" id="close-exhibit" class="close-exhibit" hidden>Return to the studio <span aria-hidden="true">↗</span></button>
+  <!-- @include: sections/studio-interface.html -->
+  <button id="studio-resume" type="button" hidden>Explore the 3D studio ↗</button>
+  <div id="studio-loading" role="status" hidden>Preparing the 3D studio… <button type="button">Use simple view</button></div>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="scroll-line" aria-hidden="true"></div>
   <header class="site-header">

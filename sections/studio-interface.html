@@ -1,0 +1,74 @@
+<!-- The scroll rail drives one full-screen 3D journey; content and controls stay HTML. -->
+<div id="studio-experience" hidden>
+  <canvas id="studio-scene" aria-hidden="true"></canvas>
+  <div class="walk-vignette" aria-hidden="true"></div>
+  <header class="walk-header">
+    <button class="walk-brand" type="button" data-go="top" aria-label="Aurevio studio entrance">AUREVIO<span>®</span></button>
+    <nav class="walk-nav" aria-label="Studio destinations">
+      <button type="button" data-go="work">Work</button><button type="button" data-go="practice">Services</button><button type="button" data-go="packages">Packages</button><button type="button" data-go="about">About</button><button type="button" data-go="faq">FAQ</button><button type="button" data-go="contact">Contact</button>
+    </nav>
+    <div class="walk-header-actions"><button type="button" id="walk-theme" aria-label="Switch theme">◐</button><button type="button" id="walk-simple">Simple view</button></div>
+  </header>
+  <main id="walk-main" class="walk-main" aria-label="Aurevio digital studio">
+    <section class="walk-card walk-hero" data-panel="top">
+      <p class="walk-label">AUREVIO / INDEPENDENT WEB DEVELOPMENT / PAKISTAN</p>
+      <h1>I build the <em>first impression.</em></h1>
+      <p>Clear, distinctive websites designed and built by Ali, from first idea to launch.</p>
+      <div class="walk-actions"><button class="walk-primary" type="button" data-go="work">Explore the work <span aria-hidden="true">↗</span></button><button type="button" data-dialog="contact">Start a project <span aria-hidden="true">↗</span></button></div>
+    </section>
+    <section class="walk-card" data-panel="point" hidden>
+      <p class="walk-label">02 / THE POINT</p><h2>A clear message.<br><em>A reason to stay.</em></h2>
+      <p>Your visitors should understand what you offer, find what they need and know what to do next.</p>
+    </section>
+    <section class="walk-card" data-panel="work" hidden>
+      <p class="walk-label">03 / SELECTED WORK</p><h2>Step into the <em>gallery.</em></h2>
+      <p>Three working websites, designed and built with a clear purpose.</p><button class="walk-link" type="button" data-go="noire">See the first project <span aria-hidden="true">→</span></button>
+    </section>
+    <section class="walk-card" data-panel="noire" hidden>
+      <p class="walk-label">GALLERY / 01 — RESTAURANT · EDITORIAL</p><h2>NOIRÉ<span class="walk-dot">.</span></h2>
+      <p>A restaurant concept shaped into a premium digital first impression with editorial typography and clear menu and contact paths.</p>
+      <a class="walk-primary" href="https://wajahatali2010.github.io/NOIRE/" target="_blank" rel="noopener">Open live project <span aria-hidden="true">↗</span></a>
+    </section>
+    <section class="walk-card" data-panel="velor" hidden>
+      <p class="walk-label">GALLERY / 02 — FASHION · STOREFRONT</p><h2>VÉLOR<span class="walk-dot">.</span></h2>
+      <p>A fashion-led storefront with large imagery, restrained type and a focused browsing flow.</p>
+      <a class="walk-primary" href="https://wajahatali2010.github.io/VELOR/" target="_blank" rel="noopener">Open live project <span aria-hidden="true">↗</span></a>
+    </section>
+    <section class="walk-card" data-panel="alex" hidden>
+      <p class="walk-label">GALLERY / 03 — PORTFOLIO · DEVELOPER</p><h2>Alex Morgan<span class="walk-dot">.</span></h2>
+      <p>A developer portfolio built around project-first storytelling and direct navigation.</p>
+      <a class="walk-primary" href="https://wajahatali2010.github.io/work-portfolio/" target="_blank" rel="noopener">Open live project <span aria-hidden="true">↗</span></a>
+    </section>
+    <section class="walk-card" data-panel="practice" hidden>
+      <p class="walk-label">04 / THE WORKSHOP</p><h2>Focused work.<br><em>Clear steps.</em></h2>
+      <p>Business websites, landing pages, portfolio websites and redesigns.</p>
+      <p class="walk-sequence">01 TALK &nbsp; → &nbsp; 02 SHAPE &nbsp; → &nbsp; 03 DEVELOP &nbsp; → &nbsp; 04 LAUNCH</p>
+    </section>
+    <section class="walk-card" data-panel="why" hidden>
+      <p class="walk-label">05 / WHY AUREVIO</p><h2>Not just a pretty site.<br><em>A useful one.</em></h2>
+      <p>Built from scratch, designed around the goal, with mobile-first thinking and direct communication.</p>
+    </section>
+    <section class="walk-card" data-panel="packages" hidden>
+      <p class="walk-label">06 / PACKAGES</p><h2>Clear scope.<br><em>No mystery.</em></h2>
+      <p>Starting points for a landing page, a business website or a redesign.</p><button class="walk-primary" type="button" data-dialog="packages">Compare packages <span aria-hidden="true">↗</span></button>
+    </section>
+    <section class="walk-card" data-panel="about" hidden>
+      <p class="walk-label">07 / ABOUT THE DEVELOPER</p><h2>Small practice.<br><em>Serious websites.</em></h2>
+      <p>Hi, I’m Ali, an independent frontend developer based in Pakistan. You work directly with me on the structure, design and build.</p>
+    </section>
+    <section class="walk-card" data-panel="faq" hidden>
+      <p class="walk-label">08 / FAQ</p><h2>The boring questions.<br><em>Answered.</em></h2>
+      <p>Clear expectations before a project starts.</p><button class="walk-primary" type="button" data-dialog="faq">Read the FAQ <span aria-hidden="true">↗</span></button>
+    </section>
+    <section class="walk-card" data-panel="contact" hidden>
+      <p class="walk-label">09 / CONTACT</p><h2>Bring me the <em>problem.</em></h2>
+      <p>Send me the idea, the problem or even the roughest version of what you have. We can start there.</p>
+      <div class="walk-actions"><button class="walk-primary" type="button" data-dialog="contact">Start a project <span aria-hidden="true">↗</span></button><a href="https://ig.me/m/lilwebypants" target="_blank" rel="noopener">DM @lilwebypants ↗</a></div>
+    </section>
+  </main>
+  <div class="walk-location" aria-hidden="true"><span id="walk-location">01 / ENTRANCE</span><span>SCROLL TO EXPLORE ↓</span></div>
+  <div id="walk-rail" aria-hidden="true"><div data-stop="top"></div><div data-stop="point"></div><div data-stop="work"></div><div data-stop="noire"></div><div data-stop="velor"></div><div data-stop="alex"></div><div data-stop="practice"></div><div data-stop="why"></div><div data-stop="packages"></div><div data-stop="about"></div><div data-stop="faq"></div><div data-stop="contact"></div></div>
+  <dialog id="walk-contact" class="walk-dialog contact" aria-label="Contact Aurevio"><div class="walk-dialog-head"><span>START A PROJECT</span><button type="button" data-close aria-label="Close contact">Close ✕</button></div><div data-contact-slot></div><a class="walk-instagram" href="https://ig.me/m/lilwebypants" target="_blank" rel="noopener">Or DM @lilwebypants ↗</a></dialog>
+  <dialog id="walk-packages" class="walk-dialog" aria-label="Compare packages"><div class="walk-dialog-head"><span>PACKAGES / COMPARE</span><button type="button" data-close aria-label="Close packages">Close ✕</button></div><h2>Clear scope. <em>No mystery.</em></h2><div data-package-slot></div></dialog>
+  <dialog id="walk-faq" class="walk-dialog faq" aria-label="Frequently asked questions"><div class="walk-dialog-head"><span>FREQUENTLY ASKED QUESTIONS</span><button type="button" data-close aria-label="Close FAQ">Close ✕</button></div><h2>Questions, <em>answered.</em></h2><div data-faq-slot></div></dialog>
+</div>

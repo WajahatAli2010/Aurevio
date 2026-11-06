@@ -85,6 +85,7 @@ export function initAnchors() {
     });
   });
   window.addEventListener('popstate', () => {
+    if (document.documentElement.classList.contains('studio-active')) return;
     let id = location.hash.slice(1);
     try { id = decodeURIComponent(id); } catch {}
     const target = id && document.getElementById(id);
