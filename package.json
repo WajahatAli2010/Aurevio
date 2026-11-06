@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/ui-smoke.mjs"
+    "test": "node tests/ui-smoke.mjs",
+    "test:studio": "node tests/studio-route.mjs && node tests/studio-world.mjs && node tests/studio-navigation.mjs && node tests/inquiry.mjs"
   },
   "dependencies": {
-    "gsap": "^3.15.0"
+    "gsap": "^3.15.0",
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "playwright": "^1.64.1",

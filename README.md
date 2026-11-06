@@ -51,3 +51,9 @@ The smoke checks launch a local production preview and cover package selection,
 keyboard navigation, anchor alignment, both themes, seven viewport widths, image
 loading and navigation without JavaScript. Set `AUREVIO_TEST_URL` to check an
 already running preview, or `AUREVIO_CHROMIUM_PATH` to use an existing Chromium.
+
+## Digital studio experiment
+
+This branch explores Aurevio as a connected Three.js studio. The normal HTML portfolio is the fallback when WebGL is unavailable, the visitor requests reduced motion or data saving, or the device reports very few CPU threads. The scene is loaded after the main content, uses procedural geometry, and loads project textures near the gallery. It redraws on changes instead of running a continuous animation loop.
+
+Run `npm install`, `npm run dev`, and open the local address Vite prints. `npm run build` produces the GitHub Pages build; `npm run test:studio` checks camera interpolation, scene construction, and simulated inquiry states. `npm test` runs the existing browser suite and needs a working Playwright-compatible Chromium installation. A browser check and real Formspree delivery test are still required before treating this experiment as production-ready.

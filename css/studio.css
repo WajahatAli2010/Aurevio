@@ -1,0 +1,52 @@
+/* The Three.js environment is an enhancement; the original portfolio is the fallback. */
+#studio-scene{position:fixed;inset:0;width:100%;height:100%;z-index:-1;visibility:hidden;pointer-events:none}
+body{isolation:isolate}
+.studio-ready body{background:transparent}
+.studio-ready #studio-scene{visibility:visible}
+:root{--studio-solid:rgba(241,237,228,.98);--studio-middle:rgba(241,237,228,.91);--studio-edge:rgba(241,237,228,.20)}
+html[data-theme="dark"]{--studio-solid:rgba(11,12,10,.97);--studio-middle:rgba(11,12,10,.89);--studio-edge:rgba(11,12,10,.16)}
+.studio-ready .hero,.studio-ready .work,.studio-ready .why-section,.studio-ready .section-paper{
+ background:linear-gradient(90deg,var(--studio-solid) 0%,var(--studio-middle) 48%,var(--studio-edge) 100%);
+}
+.studio-ready .section-dark{background:linear-gradient(90deg,rgba(11,12,10,.98) 0%,rgba(11,12,10,.91) 50%,rgba(11,12,10,.32) 100%)}
+.studio-ready .contact{background:linear-gradient(90deg,rgba(11,18,14,.98) 0%,rgba(11,18,14,.94) 57%,rgba(11,18,14,.52) 100%);--contact-text:#fff;--contact-muted:#d2e0dd;--contact-line:rgba(255,255,255,.4);--contact-panel:rgba(10,17,12,.88)}
+.studio-ready .hero-layout{min-height:calc(100svh - 200px);grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr)}
+.studio-ready .hero-gridlines{opacity:.12}
+.studio-ready .hero-preview{max-width:350px;justify-self:end;align-self:end}
+.studio-ready .preview-window{background:var(--surface);box-shadow:0 16px 45px rgba(0,0,0,.23)}
+.studio-ready .hero-enter{animation-duration:350ms;animation-delay:0s}
+.studio-ready .work-archive{max-width:710px;width:62%;background:var(--studio-solid);padding:0 18px}
+.studio-ready .project-pair{display:block;padding:0}
+.studio-ready .project-low{margin-top:0}
+.studio-ready .project-main .project-image,.studio-ready .project-secondary .project-image{height:auto;aspect-ratio:16/9}
+.studio-ready .project-card{padding-bottom:28px}
+.studio-ready .project-card::after{content:'VIEW LIVE PROJECT ↗';display:block;margin-top:20px;color:var(--text);font:600 11px/1.5 "JetBrains Mono",monospace;letter-spacing:.05em}
+.studio-ready .project-exhibit{padding-bottom:26px;border-bottom:1px solid var(--line)}
+.studio-ready .project-exhibit .project-card{border-bottom:0}
+.exhibit-button,.close-exhibit{min-height:44px;border:1px solid var(--accent);padding:11px 15px;background:var(--surface);color:var(--text);cursor:pointer;font:600 11px/1.4 "JetBrains Mono",monospace;text-align:left}
+.exhibit-button:hover,.exhibit-button[aria-pressed="true"]{background:var(--accent);color:var(--accent-contrast)}
+.exhibit-button[hidden],.close-exhibit[hidden]{display:none}
+.close-exhibit{position:fixed;z-index:1100;bottom:28px;right:28px;background:#c8ff24;color:#10120e;border-color:#c8ff24;box-shadow:0 8px 30px #0005}
+.close-exhibit:hover{background:#d7ff6b}
+.studio-caption{display:none;position:fixed;right:26px;bottom:26px;z-index:2;pointer-events:none;text-align:right;color:#f5f5eb;text-shadow:0 1px 10px #000;font:600 10px/1.6 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase}
+.studio-caption span{display:block}.studio-caption span:last-child{opacity:.8}
+.studio-ready .studio-caption{display:block}
+.studio-ready .package{background:var(--surface)}
+.studio-ready .package.featured{background:var(--dark-surface)}
+.studio-ready .faq-list{background:var(--studio-solid);padding:0 18px}
+.studio-ready .inquiry-panel{background:var(--contact-panel)}
+@media(max-width:850px){
+ .studio-ready .hero-layout{grid-template-columns:1fr;min-height:0}
+ .studio-ready .hero-preview{max-width:360px}
+ .studio-ready .work-archive{width:min(80%,700px)}
+}
+@media(max-width:600px){
+ .studio-ready .hero,.studio-ready .work,.studio-ready .why-section,.studio-ready .section-paper{background:linear-gradient(90deg,var(--studio-solid) 0%,var(--studio-middle) 75%,var(--studio-edge) 100%)}
+ .studio-ready .hero-layout{min-height:calc(100svh - 170px)}
+ .studio-ready .hero-preview{max-width:300px}
+ .studio-ready .work-archive{width:100%;padding:0 12px}
+ .studio-ready .project-image{aspect-ratio:16/10}
+ .studio-ready .studio-caption{display:none}
+ .close-exhibit{bottom:16px;right:16px;left:16px;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){#studio-scene,.studio-caption{display:none!important}}

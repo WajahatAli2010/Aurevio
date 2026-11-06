@@ -81,7 +81,14 @@ export function initAnchors() {
       // Move keyboard focus with the visual destination, including the skip link.
       if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
-      history.replaceState(null, '', id);
+      if (location.hash !== id) history.pushState(null, '', id);
     });
+  });
+  window.addEventListener('popstate', () => {
+    let id = location.hash.slice(1);
+    try { id = decodeURIComponent(id); } catch {}
+    const target = id && document.getElementById(id);
+    if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    else if (!location.hash) window.scrollTo({ top: 0, behavior: 'auto' });
   });
 }
