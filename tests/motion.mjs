@@ -58,36 +58,32 @@ try {
     await page.setViewportSize({ width: 1024, height: 900 });
     assert.ok(await item.evaluate(el => !el.open && !el.style.height && !el.style.overflow));
   });
-  await check('form validation and busy/status feedback preserve truthful Instagram handoff', async () => {
+  await check('form validation and status feedback for email inquiries', async () => {
     await page.locator('.inquiry-submit').scrollIntoViewIfNeeded();
     await page.locator('.inquiry-submit').click();
     assert.equal(await page.locator('[name="name"]').getAttribute('aria-invalid'), 'true');
     await page.getByLabel('Name', { exact: true }).fill('Motion test');
     await page.getByLabel('Business / project').fill('Local test only');
-    await page.getByLabel('Contact', { exact: true }).fill('test@example.com');
+    await page.getByLabel('Email', { exact: true }).fill('not-an-email');
+    assert.equal(await page.getByLabel('Email', { exact: true }).evaluate(el => el.validity.valid), false);
+    await page.getByLabel('Email', { exact: true }).fill('test@example.com');
     await page.getByLabel('What do you need?').selectOption('Landing page');
-    await page.getByLabel('Project brief').fill('Testing the existing clipboard workflow.');
+    await page.getByLabel('Project brief').fill('Testing an inquiry.');
     await page.evaluate(() => {
-      window.testOpened = [];
-      window.open = url => { window.testOpened.push(url); return null; };
-      Object.defineProperty(navigator, 'clipboard', { configurable: true, value: {
-        writeText: text => { window.testBrief = text; return new Promise(resolve => { window.testCopyDone = resolve; }); }
-      }});
+      window.testFetchCalls = [];
+      window.fetch = (url, options) => {
+        window.testFetchCalls.push({ url, email: options.body.get('email'), service: options.body.get('service') });
+        return new Promise(resolve => { window.testSendDone = () => resolve({ ok: true }); });
+      };
     });
     await page.locator('.inquiry-submit').click();
     assert.equal(await page.locator('.inquiry-submit').getAttribute('aria-busy'), 'true');
     assert.equal(await page.locator('.inquiry-submit').isDisabled(), true);
-    await page.evaluate(() => window.testCopyDone());
+    await page.evaluate(() => window.testSendDone());
     await page.waitForFunction(() => !document.querySelector('.inquiry-submit').disabled);
-    assert.match(await page.locator('#inquiry-status').innerText(), /Inquiry copied\. Paste/);
-    assert.equal(await page.locator('[name="name"]').getAttribute('aria-invalid'), 'false');
-    assert.deepEqual(await page.evaluate(() => window.testOpened), ['https://instagram.com/lilwebypants']);
-    assert.match(await page.evaluate(() => window.testBrief), /Service: Landing page/);
-    await page.evaluate(() => { navigator.clipboard.writeText = () => Promise.reject(new Error('Clipboard denied')); });
-    await page.locator('.inquiry-submit').click();
-    await page.waitForFunction(() => !document.querySelector('.inquiry-submit').disabled);
-    assert.match(await page.locator('#inquiry-status').innerText(), /Copy the details/);
-    assert.doesNotMatch(await page.locator('#inquiry-status').innerText(), /DM (?:was )?sent/i);
+    assert.match(await page.locator('#inquiry-status').innerText(), /inquiry was sent/i);
+    const calls = await page.evaluate(() => window.testFetchCalls);
+    assert.deepEqual(calls, [{ url: 'https://formspree.io/f/xwlljeoq', email: 'test@example.com', service: 'Landing page' }]);
   });
   await check('switching to reduced motion cancels active animations and restores images', async () => {
     await page.setViewportSize({ width: 1440, height: 960 });
