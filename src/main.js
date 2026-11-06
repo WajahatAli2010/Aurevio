@@ -20,27 +20,24 @@ function initInquiryForm() {
     const button = form.querySelector('button[type="submit"]');
     if (button.disabled) return;
     button.disabled = true;
-    button.setAttribute('aria-busy', 'true');
-    status.textContent = 'Preparing your inquiry…';
-    const data = new FormData(form);
-    const brief = [
-      "AUREVIO PROJECT INQUIRY","",
-      "Name: " + data.get("name"),
-      "Business / project: " + data.get("business"),
-      "Contact: " + data.get("contact"),
-      "Service: " + data.get("service"),"",
-      "Brief:",data.get("brief")
-    ].join("\n");
+    button.setAttribute("aria-busy", "true");
+    status.textContent = "Sending your inquiry…";
 
     try {
-      await navigator.clipboard.writeText(brief);
-      status.textContent = "Inquiry copied. Paste it into the Aurevio Instagram DM to send it.";
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
+      });
+      if (!response.ok) throw new Error("Submission failed");
+      form.reset();
+      status.textContent = "Your inquiry was sent. Thank you!";
     } catch {
-      status.textContent = "Inquiry prepared. Copy the details and send them through the Aurevio Instagram DM.";
+      status.textContent = "Your inquiry could not be sent. Please try again or contact me on Instagram.";
+    } finally {
+      button.disabled = false;
+      button.removeAttribute("aria-busy");
     }
-    button.disabled = false;
-    button.removeAttribute('aria-busy');
-    window.open("https://instagram.com/lilwebypants", "_blank", "noopener,noreferrer");
   });
 }
 
