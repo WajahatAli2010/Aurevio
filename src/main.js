@@ -4,6 +4,8 @@ import "../css/sections.css";
 import "../css/theme.css";
 import "../css/responsive.css";
 import "../css/motion.css";
+import "../css/gallery.css";
+import { initGalleryScene } from "./gallery-scene.js";
 
 import { initNavigation, initHeaderState, initSectionNavigation, initAnchors } from "./navigation.js";
 import { initTheme } from "./theme.js";
@@ -44,6 +46,7 @@ function initInquiryForm() {
 function init() {
   document.documentElement.classList.add("js");
   initTheme();
+  initGalleryScene();
   initNavigation();
   initHeaderState();
   initReveal();
